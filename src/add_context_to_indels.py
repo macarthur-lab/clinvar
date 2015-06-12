@@ -8,6 +8,11 @@
 # 13    32914438    GT   G
 # Fixing these problems requires looking up the reference base (in this case G), which we do using pysam
 
+# Note that vt-normalize can also accomplish this task, but that vt-normalize fails when the REF or ALT 
+# contains a hyphen -
+# So we run this first, and THEN we run vt-normalize
+# in the future it would be nice to have one seamless script, but this seems to work for now
+
 # Usage: add_context_to_indels.py -R $b37ref < bad_file.txt > good_file.txt
 
 import sys
