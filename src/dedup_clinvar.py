@@ -19,7 +19,7 @@ def dedup_clinvar(input_fileobject):
     column_names = header.strip('\n').split('\t')
     first_data_line = input_fileobject.readline()
     last_data = dict(zip(column_names,first_data_line.strip('\n').split('\t')))
-    last_unique_id = '_'.join([data['chrom'], str(data['pos']), data['ref'], data['alt']])
+    last_unique_id = '_'.join([last_data['chrom'], str(last_data['pos']), last_data['ref'], last_data['alt']])
     counter = 0
     for line in input_fileobject.readlines():
         data = dict(zip(column_names,line.strip('\n').split('\t')))
