@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This is the master script to run all pieces of the pipeline to parse clinvar into a tab-delimited file
+# example usage: bsub -q priority -o cv.o -e cv.e -J clinvar "cd $workdir; . ./private_paths.bash; cd clinvar; ./master.bash"
+# output: clinvar.tsv
+
 # required environment variables:
 # $vt - path to vt
 # $b37ref - path to a b37 .fa file

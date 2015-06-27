@@ -18,7 +18,7 @@ colnames(txt_extract) = c('measureset_id','symbol','clinical_significance','revi
 combined = merge(xml_extract, txt_extract, by='measureset_id')
 
 # re-order the columns
-combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p','all_pmids')]
+combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p','all_submitters','all_pmids')]
 
 # add some layers of interpretation on top of this
 # note: we are trying to get the "overall" interpretation that is displayed in the upper right of the clinvar web pages but
