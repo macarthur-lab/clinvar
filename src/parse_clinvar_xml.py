@@ -16,7 +16,7 @@ extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the fir
 
 def parse_clinvar_tree(xml_tree,dest=sys.stdout,verbose=True,mode='collapsed'):
     # print a header row
-    dest.write(('\t'.join( ['chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_pmids'] ) + '\n').encode('utf-8'))
+    dest.write(('\t'.join( ['chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_submitters', 'all_pmids'] ) + '\n').encode('utf-8'))
     root = xml_tree.getroot()
     clinvarsets = root.findall('ClinVarSet')
     counter = 0
@@ -67,8 +67,14 @@ def parse_clinvar_tree(xml_tree,dest=sys.stdout,verbose=True,mode='collapsed'):
                         if pubmed_id_extraction.group(2) is not None:
                             remaining_text = pubmed_id_extraction.group(2)
         all_pmids = list(set(pmids + comment_pmids))
+        # now find any/all submitters
+        submitters = []
+        submitter_nodes = clinvarset.findall('.//ClinVarSubmissionID')
+        for submitter_node in submitter_nodes:
+            if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter'):
+                submitters.append(submitter_node.attrib['submitter'])
         # now we're done traversing that one clinvar set. print out a cartesian product of accessions and pmids
-        dest.write(('\t'.join( [chrom, pos, ref, alt, mutant_allele, measureset_id, ','.join(all_pmids)] ) + '\n').encode('utf-8'))
+        dest.write(('\t'.join( [chrom, pos, ref, alt, mutant_allele, measureset_id, ';'.join(submitters), ','.join(all_pmids)] ) + '\n').encode('utf-8'))
         counter += 1
         if counter % 100 == 0:
             dest.flush()
