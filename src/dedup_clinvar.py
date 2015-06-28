@@ -50,6 +50,7 @@ def dedup_records(data1, data2):
         combined_data['measureset_id'] = str(min(map(int,[data1['measureset_id'],data2['measureset_id']])))
     combined_data['all_pmids'] = ','.join(set(data1['all_pmids'].split(',') + data2['all_pmids'].split(',')))
     combined_data['all_submitters'] = ';'.join(set(data1['all_submitters'].split(';') + data2['all_submitters'].split(';')))
+    combined_data['all_traits'] = ';'.join(set(data1['all_traits'].split(';') + data2['all_traits'].split(';')))    
     return combined_data
 
 if __name__ == '__main__':

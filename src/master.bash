@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the master script to run all pieces of the pipeline to parse clinvar into a tab-delimited file
-# example usage: bsub -q priority -o cv.o -e cv.e -J clinvar "cd $workdir; . ./private_paths.bash; cd clinvar; ./master.bash"
+# example usage: bsub -q priority -o cv.o -e cv.e -J clinvar -R rusage[mem=32] "cd $workdir; . ./private_paths.bash; cd clinvar; ./master.bash"
 # output: clinvar.tsv
 
 # required environment variables:
@@ -9,13 +9,15 @@
 # $b37ref - path to a b37 .fa file
 
 # download latest clinvar XML and tab-delimited summary
+rm ClinVarFullRelease_00-latest.xml.gz
+rm variant_summary.txt.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz
 wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it
 ./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv
 # the above takes about 1 hour, recommend submitting as a job:
-# bsub -q priority -R rusage[mem=32] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv"
+# bsub -q priority -R rusage[mem=64] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv"
 
 # sort the table
 cat clinvar_table_raw.tsv | head -1 > clinvar_table_sorted.tsv # header row
@@ -37,7 +39,7 @@ $vt normalize to_normalize.vcf -r $b37ref -o normalized.vcf
 echo -e "chrom\tpos\tref\talt\tmut\tmeasureset_id\tall_pmids" > clinvar_table_dedup_normalized.tsv
 mkfifo coordinates
 cat normalized.vcf | tail -n +5 | cut -f1,2,4,5 > coordinates &
-cat clinvar_table_dedup_context.tsv | tail -n +2 | cut -f5-7 | paste coordinates - >> clinvar_table_dedup_normalized.tsv
+cat clinvar_table_dedup_context.tsv | tail -n +2 | cut -f5-9 | paste coordinates - >> clinvar_table_dedup_normalized.tsv
 
 # join information from the tab-delimited summary to the normalized genomic coordinates
 Rscript join_data.R
@@ -63,5 +65,5 @@ rm clinvar_table_dedup_context.tsv
 rm to_normalize.vcf
 rm normalized.vcf
 rm clinvar_table_dedup_normalized.tsv
-rm clinvar_combined_sorted.tsvs
+rm clinvar_combined_sorted.tsv
 
