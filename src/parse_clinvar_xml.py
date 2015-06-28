@@ -16,7 +16,7 @@ extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the fir
 
 def parse_clinvar_tree(xml_tree,dest=sys.stdout,verbose=True,mode='collapsed'):
     # print a header row
-    dest.write(('\t'.join( ['chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_submitters', 'all_pmids'] ) + '\n').encode('utf-8'))
+    dest.write(('\t'.join( ['chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_submitters', 'all_traits', 'all_pmids'] ) + '\n').encode('utf-8'))
     root = xml_tree.getroot()
     clinvarsets = root.findall('ClinVarSet')
     counter = 0
@@ -73,8 +73,22 @@ def parse_clinvar_tree(xml_tree,dest=sys.stdout,verbose=True,mode='collapsed'):
         for submitter_node in submitter_nodes:
             if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter'):
                 submitters.append(submitter_node.attrib['submitter'])
+        # now find the disease(s) this variant is associated with
+        traitsets = clinvarset.findall('.//TraitSet')
+        all_traits = []
+        for traitset in traitsets:
+            trait_type = ''
+            trait_values = []
+            if traitset.attrib is not None:
+                trait_type = str(traitset.attrib.get('Type'))
+                disease_name_nodes = traitset.findall('.//Name/ElementValue')
+                for disease_name_node in disease_name_nodes:
+                    if disease_name_node.attrib is not None:
+                        if disease_name_node.attrib.get('Type') == 'Preferred':
+                            trait_values.append(disease_name_node.text)
+            all_traits += trait_values
         # now we're done traversing that one clinvar set. print out a cartesian product of accessions and pmids
-        dest.write(('\t'.join( [chrom, pos, ref, alt, mutant_allele, measureset_id, ';'.join(submitters), ','.join(all_pmids)] ) + '\n').encode('utf-8'))
+        dest.write(('\t'.join( [chrom, pos, ref, alt, mutant_allele, measureset_id, ';'.join(submitters), ';'.join(all_traits), ','.join(all_pmids)] ) + '\n').encode('utf-8'))
         counter += 1
         if counter % 100 == 0:
             dest.flush()
