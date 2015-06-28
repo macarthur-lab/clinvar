@@ -32,11 +32,11 @@ cat clinvar_table_raw.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,
 
 # create a VCF and run vt-normalize
 echo "##fileformat=VCFv4.1" > to_normalize.vcf
-cat clinvar_table_dedup_context.tsv | awk -v FS="\t" -v OFS="\t" 'BEGIN {print "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO"}; NR>1 {print $1,$2,".",$3,$4,".",".","MUT="$5";MEASURESET_ID="$6";PMIDS="$7}' >> to_normalize.vcf
+cat clinvar_table_dedup_context.tsv | awk -v FS="\t" -v OFS="\t" 'BEGIN {print "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO"}; NR>1 {print $1,$2,".",$3,$4,".",".","."}' >> to_normalize.vcf
 $vt normalize to_normalize.vcf -r $b37ref -o normalized.vcf
 
 # paste the newly normalized CHROM POS REF ALT and the additional fields back together again
-echo -e "chrom\tpos\tref\talt\tmut\tmeasureset_id\tall_pmids" > clinvar_table_dedup_normalized.tsv
+echo -e "chrom\tpos\tref\talt\tmut\tmeasureset_id\tall_submitters\tall_traits\tall_pmids" > clinvar_table_dedup_normalized.tsv
 mkfifo coordinates
 cat normalized.vcf | tail -n +5 | cut -f1,2,4,5 > coordinates &
 cat clinvar_table_dedup_context.tsv | tail -n +2 | cut -f5-9 | paste coordinates - >> clinvar_table_dedup_normalized.tsv
