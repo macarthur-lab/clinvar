@@ -49,8 +49,11 @@ cat clinvar_combined.tsv | head -1 > clinvar_combined_sorted.tsv # header row
 cat clinvar_combined.tsv | tail -n +2 | egrep -v "^[XYM]" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> clinvar_combined_sorted.tsv # numerically sort chroms 1-22
 cat clinvar_combined.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_combined_sorted.tsv # lexicographically sort non-numerical chroms at end
 
+# now de-dup _again_, because the tab-delimited summary contains dups
+./dedup_clinvar.py < clinvar_combined_sorted.tsv > clinvar_combined_sorted_dedup.tsv
+
 # create a text file
-cp clinvar_combined_sorted.tsv clinvar.tsv
+cp clinvar_combined_sorted_dedup.tsv clinvar.tsv
 # placeholder in case it turns out we need to add more steps
 
 # to do: create a VCF
