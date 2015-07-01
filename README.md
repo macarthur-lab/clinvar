@@ -38,4 +38,10 @@ The resulting output file is at [output/clinvar.tsv](output/clinvar.tsv).
 
 Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/).
 
+If you want to analyze the output file into R, a suitable line of code to read it in would be:
+
+```r
+clinvar = read.table('clinvar.tsv',sep='\t',header=T,quote='',comment.char='')
+```
+
 [Tan 2015]: http://www.ncbi.nlm.nih.gov/pubmed/25701572 "Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015 Jul 1;31(13):2202-4. doi: 10.1093/bioinformatics/btv112. Epub 2015 Feb 19. PubMed PMID: 25701572."
