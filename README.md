@@ -30,6 +30,10 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 + `pathogenic` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and `0` otherwise
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
+#### Results
+
+The resulting output file is at [output/clinvar.tsv](output/clinvar.tsv).
+
 #### Usage notes
 
 Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/).
