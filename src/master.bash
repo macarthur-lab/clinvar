@@ -27,19 +27,9 @@ cat clinvar_table_raw.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,
 # de-duplicate records
 ./dedup_clinvar.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv
 
-# remove hyphens and add one base pair of sequence context for indels to make them vt normalize-compatible. runs in <1 min
-./add_context_to_indels.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_context.tsv
-
-# create a VCF and run vt-normalize
-echo "##fileformat=VCFv4.1" > to_normalize.vcf
-cat clinvar_table_dedup_context.tsv | awk -v FS="\t" -v OFS="\t" 'BEGIN {print "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO"}; NR>1 {print $1,$2,".",$3,$4,".",".","."}' >> to_normalize.vcf
-$vt normalize to_normalize.vcf -r $b37ref -o normalized.vcf
-
-# paste the newly normalized CHROM POS REF ALT and the additional fields back together again
-echo -e "chrom\tpos\tref\talt\tmut\tmeasureset_id\tall_submitters\tall_traits\tall_pmids" > clinvar_table_dedup_normalized.tsv
-mkfifo coordinates
-cat normalized.vcf | tail -n +5 | cut -f1,2,4,5 > coordinates &
-cat clinvar_table_dedup_context.tsv | tail -n +2 | cut -f5-9 | paste coordinates - >> clinvar_table_dedup_normalized.tsv
+# normalize (convert to minimal representation and left-align)
+# this uses this script which is in my $PATH: https://github.com/ericminikel/minimal_representation/blob/master/normalize.py
+normalize.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_normalized.tsv
 
 # join information from the tab-delimited summary to the normalized genomic coordinates
 Rscript join_data.R
