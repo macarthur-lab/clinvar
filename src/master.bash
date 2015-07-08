@@ -5,7 +5,6 @@
 # output: clinvar.tsv
 
 # required environment variables:
-# $vt - path to vt
 # $b37ref - path to a b37 .fa file
 
 # download latest clinvar XML and tab-delimited summary
@@ -28,8 +27,9 @@ cat clinvar_table_raw.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,
 ./dedup_clinvar.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv
 
 # normalize (convert to minimal representation and left-align)
-# this uses this script which is in my $PATH: https://github.com/ericminikel/minimal_representation/blob/master/normalize.py
-normalize.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_normalized.tsv
+# the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
+wget https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py
+./normalize.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_normalized.tsv
 
 # join information from the tab-delimited summary to the normalized genomic coordinates
 Rscript join_data.R
