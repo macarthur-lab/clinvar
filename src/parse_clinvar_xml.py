@@ -1,4 +1,4 @@
-#!/broad/software/free/Linux/redhat_5_x86_64/pkgs/python_2.7.1-sqlite3-rtrees/bin/python
+#!/usr/bin/env python
 
 import re
 import sys
