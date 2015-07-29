@@ -20,9 +20,8 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
     counter = 0
     for event, elem in ET.iterparse(handle):
         if event == 'end' and elem.tag == 'ClinVarSet':
-            clinvarset = elem
             # find the GRCh37 VCF representation
-            sequence_locations = clinvarset.findall('.//SequenceLocation')
+            sequence_locations = elem.findall('.//SequenceLocation')
             grch37 = None
             for sequence_location in sequence_locations:
                 if sequence_location.attrib.get('Assembly') == 'GRCh37':
@@ -35,24 +34,24 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                 pos = grch37.attrib['start']
                 ref = grch37.attrib['referenceAllele']
                 alt = grch37.attrib['alternateAllele']
-            measureset = clinvarset.findall('.//MeasureSet')
+            measureset = elem.findall('.//MeasureSet')
             if measureset is None:
                 continue # skip variants without a MeasureSet ID
             measureset_id = measureset[0].attrib['ID']
             mutant_allele = 'ALT' # default is that each entry refers to the alternate allele
-            attributes = clinvarset.findall('.//Attribute')
+            attributes = elem.findall('.//Attribute')
             for attribute in attributes:
                 attribute_type = attribute.attrib.get('Type')
                 if attribute_type is not None and "HGVS" in attribute_type and "protein" not in attribute_type: # if this is an HGVS cDNA, _not_ protein, annotation:
                     if attribute.text is not None and "=" in attribute.text: # and if there is an equals sign in the text, then
                         mutant_allele = 'REF' # that is their funny way of saying this assertion refers to the reference allele
             # find all the Citation nodes, and get the PMIDs out of them
-            citations = clinvarset.findall('.//Citation')
+            citations = elem.findall('.//Citation')
             pmids = []
             for citation in citations:
                 pmids += [id_node.text for id_node in citation.findall('.//ID') if id_node.attrib.get('Source')=='PubMed']
             # now find the Comment nodes, regex your way through the comments and extract anything that appears to be a PMID
-            comments = clinvarset.findall('.//Comment')
+            comments = elem.findall('.//Comment')
             comment_pmids = []
             for comment in comments:
                 mentions_pubmed = re.search(mentions_pubmed_regex,comment.text)
@@ -69,12 +68,12 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             all_pmids = list(set(pmids + comment_pmids))
             # now find any/all submitters
             submitters = []
-            submitter_nodes = clinvarset.findall('.//ClinVarSubmissionID')
+            submitter_nodes = elem.findall('.//ClinVarSubmissionID')
             for submitter_node in submitter_nodes:
                 if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter'):
                     submitters.append(submitter_node.attrib['submitter'])
             # now find the disease(s) this variant is associated with
-            traitsets = clinvarset.findall('.//TraitSet')
+            traitsets = elem.findall('.//TraitSet')
             all_traits = []
             for traitset in traitsets:
                 trait_type = ''
@@ -95,6 +94,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             if verbose:
                 sys.stderr.write("{0} entries completed\r".format(counter))
                 sys.stderr.flush()
+            elem.clear()
 
 def get_handle(path):
     if path[-3:] == '.gz':
