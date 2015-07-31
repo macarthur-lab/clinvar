@@ -15,8 +15,8 @@ wget ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/variant_summary.txt.gz
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it
 python parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv
-# the above takes about 3 hours (with submitters + traits, old version was ~1h without), so recommend submitting as a job:
-# bsub -q priority -R rusage[mem=64] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv"
+# the above now takes about 20 minutes. if you want to submit as a job instead:
+# bsub -q priority -R rusage[mem=8] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv"
 
 # sort the table
 cat clinvar_table_raw.tsv | head -1 > clinvar_table_sorted.tsv # header row
