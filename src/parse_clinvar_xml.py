@@ -4,7 +4,7 @@ import re
 import sys
 import gzip
 import argparse
-import itertools
+from collections import defaultdict
 import xml.etree.ElementTree as ET
 
 # to test: ./parse_clinvar_xml.py -x clinvar_test.xml
@@ -18,6 +18,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
     # print a header row
     dest.write(('\t'.join( ['chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_submitters', 'all_traits', 'all_pmids'] ) + '\n').encode('utf-8'))
     counter = 0
+    skipped_counter = defaultdict(int)
     for event, elem in ET.iterparse(handle):
         if event == 'end' and elem.tag == 'ClinVarSet':
             # find the GRCh37 VCF representation
@@ -28,6 +29,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                     if all(entry is not None for entry in [sequence_location.attrib.get(key) for key in ['referenceAllele','alternateAllele','start','Chr']]):
                         grch37 = sequence_location
             if grch37 is None:
+                skipped_counter['missing SequenceLocation'] += 1
                 continue # don't bother with variants that don't have a VCF location
             else:
                 chrom = grch37.attrib['Chr']
@@ -36,6 +38,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                 alt = grch37.attrib['alternateAllele']
             measureset = elem.findall('.//MeasureSet')
             if measureset is None:
+                skipped_counter['missing MeasureSet'] += 1
                 continue # skip variants without a MeasureSet ID
             measureset_id = measureset[0].attrib['ID']
             mutant_allele = 'ALT' # default is that each entry refers to the alternate allele
@@ -92,7 +95,9 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             if counter % 100 == 0:
                 dest.flush()
             if verbose:
-                sys.stderr.write("{0} entries completed\r".format(counter))
+                sys.stderr.write("{0} entries completed, {1}, {2} total \r".format(
+                    counter, ', '.join('%s skipped due to %s' % (v, k) for k, v in skipped_counter.items()),
+                    counter + sum(skipped_counter.values())))
                 sys.stderr.flush()
             elem.clear()
 
