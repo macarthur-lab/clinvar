@@ -7,6 +7,13 @@
 # required environment variables:
 # $b37ref - path to a b37 .fa file
 
+if [ -z "$b37ref" ]; then
+   echo "\$b37ref must be set to a b37 .fa file"
+   exit -1;
+fi;
+
+set -x #echo on
+
 # download latest clinvar XML and tab-delimited summary
 rm ClinVarFullRelease_00-latest.xml.gz
 rm variant_summary.txt.gz
@@ -44,8 +51,9 @@ python dedup_clinvar.py < clinvar_combined_sorted.tsv > clinvar_combined_sorted_
 
 # create a text file
 cp clinvar_combined_sorted_dedup.tsv clinvar.tsv
-# placeholder in case it turns out we need to add more steps
+gzip -c clinvar.tsv > clinvar.tsv.gz  # create compressed version
 
+# placeholder in case it turns out we need to add more steps
 # to do: create a VCF
 # echo "##fileformat=VCFv4.1" > clinvar.vcf
 # cat clinvar.tsv | awk -v FS="\t" -v OFS="\t" 'BEGIN {print "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO"}; NR==1 do something {NR>1 {print $1,$2,".",$3,$4,".",".","MUT="$5";MEASURESET_ID="$6";PMIDS="$7}' >> to_normalize.vcf
