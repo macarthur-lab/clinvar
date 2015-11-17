@@ -19,7 +19,7 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
-3. Sort on genomic coordinates.
+3. Sort on genomic coordinates (we use GRCh37).
 4. De-duplicate using [src/dedup_clinvar.py](src/dedup_clinvar.py), combining records that refer to the same genomic variant.
 5. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]).
 6. Join to some of the fields of interest from the TXT file using [src/join_data.R](src/join_data.R), and create some new fields&dagger;.
