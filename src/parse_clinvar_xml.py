@@ -30,6 +30,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                         grch37 = sequence_location
             if grch37 is None:
                 skipped_counter['missing SequenceLocation'] += 1
+                elem.clear()
                 continue # don't bother with variants that don't have a VCF location
             else:
                 chrom = grch37.attrib['Chr']
@@ -39,6 +40,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             measureset = elem.findall('.//MeasureSet')
             if measureset is None:
                 skipped_counter['missing MeasureSet'] += 1
+                elem.clear()
                 continue # skip variants without a MeasureSet ID
             measureset_id = measureset[0].attrib['ID']
             mutant_allele = 'ALT' # default is that each entry refers to the alternate allele
