@@ -26,15 +26,21 @@ python parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_ta
 # bsub -q priority -R rusage[mem=8] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv"
 
 # sort the table
+rm clinvar_table_sorted.tsv
 cat clinvar_table_raw.tsv | head -1 > clinvar_table_sorted.tsv # header row
 cat clinvar_table_raw.tsv | tail -n +2 | egrep -v "^[XYM]" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv # numerically sort chroms 1-22
 cat clinvar_table_raw.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv # lexicographically sort non-numerical chroms at end
 
 # de-duplicate records
+rm clinvar_table_dedup.tsv
+rm clinvar_table_dedup_context.tsv
 python dedup_clinvar.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv
 
 # normalize (convert to minimal representation and left-align)
 # the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
+rm to_normalize.vcf
+rm normalized.vcf
+rm clinvar_table_dedup_normalized.tsv
 wget -N https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py
 python normalize.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_normalized.tsv
 
@@ -42,6 +48,7 @@ python normalize.py -R $b37ref < clinvar_table_dedup.tsv > clinvar_table_dedup_n
 Rscript join_data.R
 
 # now sort again by genomic coordinates (because R's merge function ruins this)
+rm clinvar_combined_sorted.tsv
 cat clinvar_combined.tsv | head -1 > clinvar_combined_sorted.tsv # header row
 cat clinvar_combined.tsv | tail -n +2 | egrep -v "^[XYM]" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> clinvar_combined_sorted.tsv # numerically sort chroms 1-22
 cat clinvar_combined.tsv | tail -n +2 | egrep "^[XYM]" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_combined_sorted.tsv # lexicographically sort non-numerical chroms at end
@@ -51,15 +58,18 @@ python dedup_clinvar.py < clinvar_combined_sorted.tsv > clinvar_combined_sorted_
 
 # create a text file
 cp clinvar_combined_sorted_dedup.tsv clinvar.tsv
-gzip -c clinvar.tsv > clinvar.tsv.gz  # create compressed version
+bgzip -c clinvar.tsv > clinvar.tsv.gz  # create compressed version
+tabix -S 1 -s 1 -b 2 -e 2 clinvar.tsv.gz
 
-# placeholder in case it turns out we need to add more steps
-# to do: create a VCF
-# echo "##fileformat=VCFv4.1" > clinvar.vcf
-# cat clinvar.tsv | awk -v FS="\t" -v OFS="\t" 'BEGIN {print "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO"}; NR==1 do something {NR>1 {print $1,$2,".",$3,$4,".",".","MUT="$5";MEASURESET_ID="$6";PMIDS="$7}' >> to_normalize.vcf
+
+# create vcf
+python clinvar_table_to_vcf.py -o clinvar.vcf clinvar.tsv
+bgzip -c clinvar.vcf > clinvar.vcf.gz  # create compressed version
+tabix clinvar.vcf.gz
+
 
 # clean up
-# rm clinvar_table_raw.tsv # saving this for now b/c it takes an hour to generate and i am not sure this script works yet
+rm clinvar_table_raw.tsv
 rm clinvar_table_sorted.tsv
 rm clinvar_table_dedup.tsv
 rm clinvar_table_dedup_context.tsv
@@ -67,4 +77,3 @@ rm to_normalize.vcf
 rm normalized.vcf
 rm clinvar_table_dedup_normalized.tsv
 rm clinvar_combined_sorted.tsv
-
