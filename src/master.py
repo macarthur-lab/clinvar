@@ -8,8 +8,14 @@ import configargparse
 from datetime import datetime
 import ftplib
 import os
-import pypez
+import sys
 
+try:
+    import pypez
+    import pysam
+    import pandas   # make sure all dependencies are installed
+except ImportError as e:
+    sys.exit("ERROR: Python module not installed. %s. Please run 'pip install -r requirements.txt' " % e)
 
 p = configargparse.getArgParser()
 g = p.add_argument_group('main args')
