@@ -1,4 +1,3 @@
 pandas
 pypez
 pysam
-pyvcf
