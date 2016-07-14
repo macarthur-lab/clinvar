@@ -1,0 +1,7 @@
+.idea
+*.pyc
+
+src/*.vcf*
+src/*.tsv*
+src/*.gz*
+src/logs
