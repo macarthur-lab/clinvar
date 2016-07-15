@@ -76,12 +76,12 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
             else:
                 counts['clinvar_snp_with_unknown_mismatch'] += 1
 
-            sys.stderr.write("WARNING: ExAC variant at %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) - alleles (%s-%s)  mismatch the clinvar allele (%s-%s): %s:%s %s>%s\n" % (chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], exac_ref_allele, ",".join(exac_alt_alleles), ref, alt, chrom, pos, ref, alt))
+            sys.stderr.write("WARNING: ExAC variant %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) - ExAC alleles (%s-%s) mismatch the clinvar allele (%s-%s) at %s:%s\n" % (chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], exac_ref_allele, ",".join(exac_alt_alleles), ref, alt, chrom, pos))
 
         return EXAC_EMPTY_COLUMN_VALUES
 
     filter_value = exac_row_fields[6]
-    info_fields = [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')] + [('Filter', filter_value)]
+    info_fields = [('Filter', filter_value)] + [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')]
     info_fields = filter(lambda kv: kv[0] in NEEDED_EXAC_FIELDS_SET, info_fields)
     
     assert len(info_fields) == len(NEEDED_EXAC_FIELDS_SET)
