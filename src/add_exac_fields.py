@@ -45,9 +45,9 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
     counts['total_clinvar_variants'] += 1
 
     # retrieve ExAC variant - pysam.fetch(..) sometimes returns more than 1 vcf record, so need to filter here
-    matching_exac_rows = []
     position_found = False
-    for exac_vcf_row in exac_f.fetch(chrom, pos-2, pos+2):
+    exac_alt_alleles = []
+    for exac_vcf_row in exac_f.fetch(chrom, pos-1, pos):
         exac_row_fields = exac_vcf_row.split('\t')
         if str(pos) !=  exac_row_fields[1]:
             continue
@@ -60,13 +60,23 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
         if ref == exac_ref_allele and alt == exac_alt_allele:
             counts['clinvar_variants_with_matching_position_and_matching_allele'] += 1
             break
+        exac_alt_alleles.append(exac_alt_allele)
     else:
-        if position_found:            
-            counts['clinvar_variants_with_no_matching_allele_in_exac'] += 1
-            sys.stderr.write("WARNING: ExAC has a variant at %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) but the alt alleles don't match the clinvar allele: %s-%s-%s-%s\n" % (
-                    chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], chrom, pos, ref, alt))
-        else:
+        if not position_found:
             counts['clinvar_variants_with_no_matching_position_in_exac'] += 1
+        else:
+            if len(ref) + len(alt) + len(exac_ref_allele) + len(exac_alt_allele) > 4:
+                counts['clinvar_indel_with_no_matching_allele_in_exac'] += 1                
+            elif ref != exac_ref_allele and alt != exac_alt_allele:
+                counts['clinvar_snp_with_mismatching_ref_and_alt_allele_in_exac'] += 1   
+            elif ref != exac_ref_allele:
+                counts['clinvar_snp_with_mismatching_ref_allele_in_exac'] += 1
+            elif alt != exac_alt_allele:
+                counts['clinvar_snp_with_mismatching_alt_allele_in_exac'] += 1
+            else:
+                counts['clinvar_snp_with_unknown_mismatch'] += 1
+
+            sys.stderr.write("WARNING: ExAC variant at %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) - alleles (%s-%s)  mismatch the clinvar allele (%s-%s): %s:%s %s>%s\n" % (chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], exac_ref_allele, ",".join(exac_alt_alleles), ref, alt, chrom, pos, ref, alt))
 
         return EXAC_EMPTY_COLUMN_VALUES
 
