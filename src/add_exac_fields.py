@@ -51,7 +51,6 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
         exac_row_fields = exac_vcf_row.split('\t')
         if str(pos) !=  exac_row_fields[1]:
             continue
-        counts['clinvar_variants_with_matching_position_in_exac'] += 1
         position_found = True
         exac_ref_allele = exac_row_fields[3]
         exac_alt_allele = exac_row_fields[4]
@@ -59,13 +58,15 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
             raise Exception("Found multiallelic variant: %s. Expecting an ExAC VCF that has been decomposed / normalized with vt." % "-".join(exac_vcf_row_fields[0:5]))
 
         if ref == exac_ref_allele and alt == exac_alt_allele:
-            counts['clinvar_variants_with_matching_exac_variant'] += 1
+            counts['clinvar_variants_with_matching_position_and_matching_allele'] += 1
             break
     else:
         if position_found:            
-            counts['clinvar_variants_with_matching_position_but_mismatching_alleles_in_exac'] += 1
+            counts['clinvar_variants_with_no_matching_allele_in_exac'] += 1
             sys.stderr.write("WARNING: ExAC has a variant at %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) but the alt alleles don't match the clinvar allele: %s-%s-%s-%s\n" % (
                     chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], chrom, pos, ref, alt))
+        else:
+            counts['clinvar_variants_with_no_matching_position_in_exac'] += 1
 
         return EXAC_EMPTY_COLUMN_VALUES
 
