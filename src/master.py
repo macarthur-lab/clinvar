@@ -63,7 +63,7 @@ jr.run()
 job = pypez.Job()
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
-job.add("python -u parse_clinvar_xml.py -x IN:ClinVarFullRelease_00-latest.xml.gz -o OUT:clinvar_table_raw.tsv")
+job.add("python -u IN:parse_clinvar_xml.py -x IN:ClinVarFullRelease_00-latest.xml.gz -o OUT:clinvar_table_raw.tsv")
 
 # sort the table
 job.add("(cat IN:clinvar_table_raw.tsv | head -1 > OUT:clinvar_table_sorted.tsv ) && "  # header row
@@ -71,7 +71,7 @@ job.add("(cat IN:clinvar_table_raw.tsv | head -1 > OUT:clinvar_table_sorted.tsv 
         "(cat IN:clinvar_table_raw.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_table_sorted.tsv )")        # lexicographically sort non-numerical chroms at end
 
 # de-duplicate records
-job.add("python -u dedup_clinvar.py < IN:clinvar_table_sorted.tsv > OUT:clinvar_table_dedup.tsv")
+job.add("python -u IN:dedup_clinvar.py < IN:clinvar_table_sorted.tsv > OUT:clinvar_table_dedup.tsv")
 
 # normalize (convert to minimal representation and left-align)
 # the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
@@ -79,7 +79,7 @@ job.add("wget -N https://raw.githubusercontent.com/ericminikel/minimal_represent
 job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_dedup.tsv > OUT:clinvar_table_dedup_normalized.tsv" % locals())
 
 # join information from the tab-delimited summary to the normalized genomic coordinates
-job.add("Rscript join_data.R", input_filenames=['clinvar_table_dedup_normalized.tsv'], output_filenames=['clinvar_combined.tsv'])
+job.add("Rscript IN:join_data.R", input_filenames=['clinvar_table_dedup_normalized.tsv'], output_filenames=['clinvar_combined.tsv'])
 
 # now sort again by genomic coordinates (because R's merge function ruins this)
 job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.tsv ) && " + # header row
