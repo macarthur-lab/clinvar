@@ -55,7 +55,7 @@ def download_if_changed(job_runner, local_path, ftp_host, ftp_path):
     #ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz
 
 jr = pypez.JobRunner()
-
+print("Checking for new clinvar release")
 download_if_changed(jr, "ClinVarFullRelease_00-latest.xml.gz",  "ftp.ncbi.nlm.nih.gov", "/pub/clinvar/xml/ClinVarFullRelease_00-latest.xml.gz")
 download_if_changed(jr, "variant_summary.txt.gz",  "ftp.ncbi.nlm.nih.gov", "/pub/clinvar/tab_delimited/variant_summary.txt.gz")
 jr.run()
@@ -63,7 +63,7 @@ jr.run()
 job = pypez.Job()
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
-job.add("python IN:parse_clinvar_xml.py -x IN:ClinVarFullRelease_00-latest.xml.gz -o OUT:clinvar_table_raw.tsv")
+job.add("python -u parse_clinvar_xml.py -x IN:ClinVarFullRelease_00-latest.xml.gz -o OUT:clinvar_table_raw.tsv")
 
 # sort the table
 job.add("(cat IN:clinvar_table_raw.tsv | head -1 > OUT:clinvar_table_sorted.tsv ) && "  # header row
@@ -71,15 +71,15 @@ job.add("(cat IN:clinvar_table_raw.tsv | head -1 > OUT:clinvar_table_sorted.tsv 
         "(cat IN:clinvar_table_raw.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_table_sorted.tsv )")        # lexicographically sort non-numerical chroms at end
 
 # de-duplicate records
-job.add("python dedup_clinvar.py < IN:clinvar_table_sorted.tsv > OUT:clinvar_table_dedup.tsv")
+job.add("python -u dedup_clinvar.py < IN:clinvar_table_sorted.tsv > OUT:clinvar_table_dedup.tsv")
 
 # normalize (convert to minimal representation and left-align)
 # the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
 job.add("wget -N https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py")
-job.add("python normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_dedup.tsv > OUT:clinvar_table_dedup_normalized.tsv" % locals())
+job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_dedup.tsv > OUT:clinvar_table_dedup_normalized.tsv" % locals())
 
 # join information from the tab-delimited summary to the normalized genomic coordinates
-job.add("Rscript IN:join_data.R", input_filenames=['clinvar_table_dedup_normalized.tsv'], output_filenames=['clinvar_combined.tsv'])
+job.add("Rscript join_data.R", input_filenames=['clinvar_table_dedup_normalized.tsv'], output_filenames=['clinvar_combined.tsv'])
 
 # now sort again by genomic coordinates (because R's merge function ruins this)
 job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.tsv ) && " + # header row
@@ -87,24 +87,20 @@ job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.ts
     "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_combined_sorted.tsv )")     # lexicogaraphically sort non-numerical chroms at end
 
 # now de-dup _again_, because the tab-delimited summary contains dups
-job.add("python IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv > OUT:clinvar_combined_sorted_dedup.tsv")
-
-# create a tsv table
-job.add("cp IN:clinvar_combined_sorted_dedup.tsv OUT:clinvar.tsv")
-job.add("bgzip -c IN:clinvar.tsv > OUT:clinvar.tsv.gz")  # create compressed version
+job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
 job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar.tsv.gz", output_filenames=["clinvar.tsv.gz.tbi"])
 
 # create vcf
-job.add("python IN:clinvar_table_to_vcf.py -o OUT:clinvar.vcf IN:clinvar.tsv")
-job.add("bgzip -c IN:clinvar.vcf > OUT:clinvar.vcf.gz")  # create compressed version
+job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar.tsv | bgzip -c > OUT:clinvar.vcf.gz")  # create compressed version
 job.add("tabix IN:clinvar.vcf.gz", output_filenames=["clinvar.vcf.gz.tbi"])
 
 # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
 if args.exac_sites_vcf:
-    job.add("python IN:add_exac_fields.py -i IN:clinvar.tsv -e IN:%s -o OUT:clinvar_with_exac.tsv" % args.exac_sites_vcf)
-    job.add("bgzip -c IN:clinvar_with_exac.tsv > OUT:clinvar_with_exac.tsv.gz")
+    normalized_vcf = os.path.basename(args.exac_sites_vcf).split('.vcf')[0] + ".normalized.vcf.gz"
+    job.add("vt decompose -s IN:%s | vt normalize -r IN:%s - | bgzip -c > OUT:%s" % (args.exac_sites_vcf, args.reference_genome, normalized_vcf))
+    job.add("tabix IN:"+normalized_vcf, output_filenames=[normalized_vcf+".tbi"])
+    job.add("python -u IN:add_exac_fields.py -i IN:clinvar.tsv -e IN:%(normalized_vcf)s | bgzip -c > OUT:clinvar_with_exac.tsv.gz" % locals())
     job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_with_exac.tsv.gz", output_filenames=["clinvar_with_exac.tsv.gz.tbi"])
-
 
 # run the above commands
 jr.run(job)
