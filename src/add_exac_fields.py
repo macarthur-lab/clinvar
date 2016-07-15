@@ -1,11 +1,12 @@
 """
 Script for generating a new clinvar table with the ExAC fields below added to each clinvar variant that's in ExAC
 """
-
 import argparse
+from collections import defaultdict
 import pysam
+import sys
 
-NEEDED_EXAC_FIELDS = [
+NEEDED_EXAC_FIELDS = [ 'Filter',  # whether the variant is PASS
  'AC', 'AC_Het', 'AC_Hom', 'AC_Adj', 'AN', 'AN_Adj', 'AF', 
  'AC_AFR', 'AC_AMR', 'AC_EAS', 'AC_FIN', 'AC_NFE', 'AC_OTH', 'AC_SAS', 
  'AN_AFR', 'AN_AMR', 'AN_EAS', 'AN_FIN', 'AN_NFE', 'AN_OTH', 'AN_SAS',
@@ -20,41 +21,92 @@ EXAC_EMPTY_COLUMN_VALUES = ['']*len(NEEDED_EXAC_FIELDS_SET)
 p = argparse.ArgumentParser()
 p.add_argument("-i", "--clinvar-table", help="Clinvar .tsv", required=True)
 p.add_argument("-e", "--exac-sites-vcf", help="ExAC sites VCF", required=True)
-p.add_argument("-o", "--output-table", help="Output filename", default="clinvar_with_exac.tsv")
 args = p.parse_args()
 
-"""Clinvar table header:
+counts = defaultdict(int)
+
+def get_exac_column_values(exac_f, chrom, pos, ref, alt):
+    """Retrieves the ExAC vcf row corresponding to the given chrom, pos, ref, alt, and extracts the column values listed in NEEDED_EXAC_FIELDS
+
+    Args:
+      exac_f: A pysam.TabixFile object corresponding to the ExAC vcf
+      chrom: chromosome (eg. '1')
+      pos: the minrepped clinvar variant position
+      ref: the minrepped clinvar ref allele
+      ref: the minrepped clinvar alt allele
+
+    Return:
+      A list of chrom, pos, ref, alt
+    """
+
+    if chrom == 'MT':
+        return EXAC_EMPTY_COLUMN_VALUES
+
+    counts['total_clinvar_variants'] += 1
+
+    # retrieve ExAC variant - pysam.fetch(..) sometimes returns more than 1 vcf record, so need to filter here
+    matching_exac_rows = []
+    position_found = False
+    for exac_vcf_row in exac_f.fetch(chrom, pos-2, pos+2):
+        exac_row_fields = exac_vcf_row.split('\t')
+        if str(pos) !=  exac_row_fields[1]:
+            continue
+        counts['clinvar_variants_with_matching_position_in_exac'] += 1
+        position_found = True
+        exac_ref_allele = exac_row_fields[3]
+        exac_alt_allele = exac_row_fields[4]
+        if "," in exac_alt_allele:
+            raise Exception("Found multiallelic variant: %s. Expecting an ExAC VCF that has been decomposed / normalized with vt." % "-".join(exac_vcf_row_fields[0:5]))
+
+        if ref == exac_ref_allele and alt == exac_alt_allele:
+            counts['clinvar_variants_with_matching_exac_variant'] += 1
+            break
+    else:
+        if position_found:            
+            counts['clinvar_variants_with_matching_position_but_mismatching_alleles_in_exac'] += 1
+            sys.stderr.write("WARNING: ExAC has a variant at %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) but the alt alleles don't match the clinvar allele: %s-%s-%s-%s\n" % (
+                    chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], chrom, pos, ref, alt))
+
+        return EXAC_EMPTY_COLUMN_VALUES
+
+    filter_value = exac_row_fields[6]
+    info_fields = [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')] + [('Filter', filter_value)]
+    info_fields = filter(lambda kv: kv[0] in NEEDED_EXAC_FIELDS_SET, info_fields)
+    
+    assert len(info_fields) == len(NEEDED_EXAC_FIELDS_SET)
+    exac_column_values = [kv[1] for kv in info_fields]
+
+    # check that the clinvar alt allele matches (one of the) ExAC alt allele(s)    
+    #if len(alt_alleles) > 1:
+    #    # select the AC/AN numbers corresponding to the specific alt allele
+    #    alt_allele_index = alt_alleles.index(alt)    
+    #    exac_column_values = map(lambda x: x.split(",")[alt_allele_index] if "," in x else x, exac_column_values)
+
+    return exac_column_values
+
+
+
+"""
+Clinvar table header:
 chrom    pos    ref    alt    mut    measureset_id    symbol    clinical_significance    review_status    hgvs_c    hgvs_p    all_submitters    all_traits    all_pmids    pathogenic    conflicted
 """
+
 exac_f = pysam.TabixFile(args.exac_sites_vcf)
 clinvar_f = open(args.clinvar_table)
 clinvar_header = next(clinvar_f).rstrip('\n').split('\t')
 clinvar_with_exac_header = clinvar_header + NEEDED_EXAC_FIELDS
-clinvar_with_exac_f = open(args.output_table, "w")
-clinvar_with_exac_f.write("\t".join(clinvar_with_exac_header)+"\n")
+print("\t".join(clinvar_with_exac_header))
 for i, clinvar_row in enumerate(clinvar_f):
     clinvar_fields = clinvar_row.rstrip('\n').split('\t')
     clinvar_dict = dict(zip(clinvar_header, clinvar_fields))
 
     chrom = clinvar_dict['chrom']
-    found_exac_values = False
-    if chrom != 'MT':
-        pos = int(clinvar_dict['pos'])
+    pos = int(clinvar_dict['pos'])
+    ref = clinvar_dict['ref']
+    alt = clinvar_dict['alt']
+    exac_column_values = get_exac_column_values(exac_f, chrom, pos, ref, alt)
+    
+    print("\t".join(clinvar_fields + exac_column_values))
 
-        # retrieve ExAC variant - pysam.fetch(..) sometimes returns more than 1 vcf record, so need to filter here
-        matching_exac_rows = [r for r in exac_f.fetch(chrom, pos-1, pos) if r.startswith("%s\t%s\t" % (chrom, pos))]  
-
-        assert len(matching_exac_rows) < 2
-
-        if matching_exac_rows:
-            exac_row_fields = matching_exac_rows[0].split('\t')
-            filter_value = exac_row_fields[6]
-            info_fields = [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')]
-            info_fields = filter(lambda kv: kv[0] in NEEDED_EXAC_FIELDS_SET, info_fields)
-            assert len(info_fields) == len(NEEDED_EXAC_FIELDS_SET)
-            exac_column_values = [kv[1] for kv in info_fields]
-            clinvar_with_exac_f.write("\t".join(clinvar_fields + exac_column_values) + "\n")
-            found_exac_values = True
-
-    if not found_exac_values:
-        clinvar_with_exac_f.write("\t".join(clinvar_fields + EXAC_EMPTY_COLUMN_VALUES) + "\n")
+for k, v in counts.items():
+    sys.stderr.write("%30s: %s\n" % (k, v))
