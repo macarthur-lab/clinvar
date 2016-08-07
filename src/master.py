@@ -87,12 +87,14 @@ job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.ts
     "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_combined_sorted.tsv )")     # lexicogaraphically sort non-numerical chroms at end
 
 # now de-dup _again_, because the tab-delimited summary contains dups
-job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
+job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | tee clinvar.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
 job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar.tsv.gz", output_filenames=["clinvar.tsv.gz.tbi"])
+job.add("cp IN:clinvar.tsv IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../output", output_filenames=["../output/clinvar.tsv", "../output/clinvar.tsv.gz", "../output/clinvar.tsv.gz.tbi"])
 
 # create vcf
 job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar.tsv | bgzip -c > OUT:clinvar.vcf.gz")  # create compressed version
 job.add("tabix IN:clinvar.vcf.gz", output_filenames=["clinvar.vcf.gz.tbi"])
+job.add("cp IN:clinvar.vcf.gz IN:clinvar.vcf.gz.tbi ../output", output_filenames=["../output/clinvar.vcf.gz", "../output/clinvar.vcf.gz.tbi"])
 
 # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
 if args.exac_sites_vcf:
@@ -101,6 +103,8 @@ if args.exac_sites_vcf:
     job.add("tabix IN:"+normalized_vcf, output_filenames=[normalized_vcf+".tbi"])
     job.add("python -u IN:add_exac_fields.py -i IN:clinvar.tsv -e IN:%(normalized_vcf)s | bgzip -c > OUT:clinvar_with_exac.tsv.gz" % locals())
     job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_with_exac.tsv.gz", output_filenames=["clinvar_with_exac.tsv.gz.tbi"])
+    job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../output", output_filenames=["../output/clinvar_with_exac.tsv.gz", "../output/clinvar_with_exac.tsv.gz.tbi"])
+
 
 # run the above commands
 jr.run(job)
