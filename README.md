@@ -15,7 +15,8 @@ ClinVar makes its data available via [FTP](ftp://ftp.ncbi.nlm.nih.gov/pub/clinva
 
 #### Solution
 
-To create a flat representation of ClinVar suited for our purposes, we took several steps, which are encapsulated in [src/master.bash](src/master.bash):
+To create a flat representation of ClinVar suited for our purposes, we took several steps, encapsulated in the pipeline [src/master.py](src/master.py) 
+(which supercedes the older [src/master.bash](src/master.bash) script):
 
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
@@ -30,9 +31,20 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 + `pathogenic` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and `0` otherwise
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
+To run the pipeline:
+```
+cd ./src
+pip install --user --upgrade -r requirements.txt
+python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
+```
+
 #### Results
 
-The resulting output file is at [output/clinvar.tsv](output/clinvar.tsv).
+The resulting output files are:
+* [output/clinvar.tsv.gz](output/clinvar.tsv.gz)  
+* [output/clinvar.vcf.gz](output/clinvar.vcf)  
+* [output/clinvar_with_exac.tsv.gz](output/clinvar_with_exac.tsv.gz)  
+
 
 #### Usage notes
 
