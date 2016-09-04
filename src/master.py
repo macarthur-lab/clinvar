@@ -94,7 +94,7 @@ job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.ts
 # now de-dup _again_, because the tab-delimited summary contains dups
 job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | tee clinvar.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
 job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar.tsv.gz", output_filenames=["clinvar.tsv.gz.tbi"])
-job.add("cp IN:clinvar.tsv IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../output", output_filenames=["../output/clinvar.tsv", "../output/clinvar.tsv.gz", "../output/clinvar.tsv.gz.tbi"])
+job.add("cp IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../output", output_filenames=["../output/clinvar.tsv", "../output/clinvar.tsv.gz", "../output/clinvar.tsv.gz.tbi"])
 
 # create vcf
 job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar.tsv | bgzip -c > OUT:clinvar.vcf.gz")  # create compressed version
