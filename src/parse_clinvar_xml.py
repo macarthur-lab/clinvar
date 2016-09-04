@@ -114,8 +114,9 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                 attribute_type = attribute_node.attrib.get('Type')
                 if attribute_type in {'ModeOfInheritance', 'age of onset', 'prevalence', 'disease mechanism'}:
                     column_name = 'inheritance_modes' if attribute_type == 'ModeOfInheritance' else attribute_type.replace(' ', '_')
-                    column_value = attribute_node.text
-                    current_row[column_name].add(column_value)
+                    column_value = attribute_node.text.strip()
+                    if column_value:
+                        current_row[column_name].add(column_value)
 
             for xref_node in traitset.findall('.//XRef'):
                 xref_db = xref_node.attrib.get('DB')
