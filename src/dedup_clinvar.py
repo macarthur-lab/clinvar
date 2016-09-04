@@ -48,9 +48,19 @@ def dedup_records(data1, data2):
     # discard one MeasureSet ID if there are two
     if data1['measureset_id'] != data2['measureset_id']:
         combined_data['measureset_id'] = str(min(map(int,[data1['measureset_id'],data2['measureset_id']])))
-    combined_data['all_pmids'] = ','.join(set(data1['all_pmids'].split(',') + data2['all_pmids'].split(',')))
-    combined_data['all_submitters'] = ';'.join(set(data1['all_submitters'].split(';') + data2['all_submitters'].split(';')))
-    combined_data['all_traits'] = ';'.join(set(data1['all_traits'].split(';') + data2['all_traits'].split(';')))    
+
+    # concatenate columns that may have lists of values
+    for column_name in ('all_pmids',):                       # process columns that use , as the delimiter
+        combined_data[column_name] = ','.join(set(
+                data1[column_name].split(',') + 
+                data2[column_name].split(',')))  
+
+    for column_name in ('all_submitters', 'all_traits',      # process columns that use ; as the delimiter
+                        'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'):
+        combined_data[column_name] = ';'.join(set(  
+                data1[column_name].split(';') + 
+                data2[column_name].split(';')))
+
     return combined_data
 
 if __name__ == '__main__':
