@@ -1,5 +1,5 @@
 """
-Alternate implementation of master.bash that allows better logging, skipping commands if output files are up-to-date, parallelization, etc.
+Alternate implementation of master.bash with improved logging, skipping of commands if output files are up-to-date, parallelization, etc.
 
 Run with -h to see all options.
 """
@@ -38,11 +38,16 @@ if args.exac_sites_vcf:
 def get_remote_file_changed_time(ftp_host, ftp_path):
     """Returns time modified in seconds since the epoch"""
 
-    ftp = ftplib.FTP(ftp_host)
-    ftp.login()
-    response = ftp.sendcmd("MDTM " + ftp_path)
-    last_changed_time = datetime.strptime(response[4:], "%Y%m%d%H%M%S")
-    return int(last_changed_time.strftime("%s"))  #.strftime("%d %B %Y %H:%M:%S")
+    try:
+        ftp = ftplib.FTP(ftp_host)
+        ftp.login()
+        response = ftp.sendcmd("MDTM " + ftp_path)
+        last_changed_time = datetime.strptime(response[4:], "%Y%m%d%H%M%S")
+        return int(last_changed_time.strftime("%s"))  #.strftime("%d %B %Y %H:%M:%S")
+    except Exception as e:
+        print("ERROR: %s" % e)
+        return 0
+
 
 def download_if_changed(job_runner, local_path, ftp_host, ftp_path):
     remote_changed_time = get_remote_file_changed_time(ftp_host, ftp_path)
