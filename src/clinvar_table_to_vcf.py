@@ -40,6 +40,8 @@ def table_to_vcf(input_table_path):
 ##INFO=<ID=AGE_OF_ONSET,Number=1,Type=String,Description="AGE_OF_ONSET">
 ##INFO=<ID=PREVALENCE,Number=1,Type=String,Description="PREVALENCE">
 ##INFO=<ID=DISEASE_MECHANISM,Number=1,Type=String,Description="DISEASE_MECHANISM">
+##INFO=<ID=ORIGIN,Number=1,Type=String,Description="ORIGIN">
+##INFO=<ID=GOLD_STARS,Number=1,Type=String,Description="Number of gold stars as shown on clinvar web pages to summarize review status. Lookup table described at http://www.ncbi.nlm.nih.gov/clinvar/docs/details/ was used to map the REVIEW_STATUS value to this number.">
 ##INFO=<ID=ALL_PATHOGENIC,Number=1,Type=String,Description="ALL_PATHOGENIC">
 ##INFO=<ID=ALL_CONFLICTED,Number=1,Type=String,Description="ALL_CONFLICTED">
 ##contig=<ID=1,length=249250621>
@@ -90,7 +92,8 @@ def table_to_vcf(input_table_path):
         for key in ["mut", "measureset_id", "symbol",
                     "clinical_significance", "review_status",
                     "all_submitters", "all_traits", "all_pmids",
-                    "inheritance_modes", "age_of_onset", "prevalence", 'disease_mechanism',
+                    "inheritance_modes", "age_of_onset", "prevalence", 
+                    "disease_mechanism", "origin",
                     "pathogenic", "conflicted"]:
             if pd.isnull(table_row[key]):
                 continue
