@@ -102,6 +102,10 @@ if args.exac_sites_vcf:
     job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_with_exac.tsv.gz", output_filenames=["clinvar_with_exac.tsv.gz.tbi"])
     job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../output", output_filenames=["../output/clinvar_with_exac.tsv.gz", "../output/clinvar_with_exac.tsv.gz.tbi"])
 
+# create uncompressed example files that contain the 1st 5000 lines of the compressed tsvs so people can easily see typical values online on github
+job.add("gunzip -c IN:clinvar.vcf.gz | head -n 5000 > OUT:../output/clinvar_example_5000_rows.vcf")
+job.add("gunzip -c IN:clinvar.tsv.gz | head -n 5000 > OUT:../output/clinvar_example_5000_rows.tsv")
+job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 5000 > OUT:../output/clinvar_with_exac_example_5000_rows.tsv")
 
 # run the above commands
 jr.run(job)
