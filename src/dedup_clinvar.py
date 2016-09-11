@@ -56,7 +56,7 @@ def dedup_records(data1, data2):
                 data2[column_name].split(','))))
 
     for column_name in ('all_submitters', 'all_traits',      # process columns that use ; as the delimiter
-                        'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'):
+                        'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs'):
         combined_data[column_name] = ';'.join(set(filter(lambda s: s,
                 data1[column_name].split(';') + 
                 data2[column_name].split(';'))))
@@ -69,5 +69,3 @@ if __name__ == '__main__':
                        default=sys.stdin)
     args = parser.parse_args()
     dedup_clinvar(args.infile)
-
-
