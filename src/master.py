@@ -107,5 +107,17 @@ job.add("gunzip -c IN:clinvar.vcf.gz | head -n 5000 > OUT:../output/clinvar_exam
 job.add("gunzip -c IN:clinvar.tsv.gz | head -n 5000 > OUT:../output/clinvar_example_5000_rows.tsv")
 job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 5000 > OUT:../output/clinvar_with_exac_example_5000_rows.tsv")
 
+# create a stats file that summarizes some of the columns
+# chrom      pos        ref        alt        mut        measureset_id      symbol     clinical_significance      review_status      hgvs_c     hgvs_p     all_submitters     all_traits         all_pmids          inheritance_modes          age_of_onset        prevalence         disease_mechanism          origin     xrefs      gold_stars         pathogenic         conflicted
+job.add("""echo Total: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) > OUT:clinvar_stats.txt &&
+for i in 8 9 16 17 18 19 21; do 
+    echo ================ >> OUT:clinvar_stats.txt ;
+    gunzip -c IN:clinvar.tsv.gz | head -n 1 | cut -f $i >> OUT:clinvar_stats.txt ;
+    gunzip -c IN:clinvar.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:clinvar_stats.txt ;
+done
+""", input_filenames=["clinvar.tsv.gz"])
+
+job.add("cp IN:clinvar_stats.txt OUT:../output/clinvar_stats.txt")
+
 # run the above commands
 jr.run(job)
