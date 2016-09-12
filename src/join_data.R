@@ -3,7 +3,7 @@
 options(stringsAsFactors=F)
 
 # load what we've extracted from the XML so far
-xml_extract = read.table('clinvar_table_dedup_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
+xml_extract = read.table('clinvar_table_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
 
 # load the tab-delimited summary
 txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T)
