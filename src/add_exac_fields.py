@@ -76,7 +76,7 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
             else:
                 counts['clinvar_snp_with_unknown_mismatch'] += 1
 
-            sys.stderr.write("WARNING: ExAC variant %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) - ExAC alleles (%s-%s) mismatch the clinvar allele (%s-%s) at %s:%s\n" % (chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], exac_ref_allele, ",".join(exac_alt_alleles), ref, alt, chrom, pos))
+            sys.stderr.write("WARNING: ExAC variant %s:%s (http://exac.broadinstitute.org/variant/%s-%s-%s-%s) - ExAC alleles (%s:%s %s>%s) mismatch the clinvar allele (%s:%s %s>%s)\n" % (chrom, pos, chrom, pos, exac_row_fields[3], exac_row_fields[4], chrom, pos, exac_ref_allele, ",".join(exac_alt_alleles), chrom, pos, ref, alt))
 
         return EXAC_EMPTY_COLUMN_VALUES
 
