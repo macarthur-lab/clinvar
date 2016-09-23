@@ -39,7 +39,8 @@ gold_stars_table = list(
 # it is not in any of the available FTP downloads, so this is a stopgap
 combined$gold_stars = sapply(combined$review_status, function(k) { gold_stars_table[[k]] })
 combined$pathogenic = as.integer(grepl('athogenic',combined$clinical_significance)) # 1 if at least one submission says path or likely path, 0 otherwise
-combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significance) & grepl('enign',combined$clinical_significance)) # 1 if at least one submission each of [likely] benign and [likely] pathogenic
+combined$benign = as.integer(grepl('enign',combined$clinical_significance))         # 1 if at least one submission says benign or likely benign, 0 otherwise
+combined$conflicted = combined$pathogenic & combined$benign                         # 1 if at least one submission each of [likely] benign and [likely] pathogenic
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)
 
