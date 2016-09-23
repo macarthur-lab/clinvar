@@ -38,14 +38,15 @@ if args.exac_sites_vcf:
 def get_remote_file_changed_time(ftp_host, ftp_path):
     """Returns time modified in seconds since the epoch"""
 
+    print("Retrieving last-changed time for %s" % os.path.join(ftp_host, ftp_path))
     try:
-        ftp = ftplib.FTP(ftp_host)
+        ftp = ftplib.FTP(ftp_host, timeout=3)  # timeout = 3 seconds
         ftp.login()
         response = ftp.sendcmd("MDTM " + ftp_path)
         last_changed_time = datetime.strptime(response[4:], "%Y%m%d%H%M%S")
         return int(last_changed_time.strftime("%s"))  #.strftime("%d %B %Y %H:%M:%S")
     except Exception as e:
-        print("ERROR: %s" % e)
+        print("ERROR: retrieving last-changed time for %s: %s" % (os.path.join(ftp_host, ftp_path), e))
         return 0
 
 
@@ -108,7 +109,6 @@ job.add("gunzip -c IN:clinvar.tsv.gz | head -n 5000 > OUT:../output/clinvar_exam
 job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 5000 > OUT:../output/clinvar_with_exac_example_5000_rows.tsv")
 
 # create a stats file that summarizes some of the columns
-# chrom      pos        ref        alt        mut        measureset_id      symbol     clinical_significance      review_status      hgvs_c     hgvs_p     all_submitters     all_traits         all_pmids          inheritance_modes          age_of_onset        prevalence         disease_mechanism          origin     xrefs      gold_stars         pathogenic         conflicted
 job.add("""echo Total: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) > OUT:clinvar_stats.txt &&
 for i in 8 9 16 17 18 19 21; do 
     echo ================ >> OUT:clinvar_stats.txt ;
