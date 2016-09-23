@@ -96,12 +96,6 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
     return exac_column_values
 
 
-
-"""
-Clinvar table header:
-chrom    pos    ref    alt    mut    measureset_id    symbol    clinical_significance    review_status    hgvs_c    hgvs_p    all_submitters    all_traits    all_pmids    pathogenic    conflicted
-"""
-
 exac_f = pysam.TabixFile(args.exac_sites_vcf)
 clinvar_f = open(args.clinvar_table)
 clinvar_header = next(clinvar_f).rstrip('\n').split('\t')
