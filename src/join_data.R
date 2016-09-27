@@ -1,12 +1,19 @@
 #!/usr/bin/env Rscript
 
 options(stringsAsFactors=F)
+options(warn=2) 
+options(error = quote({
+  dump.frames(to.file=T, dumpto='last.dump')
+  load('last.dump.rda')
+  print(last.dump)
+  q()
+}))
 
 # load what we've extracted from the XML so far
 xml_extract = read.table('clinvar_table_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
 
 # load the tab-delimited summary
-txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T)
+txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T,fileEncoding="UTF-16LE")
 
 # subset the tab-delimited summary to desired rows and cols
 colnames(txt_download) = gsub('\\.','_',tolower(colnames(txt_download)))
@@ -38,10 +45,11 @@ gold_stars_table = list(
 # note: we are trying to get the "overall" interpretation that is displayed in the upper right of the clinvar web pages but
 # it is not in any of the available FTP downloads, so this is a stopgap
 combined$gold_stars = sapply(combined$review_status, function(k) { gold_stars_table[[k]] })
-combined$pathogenic = as.integer(grepl('athogenic',combined$clinical_significance)) # 1 if at least one submission says path or likely path, 0 otherwise
-combined$benign = as.integer(grepl('enign',combined$clinical_significance))         # 1 if at least one submission says benign or likely benign, 0 otherwise
-combined$conflicted = combined$pathogenic & combined$benign                         # 1 if at least one submission each of [likely] benign and [likely] pathogenic
+# pathogenic = 1 if at least one submission says path or likely path, 0 otherwise
+combined$pathogenic = as.integer(grepl('athogenic',combined$clinical_significance))
+# conflicted = 1 if at least one submission each of [likely] benign and [likely] pathogenic
+combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significance) & grepl('enign',combined$clinical_significance))
+# benign = 1 if at least one submission says benign or likely benign, 0 otherwise
+combined$benign = as.integer(grepl('enign',combined$clinical_significance))
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)
-
-
