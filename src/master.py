@@ -104,18 +104,21 @@ if args.exac_sites_vcf:
     job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../output", output_filenames=["../output/clinvar_with_exac.tsv.gz", "../output/clinvar_with_exac.tsv.gz.tbi"])
 
 # create uncompressed example files that contain the 1st 5000 lines of the compressed tsvs so people can easily see typical values online on github
-job.add("gunzip -c IN:clinvar.vcf.gz | head -n 5000 > OUT:../output/clinvar_example_5000_rows.vcf")
-job.add("gunzip -c IN:clinvar.tsv.gz | head -n 5000 > OUT:../output/clinvar_example_5000_rows.tsv")
-job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 5000 > OUT:../output/clinvar_with_exac_example_5000_rows.tsv")
+job.add("gunzip -c IN:clinvar.vcf.gz | head -n 1000 > OUT:../output/clinvar_example_1000_rows.vcf")
+job.add("gunzip -c IN:clinvar.tsv.gz | head -n 1000 > OUT:../output/clinvar_example_1000_rows.tsv")
+job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 1000 > OUT:../output/clinvar_with_exac_example_1000_rows.tsv")
 
 # create a stats file that summarizes some of the columns
-job.add("""echo Total: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) > OUT:clinvar_stats.txt &&
-for i in 8 9 16 17 18 19 21; do 
+job.add("""echo \
+Columns: $(gunzip -c clinvar.tsv.gz | head -n 1 | python -c "import sys;print(', '.join(['%s: %s'%(i+1,v) for l in sys.stdin for i,v in enumerate(l.split())]))") > OUT:clinvar_stats.txt &&
+echo ================ >> OUT:clinvar_stats.txt &&
+echo Total Rows: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) >> OUT:clinvar_stats.txt &&
+for i in 8 9 16 17 18 19 21 22 23 24; do 
     echo ================ >> OUT:clinvar_stats.txt ;
     gunzip -c IN:clinvar.tsv.gz | head -n 1 | cut -f $i >> OUT:clinvar_stats.txt ;
     gunzip -c IN:clinvar.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:clinvar_stats.txt ;
 done
-""", input_filenames=["clinvar.tsv.gz"])
+""", input_filenames=["clinvar.tsv.gz", "master.py"])
 
 job.add("cp IN:clinvar_stats.txt OUT:../output/clinvar_stats.txt")
 
