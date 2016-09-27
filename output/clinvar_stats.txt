@@ -1,28 +1,30 @@
-Total: 136095
+Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: review_status, 10: hgvs_c, 11: hgvs_p, 12: all_submitters, 13: all_traits, 14: all_pmids, 15: inheritance_modes, 16: age_of_onset, 17: prevalence, 18: disease_mechanism, 19: origin, 20: xrefs, 21: gold_stars, 22: pathogenic, 23: conflicted, 24: benign
+================
+Total Rows: 136095
 ================
 clinical_significance
 43725 Uncertain significance
-37879 Pathogenic
-19842 Likely benign
-18929 Benign
-18433 not provided
-9408 Likely pathogenic
+37880 Pathogenic
+19841 Likely benign
+18932 Benign
+18435 not provided
+9409 Likely pathogenic
 1898 other
- 627 risk factor
+ 626 risk factor
  338 drug response
- 272 not reported for simple variant
+ 263 not reported for simple variant
  132 association
  106 Affects
-  55 protective
+  54 protective
 ================
 review_status
-69063 criteria provided, single submitter
-34949 no assertion criteria provided
-12241 no assertion provided
-11877 criteria provided, multiple submitters, no conflicts
-3968 criteria provided, conflicting interpretations
+69068 criteria provided, single submitter
+34951 no assertion criteria provided
+12243 no assertion provided
+11879 criteria provided, multiple submitters, no conflicts
+3966 criteria provided, conflicting interpretations
 3713 reviewed by expert panel
- 261 no assertion for the individual variant
+ 252 no assertion for the individual variant
   23 practice guideline
 ================
 age_of_onset
@@ -184,11 +186,11 @@ disease_mechanism
    1 Dominant Negative
 ================
 origin
-119285 germline
-8457 unknown
+119287 germline
+8459 unknown
 8456 not provided
 1930 somatic
-1179 de novo
+1184 de novo
  467 inherited
  374 maternal
  213 paternal
@@ -198,8 +200,20 @@ origin
    6 uniparental
 ================
 gold_stars
-73031 1
-47451 0
-11877 2
+73034 1
+47446 0
+11879 2
 3713 3
   23 4
+================
+pathogenic
+90322 0
+45773 1
+================
+conflicted
+135781 0
+ 314 1
+================
+benign
+100523 0
+35572 1
