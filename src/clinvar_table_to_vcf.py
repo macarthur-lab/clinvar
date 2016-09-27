@@ -44,6 +44,7 @@ def table_to_vcf(input_table_path):
 ##INFO=<ID=GOLD_STARS,Number=1,Type=String,Description="Number of gold stars as shown on clinvar web pages to summarize review status. Lookup table described at http://www.ncbi.nlm.nih.gov/clinvar/docs/details/ was used to map the REVIEW_STATUS value to this number.">
 ##INFO=<ID=ALL_PATHOGENIC,Number=1,Type=String,Description="ALL_PATHOGENIC">
 ##INFO=<ID=ALL_CONFLICTED,Number=1,Type=String,Description="ALL_CONFLICTED">
+##INFO=<ID=ALL_BENIGN,Number=1,Type=String,Description="ALL_BENIGN">
 ##contig=<ID=1,length=249250621>
 ##contig=<ID=2,length=243199373>
 ##contig=<ID=3,length=198022430>
@@ -94,7 +95,7 @@ def table_to_vcf(input_table_path):
                     "all_submitters", "all_traits", "all_pmids",
                     "inheritance_modes", "age_of_onset", "prevalence", 
                     "disease_mechanism", "origin",
-                    "pathogenic", "conflicted"]:
+                    "pathogenic", "conflicted", "benign"]:
             if pd.isnull(table_row[key]):
                 continue
             value = str(table_row[key])
