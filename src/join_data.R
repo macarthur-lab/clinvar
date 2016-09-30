@@ -27,9 +27,6 @@ colnames(txt_extract) = c('measureset_id','symbol','clinical_significance','revi
 # join on measureset_id
 combined = merge(xml_extract, txt_extract, by='measureset_id')
 
-# re-order the columns
-combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p','all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs')]
-
 # lookup table based on http://www.ncbi.nlm.nih.gov/clinvar/docs/details/
 gold_stars_table = list(
 	'no assertion provided' = 0,
@@ -52,5 +49,8 @@ combined$pathogenic = as.integer(grepl('athogenic',combined$clinical_significanc
 combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significance) & grepl('enign',combined$clinical_significance))
 # benign = 1 if at least one submission says benign or likely benign, 0 otherwise
 combined$benign = as.integer(grepl('enign',combined$clinical_significance))
+
+# re-order the columns
+combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p', 'gold_stars', 'pathogenic', 'conflicted', 'benign', 'all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs')]
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)
