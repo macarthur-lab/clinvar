@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 options(stringsAsFactors=F)
-options(warn=2) 
+#options(warn=2) 
 options(error = quote({
   dump.frames(to.file=T, dumpto='last.dump')
   load('last.dump.rda')
@@ -13,7 +13,8 @@ options(error = quote({
 xml_extract = read.table('clinvar_table_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
 
 # load the tab-delimited summary
-txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T,fileEncoding="UTF-16LE")
+txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T) 
+print(dim(txt_download))
 
 # subset the tab-delimited summary to desired rows and cols
 colnames(txt_download) = gsub('\\.','_',tolower(colnames(txt_download)))
