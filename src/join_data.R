@@ -51,6 +51,6 @@ combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significanc
 combined$benign = as.integer(grepl('enign',combined$clinical_significance))
 
 # re-order the columns
-combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p', 'gold_stars', 'pathogenic', 'conflicted', 'benign', 'all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs')]
+combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance', 'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars', 'hgvs_c','hgvs_p', 'all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs')]
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)

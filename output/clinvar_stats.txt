@@ -1,4 +1,4 @@
-Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: review_status, 10: hgvs_c, 11: hgvs_p, 12: gold_stars, 13: pathogenic, 14: conflicted, 15: benign, 16: all_submitters, 17: all_traits, 18: all_pmids, 19: inheritance_modes, 20: age_of_onset, 21: prevalence, 22: disease_mechanism, 23: origin, 24: xrefs
+Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: pathogenic, 10: benign, 11: conflicted, 12: review_status, 13: gold_stars, 14: hgvs_c, 15: hgvs_p, 16: all_submitters, 17: all_traits, 18: all_pmids, 19: inheritance_modes, 20: age_of_onset, 21: prevalence, 22: disease_mechanism, 23: origin, 24: xrefs
 ================
 Total Rows: 136095
 ================
@@ -17,15 +17,9 @@ clinical_significance
  106 Affects
   54 protective
 ================
-review_status
-69068 criteria provided, single submitter
-34951 no assertion criteria provided
-12243 no assertion provided
-11879 criteria provided, multiple submitters, no conflicts
-3966 criteria provided, conflicting interpretations
-3713 reviewed by expert panel
- 252 no assertion for the individual variant
-  23 practice guideline
+pathogenic
+90322 0
+45773 1
 ================
 all_submitters
 26427 GeneDx
