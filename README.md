@@ -21,14 +21,14 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
 3. Sort on genomic coordinates (we use GRCh37).
-4. De-duplicate using [src/dedup_clinvar.py](src/dedup_clinvar.py), combining records that refer to the same genomic variant.
-5. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]).
-6. Join to some of the fields of interest from the TXT file using [src/join_data.R](src/join_data.R), and create some new fields&dagger;.
-7. Sort and de-duplicate again (this removes dups arising from duplicate records in the TXT dump).
+4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]).
+5. Join to some of the fields of interest from the TXT file using [src/join_data.R](src/join_data.R), and create some new fields&dagger;.
+6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump).
 
-&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined two additional columns:
+&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns:
 
 + `pathogenic` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and `0` otherwise
++ `benign` is `1` if the variant has *ever* been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
 To run the pipeline:
@@ -40,10 +40,10 @@ python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
 
 #### Results
 
-The resulting output files are:
-* [output/clinvar.tsv.gz](output/clinvar.tsv.gz)  
-* [output/clinvar.vcf.gz](output/clinvar.vcf)  
-* [output/clinvar_with_exac.tsv.gz](output/clinvar_with_exac.tsv.gz)  
+The main output files are:
+* [clinvar.tsv.gz](output/clinvar.tsv.gz)  
+* [clinvar.vcf.gz](output/clinvar.vcf)  
+* [clinvar_with_exac.tsv.gz](output/clinvar_with_exac.tsv.gz)  
 
 
 #### Usage notes
