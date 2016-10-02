@@ -109,11 +109,13 @@ job.add("gunzip -c IN:clinvar.tsv.gz | head -n 750 > OUT:../output/clinvar_examp
 job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 750 > OUT:../output/clinvar_with_exac_example_750_rows.tsv")
 
 # create a stats file that summarizes some of the columns
+# Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: pathogenic, 10: benign, 11: conflicted, 12: review_status, 13: gold_stars, 14: hgvs_c, 15: hgvs_p, 16: all_submitters, 17: all_traits, 18: all_pmids, 19: inheritance_modes, 20: age_of_onset, 21: prevalence, 22: disease_mechanism, 23: origin, 24: xrefs
+
 job.add("""echo \
 Columns: $(gunzip -c clinvar.tsv.gz | head -n 1 | python -c "import sys;print(', '.join(['%s: %s'%(i+1,v) for l in sys.stdin for i,v in enumerate(l.split())]))") > OUT:clinvar_stats.txt &&
 echo ================ >> OUT:clinvar_stats.txt &&
 echo Total Rows: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) >> OUT:clinvar_stats.txt &&
-for i in 8 9 16 17 18 19 21 22 23 24; do 
+for i in 8 9 10 11 12 13 19 20 21 22 23; do 
     echo ================ >> OUT:clinvar_stats.txt ;
     gunzip -c IN:clinvar.tsv.gz | head -n 1 | cut -f $i >> OUT:clinvar_stats.txt ;
     gunzip -c IN:clinvar.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:clinvar_stats.txt ;
