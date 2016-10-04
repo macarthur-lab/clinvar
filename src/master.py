@@ -87,12 +87,12 @@ job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.ts
 # now de-dup _again_, because the tab-delimited summary contains dups
 job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | tee clinvar.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
 job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar.tsv.gz", output_filenames=["clinvar.tsv.gz.tbi"])
-job.add("cp IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../output", output_filenames=["../output/clinvar.tsv", "../output/clinvar.tsv.gz", "../output/clinvar.tsv.gz.tbi"])
+job.add("cp IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../", output_filenames=["../clinvar.tsv", "../clinvar.tsv.gz", "../clinvar.tsv.gz.tbi"])
 
 # create vcf
 job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar.tsv | bgzip -c > OUT:clinvar.vcf.gz")  # create compressed version
 job.add("tabix IN:clinvar.vcf.gz", output_filenames=["clinvar.vcf.gz.tbi"])
-job.add("cp IN:clinvar.vcf.gz IN:clinvar.vcf.gz.tbi ../output", output_filenames=["../output/clinvar.vcf.gz", "../output/clinvar.vcf.gz.tbi"])
+job.add("cp IN:clinvar.vcf.gz IN:clinvar.vcf.gz.tbi ../", output_filenames=["../clinvar.vcf.gz", "../clinvar.vcf.gz.tbi"])
 
 # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
 if args.exac_sites_vcf:
@@ -101,12 +101,12 @@ if args.exac_sites_vcf:
     job.add("tabix IN:"+normalized_vcf, output_filenames=[normalized_vcf+".tbi"])
     job.add("python -u IN:add_exac_fields.py -i IN:clinvar.tsv -e IN:%(normalized_vcf)s | bgzip -c > OUT:clinvar_with_exac.tsv.gz" % locals())
     job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_with_exac.tsv.gz", output_filenames=["clinvar_with_exac.tsv.gz.tbi"])
-    job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../output", output_filenames=["../output/clinvar_with_exac.tsv.gz", "../output/clinvar_with_exac.tsv.gz.tbi"])
+    job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../", output_filenames=["../clinvar_with_exac.tsv.gz", "../clinvar_with_exac.tsv.gz.tbi"])
 
 # create uncompressed example files that contain the 1st 750 lines of the compressed tsvs so people can easily see typical values online on github
-job.add("gunzip -c IN:clinvar.vcf.gz | head -n 750 > OUT:../output/clinvar_example_750_rows.vcf")
-job.add("gunzip -c IN:clinvar.tsv.gz | head -n 750 > OUT:../output/clinvar_example_750_rows.tsv")
-job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 750 > OUT:../output/clinvar_with_exac_example_750_rows.tsv")
+job.add("gunzip -c IN:clinvar.vcf.gz | head -n 750 > OUT:../clinvar_example_750_rows.vcf")
+job.add("gunzip -c IN:clinvar.tsv.gz | head -n 750 > OUT:../clinvar_example_750_rows.tsv")
+job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 750 > OUT:../clinvar_with_exac_example_750_rows.tsv")
 
 # create a stats file that summarizes some of the columns
 # Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: pathogenic, 10: benign, 11: conflicted, 12: review_status, 13: gold_stars, 14: hgvs_c, 15: hgvs_p, 16: all_submitters, 17: all_traits, 18: all_pmids, 19: inheritance_modes, 20: age_of_onset, 21: prevalence, 22: disease_mechanism, 23: origin, 24: xrefs
@@ -122,7 +122,7 @@ for i in 8 9 10 11 12 13 19 20 21 22 23; do
 done
 """, input_filenames=["clinvar.tsv.gz", "master.py"])
 
-job.add("cp IN:clinvar_stats.txt OUT:../output/clinvar_stats.txt")
+job.add("cp IN:clinvar_stats.txt OUT:../clinvar_stats.txt")
 
 # run the above commands
 jr.run(job)
