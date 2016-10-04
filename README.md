@@ -41,9 +41,9 @@ python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
 #### Results
 
 The main output files are:
-* [clinvar.tsv.gz](output/clinvar.tsv.gz)  
-* [clinvar.vcf.gz](output/clinvar.vcf)  
-* [clinvar_with_exac.tsv.gz](output/clinvar_with_exac.tsv.gz)  
+* [clinvar.tsv.gz](clinvar.tsv.gz)  
+* [clinvar.vcf.gz](clinvar.vcf)  
+* [clinvar_with_exac.tsv.gz](clinvar_with_exac.tsv.gz)  
 
 
 #### Usage notes
