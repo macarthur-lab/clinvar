@@ -83,9 +83,8 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
     filter_value = exac_row_fields[6]
     info_fields = [('Filter', filter_value)] + [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')]
     info_fields = filter(lambda kv: kv[0] in NEEDED_EXAC_FIELDS_SET, info_fields)
-    
-    assert len(info_fields) == len(NEEDED_EXAC_FIELDS_SET)
-    exac_column_values = [kv[1] for kv in info_fields]
+    info_fields = dict(info_fields)
+    exac_column_values = [info_fields[k] for k in NEEDED_EXAC_FIELDS]
 
     # check that the clinvar alt allele matches (one of the) ExAC alt allele(s)    
     #if len(alt_alleles) > 1:
