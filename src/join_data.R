@@ -9,11 +9,18 @@ options(error = quote({
   q()
 }))
 
+args = commandArgs(trailingOnly=TRUE)
+variant_summary_table = 'variant_summary.txt.gz'
+if (length(args) == 1) {
+	variant_summary_table = args[1]
+}
+
 # load what we've extracted from the XML so far
 xml_extract = read.table('clinvar_table_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
+print(dim(xml_extract))
 
 # load the tab-delimited summary
-txt_download = read.table('variant_summary.txt.gz',sep='\t',comment.char='',quote='',header=T) 
+txt_download = read.table(variant_summary_table,sep='\t',comment.char='',quote='',header=T)
 print(dim(txt_download))
 
 # subset the tab-delimited summary to desired rows and cols
