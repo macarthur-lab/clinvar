@@ -38,6 +38,10 @@ pip install --user --upgrade -r requirements.txt
 python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
 ```
 
+See `python master.py -h` for additional options.
+
+Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`).
+
 #### Results
 
 The main output files are:
