@@ -92,7 +92,8 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
 
         # now find any/all submitters
         current_row['all_submitters'] = ';'.join([
-            submitter_node.attrib['submitter'] for submitter_node in elem.findall('.//ClinVarSubmissionID')
+            submitter_node.attrib['submitter'].replace(';', ',')
+            for submitter_node in elem.findall('.//ClinVarSubmissionID')
             if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter')
         ])
 
