@@ -20,6 +20,6 @@ python master_parse_clinvar_xml.py -R hg19.fa
 #### Results
 
 The main output files are:
-* [clinvar.tsv](clinvar.tsv)  
+* [clinvar.tsv.gz](clinvar.tsv.gz)  
 
 
