@@ -11,7 +11,9 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-# then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
+#usage: "python -u parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv -e parse_clinvar_table_raw.logs
+#then normalize and sort 
+
 #Xiaolei:
 #Reference on the XML tag info: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
 #Reference on the XML tag info: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
