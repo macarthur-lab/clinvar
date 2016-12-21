@@ -95,7 +95,8 @@ job.add("ex -s +'bufdo!v/\S/d' -cxa clinvar_table_normalized.tsv") #remove the e
 job.add("(cat IN:clinvar_table_normalized.tsv | head -1 > OUT:clinvar_sorted.tsv ) && " + # header row
     "(cat IN:clinvar_table_normalized.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:clinvar_sorted.tsv ) && " + # numerically sort chroms 1-22
     "(cat IN:clinvar_table_normalized.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_sorted.tsv )")     # lexicogaraphically sort non-numerical chroms at end
-job.add("cp clinvar_sorted.tsv ../clinvar.tsv")
+job.add("gzip clinvar_sorted.tsv")
+job.add("cp clinvar_sorted.tsv.gz ../clinvar.tsv.gz")
 
 
 

@@ -1,3 +1,0 @@
-This output directory is being deprecated.
-For easier access, all output files will now be in the top level directory of the repo.
-

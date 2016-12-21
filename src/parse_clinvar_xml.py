@@ -1,8 +1,15 @@
 '''
 Created on 16 Dec 2016
-@author: xzhang13 AT ic.ac.uk
+
+@author: xzhang13
 '''
-#modify the clinvar package code in order to parse xml to table (variant-condition pair) with clinicial significance and review status etc. without using variant_summary table.
+'''
+Created on 23 Nov 2016
+
+@author: xzhang13
+'''
+#modify the clinvar package code in order to parse xml to table with with more fields.
+
 
 import re
 import sys
@@ -11,12 +18,11 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-#usage: "python -u parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table_raw.tsv -e parse_clinvar_table_raw.logs
-#then normalize and sort 
+# then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
 
-#Xiaolei:
-#Reference on the XML tag info: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
-#Reference on the XML tag info: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
+
+#Reference: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
+#Reference on the XML info: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
 
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)' # group(1) will be all the text after the word PubMed or PMID
 extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the first PubMed ID, group(2) will be all remaining text
@@ -50,8 +56,8 @@ def parse_clinvar_tree(handle,dest=sys.stdout,error=sys.stderr,verbose=True,mode
         #initialize all the fields
 
         #Xiaolei
-        #since the same measureset can have two measure alleles, which can not be interpretated independently thus reported together e.g. haplotype, compound heterzygous. 
-        #for this case, record the variation type in Measureset_type
+        #since the same measureset can have two measure alleles, which can not be interpretated independently thus reported together as haplotype or compound heterzygous. 
+        #for this case, record the variation type in Measureset_type, and if the number_alleles is larger than one, aggregate all the other fields.  
         
         current_row = {}
         current_row['Measureset_type']=''
@@ -75,12 +81,12 @@ def parse_clinvar_tree(handle,dest=sys.stdout,error=sys.stderr,verbose=True,mode
             current_row['Measureset_type']=measureset.get('Type')
             current_row['number_alleles']=str(len(measureset.findall('.//Measure')))
         
-        #Xiaolei: only the ones with just one measure set can be recorded
+        #only the ones with just one measure set can be recorded
         
         
         measure_types=[]
         alleleids=[]
-        #Xiaolei: Aggregate all the possible measure types
+        #Aggregate all the possible measure types
         for measure_type in measureset.findall('.//Measure'):
             measure_types.append(measure_type.attrib.get('Type'))
             alleleids.append(measure_type.attrib['ID'])

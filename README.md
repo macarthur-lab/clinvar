@@ -2,66 +2,24 @@
 
 #### In 1 sentence
 
-This repo provides tools to convert ClinVar data into a tab-delimited flat file, and also provides that resulting tab-delimited flat file.
+This branch modifies the [clinvar](https://github.com/macarthur-lab/clinvar) master branch to convert latest ClinVar xml file into a tab-delimited file.
 
-#### Motivation
+#### New Features
 
-[ClinVar](http://www.ncbi.nlm.nih.gov/clinvar/) is a public database hosted by NCBI for the purpose of collecting assertions as to genotype-phenotype pairings in the human genome. One common use case for ClinVar is as a catalogue of genetic variants that have been reported to cause Mendelian disease. In our work in the [MacArthur Lab](http://macarthurlab.org/), we have two major use cases for ClinVar:
+1. Extract the the variant info and interpretation info e.g. clinical significance and review status from ClinVar xml file for the measure set 
+2. Record the measure set type in order to differentiate the haplotype with more than one alleles.
 
-1. To check whether candidate causal variants we find in Mendelian disease exomes have been previously reported as pathogenic.
-2. To pair with [ExAC](http://exac.broadinstitute.org/) data to enable exome-wide analyses of reportedly pathogenic variants.
 
-ClinVar makes its data available via [FTP](ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/) in three formats: XML, TXT, and VCF. We found that none of these files were ideally suited for our purposes. The VCF only contains variants present in dbSNP; it is not a comprehensive catalogue of ClinVar variants. The TXT file lacks certain annotations such as PubMed IDs for related publications. The XML file is large and complex, with multiple entries for the same genomic variant, making it difficult to quickly look up a variant of interest. In addition, both the XML and TXT representations are not guaranteed to be unique on genomic coordinates, and also contain many genomic coordinates that have been parsed from HGVS notation, and therefore may be right-aligned (in contrast to left alignment, the standard for VCF) and may also be non-minimal (containing additional nucleotides of context to the left or right of a given variant).
-
-#### Solution
-
-To create a flat representation of ClinVar suited for our purposes, we took several steps, encapsulated in the pipeline [src/master.py](src/master.py) 
-(which supercedes the older [src/master.bash](src/master.bash) script):
-
-1. Download the latest XML and TXT dumps from ClinVar FTP.
-2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
-3. Sort on genomic coordinates (we use GRCh37).
-4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]).
-5. Join to some of the fields of interest from the TXT file using [src/join_data.R](src/join_data.R), and create some new fields&dagger;.
-6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump).
-
-&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns:
-
-+ `pathogenic` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and `0` otherwise
-+ `benign` is `1` if the variant has *ever* been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise
-+ `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
-
-To run the pipeline:
+#### Usage
 ```
 cd ./src
 pip install --user --upgrade -r requirements.txt
-python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
+python master_parse_clinvar_xml.py -R hg19.fa
 ```
-
-See `python master.py -h` for additional options.
-
-Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`).
 
 #### Results
 
 The main output files are:
-* [clinvar.tsv.gz](clinvar.tsv.gz)  
-* [clinvar.vcf.gz](clinvar.vcf)  
-* [clinvar_with_exac.tsv.gz](clinvar_with_exac.tsv.gz)  
+* [clinvar.tsv](clinvar.tsv)  
 
 
-#### Usage notes
-
-Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/). Note that we also do not capture all of the complexity of the fields that are included. For example, the ClinVar website may display multiple HGVS notations for a single variant, while our file displays only one HGVS notation drawn from the ClinVar TXT dump.
-
-If you want to analyze the output file into R, a suitable line of code to read it in would be:
-
-```r
-clinvar = read.table('clinvar.tsv',sep='\t',header=T,quote='',comment.char='')
-```
-
-#### License, terms, and conditions
-
-ClinVar data, as a work of the United States federal government, are in the public domain and are redistributed here under [the same terms](http://www.ncbi.nlm.nih.gov/clinvar/docs/maintenance_use/) as they are distributed by ClinVar itself. Importantly, note that ClinVar data are "not intended for direct diagnostic use or medical decision-making without review by a genetics professional". The code in this repository is distributed under an MIT license.
-
-[Tan 2015]: http://www.ncbi.nlm.nih.gov/pubmed/25701572 "Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015 Jul 1;31(13):2202-4. doi: 10.1093/bioinformatics/btv112. Epub 2015 Feb 19. PubMed PMID: 25701572."
