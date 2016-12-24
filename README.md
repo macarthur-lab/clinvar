@@ -21,7 +21,7 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
 3. Sort on genomic coordinates (we use GRCh37) 
-4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]). The output file [clinvar_record.tsv.gz](clinvar_record.tsv.gz) after this step contains all the variant-condition specific ClinVar records. Currently, the complex variations (e.g. a compound heterozygote or haplotype) are ignored. 
+4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]). The output file [clinvar_record.tsv.gz](clinvar_record.tsv.gz) after this step contains the variant-condition specific ClinVar records. Currently, the complex variations (e.g. a compound heterozygote or haplotype) are ignored. 
 5. Join the TXT file using [src/join_data.R](src/join_data.R) to aggregate interpretations from multiple submitters independent of condition. 
 6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump). The output file [clinvar.tsv.gz](clinvar.tsv.gz) after this step contains the variant-specific aggregated data.
 
