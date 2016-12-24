@@ -30,7 +30,7 @@ colnames(txt_download) = replace(colnames(txt_download),1,"allele_id")
 desired_columns<-c('allele_id','clinicalsignificance','reviewstatus')
 txt_extract = subset(txt_download, assembly == 'GRCh37', select=desired_columns)
 colnames(txt_extract)<-c('allele_id','clinical_significance','review_status')
-#drop the clinical_significance and review_status in clinvar_normalized.tsv 
+#drop the clinical_significance and review_status in clinvar_record.tsv 
 #use the summary ones in variant_summary.txt
 xml_extract = subset(xml_raw,select=-c(clinical_significance,review_status))
 
