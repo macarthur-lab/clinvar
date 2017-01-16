@@ -21,9 +21,9 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
 3. Sort on genomic coordinates (we use GRCh37) 
-4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]). The output file [clinvar_record.tsv.gz](clinvar_record.tsv.gz) after this step contains the variant-condition specific ClinVar records. Currently, the complex variations (e.g. a compound heterozygote or haplotype) are ignored. 
+4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]). The output file [linvar_allele_trait_pairs.tsv.gz](clinvar_allele_trait_pairs.tsv.gz) after this step contains the variant-condition specific ClinVar records. Currently, the complex variations (e.g. a compound heterozygote or haplotype) are ignored. 
 5. Join the TXT file using [src/join_data.R](src/join_data.R) to aggregate interpretations from multiple submitters independent of condition. 
-6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump). The output file [clinvar.tsv.gz](clinvar.tsv.gz) after this step contains the variant-specific aggregated data.
+6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump). The output file [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz) after this step contains the variant-specific aggregated data.
 
 &dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns:
 
@@ -45,10 +45,10 @@ Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](
 #### Results
 
 The main output files are:
-* [clinvar_record.tsv.gz](clinvar_record.tsv.gz): variant-condition specific record
-* [clinvar.tsv.gz](clinvar.tsv.gz): variant-specific aggregated record
-* [clinvar.vcf.gz](clinvar.vcf): generated from [clinvar.tsv.gz](clinvar.tsv.gz)
-* [clinvar_with_exac.tsv.gz](clinvar_with_exac.tsv.gz): generated from [clinvar.tsv.gz](clinvar.tsv.gz)
+* [clinvar_allele_trait_pairs.tsv.gz](clinvar_allele_trait_pairs.tsv.gz): variant-condition specific record
+* [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz): variant-specific aggregated record
+* [clinvar_alleles.vcf.gz](clinvar_alleles.vcf): generated from [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz)
+* [clinvar_alleles_with_exac.tsv.gz](clinvar_alleles_with_exac.tsv.gz): generated from [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz)
 
 
 #### Usage notes
@@ -58,7 +58,7 @@ Because ClinVar contains a great deal of data complexity, we made a deliberate d
 If you want to analyze the output file into R, a suitable line of code to read it in would be:
 
 ```r
-clinvar = read.table('clinvar.tsv',sep='\t',header=T,quote='',comment.char='')
+clinvar = read.table('clinvar_alleles.tsv',sep='\t',header=T,quote='',comment.char='')
 ```
 
 #### License, terms, and conditions
