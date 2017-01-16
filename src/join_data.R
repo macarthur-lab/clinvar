@@ -16,7 +16,7 @@ if (length(args) == 1) {
 }
 
 # load what we've extracted from the XML so far
-xml_raw = read.table('clinvar_record.tsv',sep='\t',comment.char='',quote='',header=T)
+xml_raw = read.table('clinvar_allele_trait_pairs.tsv.gz',sep='\t',comment.char='',quote='',header=T)
 print(dim(xml_raw))
 
 # load the tab-delimited summary
@@ -61,6 +61,6 @@ combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significanc
 combined$benign = as.integer(grepl('enign',combined$clinical_significance))
 
 # re-order the columns
-combined = combined[,c('chrom','pos','ref','alt','mut','allele_id','measureset_type','measureset_id','rcv','symbol','clinical_significance', 'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars', 'hgvs_c','hgvs_p','molecular_consequence','all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence', 'disease_mechanism', 'origin', 'xrefs')]
+combined = combined[,c('chrom','pos','ref','alt','measureset_type','measureset_id','rcv','allele_id','symbol', 'hgvs_c','hgvs_p','molecular_consequence','clinical_significance', 'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars','all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence', 'disease_mechanism', 'origin', 'xrefs')]
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)
