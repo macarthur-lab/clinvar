@@ -1,8 +1,0 @@
-.idea
-*.pyc
-.ipynb_checkpoints
-.DS_Store
-src/*.vcf*
-src/*.tsv*
-src/*.gz*
-src/logs
