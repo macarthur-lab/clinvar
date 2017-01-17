@@ -16,7 +16,7 @@ if (length(args) == 1) {
 }
 
 # load what we've extracted from the XML so far
-xml_raw = read.table('clinvar_allele_trait_pairs.tsv.gz',sep='\t',comment.char='',quote='',header=T)
+xml_raw = read.table('clinvar_allele_trait_pairs.tsv',sep='\t',comment.char='',quote='',header=T)
 print(dim(xml_raw))
 
 # load the tab-delimited summary
