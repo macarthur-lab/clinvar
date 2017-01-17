@@ -14,7 +14,7 @@ from parse_clinvar_xml import *
 '''
 Run through a sorted clinvar_table.tsv file from the parse_clinvar_xml script, and make it unique on CHROM POS REF ALT
 '''
-def dedup_clinvar(input_fileobject,outfile):
+def group_by_allele(input_fileobject,outfile):
     header = input_fileobject.readline()
     outfile.write(header)
     column_names = header.strip('\n').split('\t')
@@ -26,7 +26,7 @@ def dedup_clinvar(input_fileobject,outfile):
         data = dict(zip(column_names,line.strip('\n').split('\t')))
         unique_id = '_'.join([data['chrom'], str(data['pos']), data['ref'], data['alt']])
         if unique_id == last_unique_id:
-            data = dedup_records(data, last_data)
+            data = group_alleles(data, last_data)
         else:
             # note that using a comprehension instead of just data.values() preserves column order
             # the next line (data) is not duplicated as the current line(last_data) then just print last_data
@@ -37,9 +37,9 @@ def dedup_clinvar(input_fileobject,outfile):
     outfile.write('\t'.join([last_data[colname] for colname in column_names])+'\n')
 
 '''
-De-duplicate two ClinVar records
+group two variants with same genomic coordinates
 '''
-def dedup_records(data1, data2):
+def group_alleles(data1, data2):
 
     combined_data = data1 # this sets defaults, now we fix it:
     
@@ -62,4 +62,4 @@ if __name__ == '__main__':
     parser.add_argument('-o','--outfile',nargs='?',type=argparse.FileType('w'),
                         default=sys.stdout)
     args = parser.parse_args()
-    dedup_clinvar(args.infile,args.outfile)
+    group_by_allele(args.infile,args.outfile)
