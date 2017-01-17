@@ -38,7 +38,7 @@ pip install --user --upgrade -r requirements.txt
 python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
 ```
 
-See `python master.py -h` for additional options. The above solution pipeline would only output simple variation, i.e. one variation has a single variant. With option `-M`, the pipeline could output another flat file with complex variations (i.e more than one variant interpreted together). 
+See `python master.py -h` for additional options. The above solution pipeline would only output simple variation, i.e. one variation has a single variant. With option `-M`, the pipeline could output another flat file with complex variations (i.e. more than one variant interpreted together). 
 
 Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`).
 
@@ -49,11 +49,7 @@ The main output files are:
 * [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz): variant-specific aggregated record
 * [clinvar_alleles.vcf.gz](clinvar_alleles.vcf): generated from [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz)
 * [clinvar_alleles_with_exac.tsv.gz](clinvar_alleles_with_exac.tsv.gz): generated from [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz)
-<<<<<<< HEAD
 * [clinvar_multi_alleles.tsv](clinvar_multi_alleles.tsv) (with option `-M`)
-=======
-
->>>>>>> 361320f3b220d50c2f0868c3f5b6857f7f55a913
 
 #### Usage notes
 
