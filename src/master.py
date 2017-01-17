@@ -10,6 +10,7 @@ import ftplib
 import os
 import sys
 from distutils import spawn
+from configargparse import Action
 
 try:
     import pypez
@@ -26,6 +27,7 @@ g.add("-R", "--reference-genome", help="b37 .fa genome reference file", required
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
 g.add("-X", "--clinvar-xml", help="The local filename of the ClinVarFullRelase.xml.gz file. If not set, grab the latest from NCBI.")
 g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the variant_summary.txt.gz file. If not set, grab the latest from NCBI.")
+g.add("-M", "--multi-alleles", action="store_true", default = False, help="Add this option to output another table with complex alleles")
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -167,7 +169,8 @@ done
 job.add("cp IN:clinvar_alleles_stats.txt OUT:../clinvar_alleles_stats.txt")
 
 #output a table only containing the complex genotype, each row contains an allele
-job.add("python -u IN:parse_clinvar_xml_complex_alleles.py -x IN:%s -o OUT:clinvar_multi_alleles.tsv" % clinvar_xml)
-job.add("cp IN:clinvar_multi_alleles.tsv ../", output_filenames=["../clinvar_multi_alleles.tsv"])
+if args.multi_alleles:
+    job.add("python -u IN:parse_clinvar_xml_complex_alleles.py -x IN:%s -o OUT:clinvar_multi_alleles.tsv" % clinvar_xml)
+    job.add("cp IN:clinvar_multi_alleles.tsv OUT:../clinvar_multi_alleles.tsv")
 # run the above commands
 jr.run(job)
