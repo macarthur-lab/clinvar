@@ -28,11 +28,20 @@ def table_to_vcf(input_table_path):
     print("""
 ##fileformat=VCFv4.1
 ##source=clinvar
-##INFO=<ID=MUT,Number=1,Type=String,Description="MUT">
+##INFO=<ID=MEASURESET_TYPE,Number=1,Type=String,Description="MEASURESET_TYPE">
 ##INFO=<ID=MEASURESET_ID,Number=1,Type=String,Description="MEASURESET_ID">
+##INFO=<ID=RCV,Number=1,Type=String,Description="RCV">
+##INFO=<ID=ALLELE_ID,Number=1,Type=String,Description="ALLELE_ID">
 ##INFO=<ID=SYMBOL,Number=1,Type=String,Description="SYMBOL">
+##INFO=<ID=HGVS_C,Number=1,Type=String,Description="HGVS_C">
+##INFO=<ID=HGVS_P,Number=1,Type=String,Description="HGVS_P">
+##INFO=<ID=MOLECULAR_CONSEQUENCE,Number=1,Type=String,Description="MOLECULAR_CONSEQUENCE">
 ##INFO=<ID=CLINICAL_SIGNIFICANCE,Number=1,Type=String,Description="CLINICAL_SIGNIFICANCE">
+##INFO=<ID=PATHOGENIC,Number=1,Type=String,Description="PATHOGENIC">
+##INFO=<ID=BENIGN,Number=1,Type=String,Description="BENIGN">
+##INFO=<ID=CONFLICTED,Number=1,Type=String,Description="CONFLICTED">
 ##INFO=<ID=REVIEW_STATUS,Number=1,Type=String,Description="REVIEW_STATUS">
+##INFO=<ID=GOLD_STARS,Number=1,Type=String,Description="Number of gold stars as shown on clinvar web pages to summarize review status. Lookup table described at http://www.ncbi.nlm.nih.gov/clinvar/docs/details/ was used to map the REVIEW_STATUS value to this number.">
 ##INFO=<ID=ALL_SUBMITTERS,Number=1,Type=String,Description="ALL_SUBMITTERS">
 ##INFO=<ID=ALL_TRAITS,Number=1,Type=String,Description="ALL_TRAITS">
 ##INFO=<ID=ALL_PMIDS,Number=1,Type=String,Description="ALL_PMIDS">
@@ -41,10 +50,7 @@ def table_to_vcf(input_table_path):
 ##INFO=<ID=PREVALENCE,Number=1,Type=String,Description="PREVALENCE">
 ##INFO=<ID=DISEASE_MECHANISM,Number=1,Type=String,Description="DISEASE_MECHANISM">
 ##INFO=<ID=ORIGIN,Number=1,Type=String,Description="ORIGIN">
-##INFO=<ID=GOLD_STARS,Number=1,Type=String,Description="Number of gold stars as shown on clinvar web pages to summarize review status. Lookup table described at http://www.ncbi.nlm.nih.gov/clinvar/docs/details/ was used to map the REVIEW_STATUS value to this number.">
-##INFO=<ID=ALL_PATHOGENIC,Number=1,Type=String,Description="ALL_PATHOGENIC">
-##INFO=<ID=ALL_CONFLICTED,Number=1,Type=String,Description="ALL_CONFLICTED">
-##INFO=<ID=ALL_BENIGN,Number=1,Type=String,Description="ALL_BENIGN">
+##INFO=<ID=XREFS,Number=1,Type=String,Description="CROSS_REFERENCES">
 ##contig=<ID=1,length=249250621>
 ##contig=<ID=2,length=243199373>
 ##contig=<ID=3,length=198022430>
@@ -90,12 +96,11 @@ def table_to_vcf(input_table_path):
         #    INFO - additional information: (String, no white-space, semi-colons, or equals-signs permitted; commas are
         #    permitted only as delimiters for lists of values) INFO fields are encoded as a semicolon-separated series of short
         #    keys with optional values in the format: <key>=<data>[,data].
-        for key in ["mut", "measureset_id", "symbol",
-                    "clinical_significance", "review_status",
-                    "all_submitters", "all_traits", "all_pmids",
-                    "inheritance_modes", "age_of_onset", "prevalence", 
-                    "disease_mechanism", "origin",
-                    "pathogenic", "conflicted", "benign"]:
+        for key in ['measureset_type','measureset_id','rcv','allele_id',
+        'symbol', 'hgvs_c','hgvs_p','molecular_consequence','clinical_significance', 
+        'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars','all_submitters',
+        'all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence', 'disease_mechanism', 
+        'origin', 'xrefs']:
             if pd.isnull(table_row[key]):
                 continue
             value = str(table_row[key])

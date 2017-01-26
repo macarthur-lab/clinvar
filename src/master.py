@@ -10,6 +10,7 @@ import ftplib
 import os
 import sys
 from distutils import spawn
+from configargparse import Action
 
 try:
     import pypez
@@ -26,6 +27,7 @@ g.add("-R", "--reference-genome", help="b37 .fa genome reference file", required
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
 g.add("-X", "--clinvar-xml", help="The local filename of the ClinVarFullRelase.xml.gz file. If not set, grab the latest from NCBI.")
 g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the variant_summary.txt.gz file. If not set, grab the latest from NCBI.")
+g.add("-M", "--multi-alleles", action="store_true", default = False, help="Add this option to output another table with complex alleles")
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -89,6 +91,7 @@ else:
     variant_summary_table = "variant_summary.txt.gz"
     download_if_changed(jr, variant_summary_table,  "ftp.ncbi.nlm.nih.gov", "/pub/clinvar/tab_delimited/variant_summary.txt.gz")
 
+
 jr.run()
 
 job = pypez.Job()
@@ -101,53 +104,73 @@ job.add("python -u IN:parse_clinvar_xml.py -x IN:%s -o OUT:clinvar_table_raw.tsv
 job.add("wget -N https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py")
 job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_raw.tsv > OUT:clinvar_table_normalized.tsv" % locals())
 
+#remove empty rows
+job.add("ex -s +'bufdo!v/\S/d' -cxa clinvar_table_normalized.tsv") #remove the empty lines
+#sort
+job.add("(cat IN:clinvar_table_normalized.tsv | head -1 > OUT:clinvar_allele_trait_pairs.tsv ) && " + # header row
+    "(cat IN:clinvar_table_normalized.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:clinvar_allele_trait_pairs.tsv ) && " + # numerically sort chroms 1-22
+    "(cat IN:clinvar_table_normalized.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_allele_trait_pairs.tsv )")     # lexicogaraphically sort non-numerical chroms at end
+
+job.add("bgzip -c IN:clinvar_allele_trait_pairs.tsv > OUT:clinvar_allele_trait_pairs.tsv.gz")
+job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_allele_trait_pairs.tsv.gz", output_filenames=["clinvar_allele_trait_pairs.tsv.gz.tbi"])
+job.add("cp IN:clinvar_allele_trait_pairs.tsv.gz IN:clinvar_allele_trait_pairs.tsv.gz.tbi ../", output_filenames=["../clinvar_allele_trait_pairs.tsv.gz", "../clinvar_allele_trait_pairs.tsv.gz.tbi"])
+
 # join information from the tab-delimited summary to the normalized genomic coordinates
-job.add("Rscript IN:join_data.R IN:%s" % variant_summary_table, input_filenames=['clinvar_table_normalized.tsv'], output_filenames=['clinvar_combined.tsv'])
+job.add("Rscript IN:join_data.R IN:%s" % variant_summary_table, input_filenames=['clinvar_allele_trait_pairs.tsv'], output_filenames=['clinvar_combined.tsv'])
 
 # now sort again by genomic coordinates (because R's merge function ruins this)
-job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_combined_sorted.tsv ) && " + # header row
-    "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:clinvar_combined_sorted.tsv ) && " + # numerically sort chroms 1-22
-    "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_combined_sorted.tsv )")     # lexicogaraphically sort non-numerical chroms at end
+# and group by allele
+job.add("(cat IN:clinvar_combined.tsv | head -1 > OUT:clinvar_sorted.tsv ) && " + # header row
+    "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:clinvar_sorted.tsv ) && " + # numerically sort chroms 1-22
+    "(cat IN:clinvar_combined.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_sorted.tsv )")     # lexicogaraphically sort non-numerical chroms at end
+job.add("python -u IN:group_by_allele.py -i IN:clinvar_sorted.tsv | tee clinvar_alleles.tsv | bgzip -c > OUT:clinvar_alleles.tsv.gz")
 
-# now de-dup _again_, because the tab-delimited summary contains dups
-job.add("python -u IN:dedup_clinvar.py < IN:clinvar_combined_sorted.tsv | tee clinvar.tsv | bgzip -c > OUT:clinvar.tsv.gz")  # clinvar_combined_sorted_dedup.tsv.gz
-job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar.tsv.gz", output_filenames=["clinvar.tsv.gz.tbi"])
-job.add("cp IN:clinvar.tsv.gz IN:clinvar.tsv.gz.tbi ../", output_filenames=["../clinvar.tsv", "../clinvar.tsv.gz", "../clinvar.tsv.gz.tbi"])
+
+job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_alleles.tsv.gz", output_filenames=["clinvar_alleles.tsv.gz.tbi"])
+job.add("cp IN:clinvar_alleles.tsv.gz IN:clinvar_alleles.tsv.gz.tbi ../", output_filenames=["../clinvar_alleles.tsv.gz", "../clinvar_alleles.tsv.gz.tbi"])
 
 # create vcf
-job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar.tsv | bgzip -c > OUT:clinvar.vcf.gz")  # create compressed version
-job.add("tabix IN:clinvar.vcf.gz", output_filenames=["clinvar.vcf.gz.tbi"])
-job.add("cp IN:clinvar.vcf.gz IN:clinvar.vcf.gz.tbi ../", output_filenames=["../clinvar.vcf.gz", "../clinvar.vcf.gz.tbi"])
+job.add("python -u IN:clinvar_table_to_vcf.py IN:clinvar_alleles.tsv | bgzip -c > OUT:clinvar_alleles.vcf.gz")  # create compressed version
+job.add("tabix IN:clinvar_alleles.vcf.gz", output_filenames=["clinvar_alleles.vcf.gz.tbi"])
+job.add("cp IN:clinvar_alleles.vcf.gz IN:clinvar_alleles.vcf.gz.tbi ../", output_filenames=["../clinvar_alleles.vcf.gz", "../clinvar_alleles.vcf.gz.tbi"])
 
 # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
 if args.exac_sites_vcf:
     normalized_vcf = os.path.basename(args.exac_sites_vcf).split('.vcf')[0] + ".normalized.vcf.gz"
     job.add("vt decompose -s IN:%s | vt normalize -r IN:%s - | bgzip -c > OUT:%s" % (args.exac_sites_vcf, args.reference_genome, normalized_vcf))
     job.add("tabix IN:"+normalized_vcf, output_filenames=[normalized_vcf+".tbi"])
-    job.add("python -u IN:add_exac_fields.py -i IN:clinvar.tsv -e IN:%(normalized_vcf)s | bgzip -c > OUT:clinvar_with_exac.tsv.gz" % locals())
-    job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_with_exac.tsv.gz", output_filenames=["clinvar_with_exac.tsv.gz.tbi"])
-    job.add("cp IN:clinvar_with_exac.tsv.gz IN:clinvar_with_exac.tsv.gz.tbi ../", output_filenames=["../clinvar_with_exac.tsv.gz", "../clinvar_with_exac.tsv.gz.tbi"])
+    job.add("python -u IN:add_exac_fields.py -i IN:clinvar_alleles.tsv -e IN:%(normalized_vcf)s | bgzip -c > OUT:clinvar_alleles_with_exac.tsv.gz" % locals())
+    job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_alleles_with_exac.tsv.gz", output_filenames=["clinvar_alleles_with_exac.tsv.gz.tbi"])
+    job.add("cp IN:clinvar_alleles_with_exac.tsv.gz IN:clinvar_alleles_with_exac.tsv.gz.tbi ../", output_filenames=["../clinvar_alleles_with_exac.tsv.gz", "../clinvar_alleles_with_exac.tsv.gz.tbi"])
 
 # create uncompressed example files that contain the 1st 750 lines of the compressed tsvs so people can easily see typical values online on github
-job.add("gunzip -c IN:clinvar.vcf.gz | head -n 750 > OUT:../clinvar_example_750_rows.vcf")
-job.add("gunzip -c IN:clinvar.tsv.gz | head -n 750 > OUT:../clinvar_example_750_rows.tsv")
-job.add("gunzip -c IN:clinvar_with_exac.tsv.gz | head -n 750 > OUT:../clinvar_with_exac_example_750_rows.tsv")
+job.add("gunzip -c IN:clinvar_alleles.vcf.gz | head -n 750 > OUT:../clinvar_alleles_example_750_rows.vcf")
+job.add("gunzip -c IN:clinvar_alleles.tsv.gz | head -n 750 > OUT:../clinvar_alleles_example_750_rows.tsv")
+job.add("gunzip -c IN:clinvar_allele_trait_pairs.tsv.gz | head -n 750 > OUT:../clinvar_allele_trait_pairs_example_750_rows.tsv")
+job.add("gunzip -c IN:clinvar_alleles_with_exac.tsv.gz | head -n 750 > OUT:../clinvar_alleles_with_exac_example_750_rows.tsv")
 
-# create a stats file that summarizes some of the columns
-# Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: mut, 6: measureset_id, 7: symbol, 8: clinical_significance, 9: pathogenic, 10: benign, 11: conflicted, 12: review_status, 13: gold_stars, 14: hgvs_c, 15: hgvs_p, 16: all_submitters, 17: all_traits, 18: all_pmids, 19: inheritance_modes, 20: age_of_onset, 21: prevalence, 22: disease_mechanism, 23: origin, 24: xrefs
+# create a stats file that summarizes some of the columns of clinvar_alleles.tsv.gz file
+# Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 
+# 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 
+# 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 
+# 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
 
 job.add("""echo \
-Columns: $(gunzip -c clinvar.tsv.gz | head -n 1 | python -c "import sys;print(', '.join(['%s: %s'%(i+1,v) for l in sys.stdin for i,v in enumerate(l.split())]))") > OUT:clinvar_stats.txt &&
-echo ================ >> OUT:clinvar_stats.txt &&
-echo Total Rows: $(gunzip -c clinvar.tsv.gz | tail -n +2 | wc -l) >> OUT:clinvar_stats.txt &&
-for i in 8 9 10 11 12 13 19 20 21 22 23; do 
-    echo ================ >> OUT:clinvar_stats.txt ;
-    gunzip -c IN:clinvar.tsv.gz | head -n 1 | cut -f $i >> OUT:clinvar_stats.txt ;
-    gunzip -c IN:clinvar.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:clinvar_stats.txt ;
+Columns: $(gunzip -c clinvar_alleles.tsv.gz | head -n 1 | python -c "import sys;print(', '.join(['%s: %s'%(i+1,v) for l in sys.stdin for i,v in enumerate(l.split())]))") > OUT:clinvar_alleles_stats.txt &&
+echo ================ >> OUT:clinvar_alleles_stats.txt &&
+echo Total Rows: $(gunzip -c clinvar_alleles.tsv.gz | tail -n +2 | wc -l) >> OUT:clinvar_alleles_stats.txt &&
+for i in 13 14 15 16 17 18 22 23 24 25 26; do 
+    echo ================ >> OUT:clinvar_alleles_stats.txt ;
+    gunzip -c IN:clinvar_alleles.tsv.gz | head -n 1 | cut -f $i >> OUT:clinvar_alleles_stats.txt ;
+    gunzip -c IN:clinvar_alleles.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:clinvar_alleles_stats.txt ;
 done
-""", input_filenames=["clinvar.tsv.gz", "master.py"])
+""", input_filenames=["clinvar_alleles.tsv.gz", "master.py"])
 
-job.add("cp IN:clinvar_stats.txt OUT:../clinvar_stats.txt")
+job.add("cp IN:clinvar_alleles_stats.txt OUT:../clinvar_alleles_stats.txt")
 
+#output a table only containing the complex genotype, each row contains an allele
+if args.multi_alleles:
+    job.add("python -u IN:parse_clinvar_xml_complex_alleles.py -x IN:%s -o OUT:clinvar_multi_alleles.tsv" % clinvar_xml)
+    job.add("cp IN:clinvar_multi_alleles.tsv OUT:../clinvar_multi_alleles.tsv")
 # run the above commands
 jr.run(job)

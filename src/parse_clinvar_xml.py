@@ -7,9 +7,10 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-# to test: ./parse_clinvar_xml.py -x clinvar_test.xml
-# to run for reals: bsub -q priority -R rusage[mem=32] -oo cvxml.o -eo cvxml.e -J cvxml "./parse_clinvar_xml.py -x ClinVarFullRelease_00-latest.xml.gz -o clinvar_table.tsv"
+
 # then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
+# Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
+# Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
 
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)' # group(1) will be all the text after the word PubMed or PMID
 extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the first PubMed ID, group(2) will be all remaining text
@@ -21,10 +22,15 @@ def remove_newlines_and_tabs(s):
     return re.sub("[\t\n\r]", " ", s)
 
 def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
-    # print a header row
+
+    #measureset -> rcv (one to many) 
     header = [
-        'chrom', 'pos', 'ref', 'alt', 'mut', 'measureset_id', 'all_submitters', 'all_traits', 'all_pmids',
-        'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'
+        'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
+        'allele_id','symbol',
+        'hgvs_c','hgvs_p','molecular_consequence',
+        'clinical_significance','review_status','all_submitters','all_traits',
+        'all_pmids','inheritance_modes', 'age_of_onset', 'prevalence', 
+        'disease_mechanism', 'origin','xrefs'
     ]
     dest.write(('\t'.join(header) + '\n').encode('utf-8'))
     counter = 0
@@ -32,6 +38,54 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
     for event, elem in ET.iterparse(handle):
         if elem.tag != 'ClinVarSet' or event != 'end':
             continue
+        
+        #initialize all the fields
+
+        
+        current_row = {}
+        current_row['rcv']=''
+        current_row['measureset_type']=''
+        current_row['measureset_id']=''
+        current_row['allele_id']=''
+        
+        rcv = elem.find('./ReferenceClinVarAssertion/ClinVarAccession')
+        if rcv.attrib.get('Type')!='RCV':
+            print "Error, not RCV record" 
+            break;  
+        else:
+            current_row['rcv']=rcv.attrib.get('Acc')
+        
+        measureset = elem.findall(".//ReferenceClinVarAssertion/MeasureSet")
+        
+        #only the ones with just one measure set can be recorded
+        if(len(measureset)>1):
+            print "A submission has more than one measure set."+elem.find('./Title').text 
+            elem.clear()
+            continue
+        elif(len(measureset)==0):
+            print "A submission has no measure set type"+measureset.attrib.get('ID')
+            elem.clear()
+            continue
+        
+        measureset=measureset[0]
+        current_row['measureset_id']=measureset.attrib.get('ID')
+        current_row['measureset_type']=measureset.get('Type')
+        
+        
+        measure=measureset.findall('.//Measure')
+        if measure is None:
+            skipped_counter['missing measure/allele)'] += 1
+            elem.clear()
+            continue # skip variants without a allele ID
+        
+        #TODO: currently, skip the variation (measureset) with multiple alleles
+        elif(len(measure)>1):
+            skipped_counter['skipping the variation with multiple alleles']+=1
+            elem.clear()
+            continue
+
+        #find the allele ID (//Measure/@ID)
+        current_row['allele_id']=measure[0].attrib.get('ID')
 
         # find the GRCh37 VCF representation
         grch37_location = None
@@ -39,35 +93,52 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             if sequence_location.attrib.get('Assembly') == 'GRCh37':
                 if all(sequence_location.attrib.get(key) is not None for key in ('Chr', 'start', 'referenceAllele','alternateAllele')):
                     grch37_location = sequence_location
-
+                    break
+        #break after finding the first non-empty GRCh37 location
+                
         if grch37_location is None:
             skipped_counter['missing SequenceLocation'] += 1
             elem.clear()
             continue # don't bother with variants that don't have a VCF location
-
-        measuresets = elem.findall('.//MeasureSet')
-        if measuresets is None:
-            skipped_counter['missing MeasureSet'] += 1
-            elem.clear()
-            continue # skip variants without a MeasureSet ID
-
-        current_row = {}
+                
         current_row['chrom'] = grch37_location.attrib['Chr']
         current_row['pos'] = grch37_location.attrib['start']
         current_row['ref'] = grch37_location.attrib['referenceAllele']
         current_row['alt'] = grch37_location.attrib['alternateAllele']
-        current_row['measureset_id'] = measuresets[0].attrib['ID']
+           
+        #find the gene symbol 
+        current_row['symbol']=''
+        genesymbol = elem.findall('.//Symbol')
+        if genesymbol is not None:
+            for symbol in genesymbol:
+                if(symbol.find('ElementValue').attrib.get('Type')=='Preferred'):
+                    current_row['symbol']=symbol.find('ElementValue').text;
+                    break
 
-        # iterate over attributes in the MeasureSet
-        current_row['mut'] = 'ALT' # default is that each entry refers to the alternate allele
-        for attribute in elem.findall('.//Attribute'):
-            attribute_type = attribute.attrib.get('Type')
-            if attribute_type is not None and "HGVS" in attribute_type and "protein" not in attribute_type: # if this is an HGVS cDNA, _not_ protein, annotation:
-                if attribute.text is not None and "=" in attribute.text: # and if there is an equals sign in the text, then
-                    current_row['mut'] = 'REF' # that is their funny way of saying this assertion refers to the reference allele
+        current_row['molecular_consequence']=set()
+        current_row['hgvs_c']=''
+        current_row['hgvs_p']=''
 
-        # init list fields
-
+        attributeset=elem.findall('./ReferenceClinVarAssertion/MeasureSet/Measure/AttributeSet')
+        for attribute_node in attributeset: 
+            attribute_type=attribute_node.find('./Attribute').attrib.get('Type')
+            attribute_value=attribute_node.find('./Attribute').text;
+            
+            #find hgvs_c
+            if(attribute_type=='HGVS, coding, RefSeq'):
+                current_row['hgvs_c']=attribute_value
+            
+            #find hgvs_p
+            if(attribute_type=='HGVS, protein, RefSeq'):
+                current_row['hgvs_p']=attribute_value
+            
+            #aggregate all molecular consequences
+            if (attribute_type=='MolecularConsequence'):
+                for xref in attribute_node.findall('.//XRef'):
+                    if xref.attrib.get('DB')=="RefSeq":
+                        #print xref.attrib.get('ID'), attribute_value
+                        current_row['molecular_consequence'].add(":".join([xref.attrib.get('ID'),attribute_value]))
+        
         # find all the Citation nodes, and get the PMIDs out of them
         pmids = []
         for citation in elem.findall('.//Citation'):
@@ -96,7 +167,17 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             for submitter_node in elem.findall('.//ClinVarSubmissionID')
             if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter')
         ])
-
+        
+        #find the clincial significance and review status reported in RCV(aggregated from SCV)
+        current_row['clinical_significance']=[]
+        current_row['review_status']=[]
+        
+        clinical_significance=elem.find('.//ReferenceClinVarAssertion/ClinicalSignificance') 
+        if clinical_significance.find('.//ReviewStatus') is not None:
+            current_row['review_status']=clinical_significance.find('.//ReviewStatus').text;
+        if clinical_significance.find('.//Description') is not None:
+            current_row['clinical_significance']=clinical_significance.find('.//Description').text
+        
         # init new fields
         for list_column in ('inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'):
             current_row[list_column] = set()
@@ -110,7 +191,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                 if disease_name_node.attrib is not None and disease_name_node.attrib.get('Type') == 'Preferred':
                     trait_values.append(disease_name_node.text)
             current_row['all_traits'] += trait_values
-
+            
             for attribute_node in traitset.findall('.//AttributeSet/Attribute'):
                 attribute_type = attribute_node.attrib.get('Type')
                 if attribute_type in {'ModeOfInheritance', 'age of onset', 'prevalence', 'disease mechanism'}:
@@ -118,22 +199,30 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
                     column_value = attribute_node.text.strip()
                     if column_value:
                         current_row[column_name].add(column_value)
-
+                        
+        #put all the cross references one column, it may contains NCBI gene ID, conditions ID in disease databases. 
             for xref_node in traitset.findall('.//XRef'):
                 xref_db = xref_node.attrib.get('DB')
                 xref_id = xref_node.attrib.get('ID')
                 current_row['xrefs'].add("%s:%s" % (xref_db, xref_id))
-
+        
+        current_row['origin']=set()
+        for origin in elem.findall('.//ReferenceClinVarAssertion/ObservedIn/Sample/Origin'):
+            current_row['origin'].add(origin.text)
+        
         # done parsing the xml for this one clinvar set.
         elem.clear()
 
         # convert collection to string for the following fields
-        for column_name in ('all_traits', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'):
+        for column_name in ('molecular_consequence','all_traits', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin','xrefs'):
             column_value = current_row[column_name] if type(current_row[column_name]) == list else sorted(current_row[column_name])  # sort columns of type 'set' to get deterministic order
             current_row[column_name] = remove_newlines_and_tabs(';'.join(map(replace_semicolons, column_value)))
 
         # write out the current_row
         dest.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+
+            
+
         counter += 1
         if counter % 100 == 0:
             dest.flush()

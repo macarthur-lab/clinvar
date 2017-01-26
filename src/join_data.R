@@ -16,23 +16,26 @@ if (length(args) == 1) {
 }
 
 # load what we've extracted from the XML so far
-xml_extract = read.table('clinvar_table_normalized.tsv',sep='\t',comment.char='',quote='',header=T)
-print(dim(xml_extract))
+xml_raw = read.table('clinvar_allele_trait_pairs.tsv',sep='\t',comment.char='',quote='',header=T)
+print(dim(xml_raw))
 
 # load the tab-delimited summary
-txt_download = read.table(variant_summary_table,sep='\t',comment.char='',quote='',header=T)
+txt_download = read.table(variant_summary_table,sep='\t',comment.char='',quote='',header=T,skipNul = TRUE,check.names = FALSE)
 print(dim(txt_download))
 
 # subset the tab-delimited summary to desired rows and cols
 colnames(txt_download) = gsub('\\.','_',tolower(colnames(txt_download)))
+colnames(txt_download) = replace(colnames(txt_download),1,"allele_id")
 
-desired_columns = c('variantid','genesymbol','clinicalsignificance','reviewstatus','hgvs_c__','hgvs_p__', 'origin')
+desired_columns<-c('allele_id','clinicalsignificance','reviewstatus')
 txt_extract = subset(txt_download, assembly == 'GRCh37', select=desired_columns)
-colnames(txt_extract) = c('measureset_id','symbol','clinical_significance','review_status','hgvs_c','hgvs_p','origin')
+colnames(txt_extract)<-c('allele_id','clinical_significance','review_status')
+#drop the clinical_significance and review_status in clinvar_record.tsv 
+#use the summary ones in variant_summary.txt
+xml_extract = subset(xml_raw,select=-c(clinical_significance,review_status))
 
-
-# join on measureset_id
-combined = merge(xml_extract, txt_extract, by='measureset_id')
+# join on allele id
+combined = merge( xml_extract, txt_extract,by='allele_id',all.x=FALSE)
 
 # lookup table based on http://www.ncbi.nlm.nih.gov/clinvar/docs/details/
 gold_stars_table = list(
@@ -58,6 +61,6 @@ combined$conflicted = as.integer(grepl('athogenic',combined$clinical_significanc
 combined$benign = as.integer(grepl('enign',combined$clinical_significance))
 
 # re-order the columns
-combined = combined[,c('chrom','pos','ref','alt','mut','measureset_id','symbol','clinical_significance', 'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars', 'hgvs_c','hgvs_p', 'all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin', 'xrefs')]
+combined = combined[,c('chrom','pos','ref','alt','measureset_type','measureset_id','rcv','allele_id','symbol', 'hgvs_c','hgvs_p','molecular_consequence','clinical_significance', 'pathogenic', 'benign', 'conflicted', 'review_status', 'gold_stars','all_submitters','all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence', 'disease_mechanism', 'origin', 'xrefs')]
 
 write.table(combined,'clinvar_combined.tsv',sep='\t',row.names=F,col.names=T,quote=F)
