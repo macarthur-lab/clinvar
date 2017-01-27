@@ -7,6 +7,9 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
+# then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
+# Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
+# Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
 
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)' # group(1) will be all the text after the word PubMed or PMID
 extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the first PubMed ID, group(2) will be all remaining text
