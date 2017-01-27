@@ -97,7 +97,12 @@ jr.run()
 job = pypez.Job()
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
-job.add("python -u IN:parse_clinvar_xml.py -x IN:%s -o OUT:clinvar_table_raw.tsv" % clinvar_xml)
+#output a table only containing the complex genotype, each row contains an allele
+if args.multi_alleles:
+    job.add("python -u IN:parse_clinvar_xml.py -x IN:%s -o OUT:clinvar_table_raw.tsv -m OUT:clinvar_multi_alleles.tsv" % clinvar_xml)
+    job.add("cp IN:clinvar_multi_alleles.tsv OUT:../clinvar_multi_alleles.tsv")
+else:
+    job.add("python -u IN:parse_clinvar_xml.py -x IN:%s -o OUT:clinvar_table_raw.tsv" % clinvar_xml)
 
 # normalize (convert to minimal representation and left-align)
 # the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
@@ -168,9 +173,5 @@ done
 
 job.add("cp IN:clinvar_alleles_stats.txt OUT:../clinvar_alleles_stats.txt")
 
-#output a table only containing the complex genotype, each row contains an allele
-if args.multi_alleles:
-    job.add("python -u IN:parse_clinvar_xml_complex_alleles.py -x IN:%s -o OUT:clinvar_multi_alleles.tsv" % clinvar_xml)
-    job.add("cp IN:clinvar_multi_alleles.tsv OUT:../clinvar_multi_alleles.tsv")
 # run the above commands
 jr.run(job)
