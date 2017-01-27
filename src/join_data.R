@@ -13,9 +13,13 @@ args = commandArgs(trailingOnly=TRUE)
 #either processing multi_alleles file
 multi = (args[1]=='M')
 
+print(paste("Process multi alleles? ",multi))
+
 variant_summary_table = 'variant_summary.txt.gz'
 if (length(args) == 1) {
   variant_summary_table = args[1]
+}else{
+  variant_summary_table = args[2]
 }
 
 # load what we've extracted from the XML so far
