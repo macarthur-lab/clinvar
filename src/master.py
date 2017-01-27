@@ -97,11 +97,8 @@ jr.run()
 job = pypez.Job()
 
 # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
-<<<<<<< HEAD
 # with option "master.py -M", complex alleles would also be output in the other file "clinvar_multi_raw.tsv"
-=======
-# with option "master.py -M", complex alleles would also be output in the other file "clinvar_multi_alleles.tsv"
->>>>>>> origin/creat_variant-conditions_record
+
 if args.multi_alleles:
     job.add("python -u IN:parse_clinvar_xml.py -x IN:%s -o OUT:clinvar_table_raw.tsv -m OUT:clinvar_multi_raw.tsv" % clinvar_xml)
 else:
