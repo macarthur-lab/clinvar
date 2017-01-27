@@ -8,9 +8,7 @@ import argparse
 from parse_clinvar_xml import *
 
 # recommended usage:
-# ./dedup_clinvar.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv
-
-#modified by Xioalei Zhang
+# ./group_by_allele.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv
 '''
 Run through a sorted clinvar_table.tsv file from the parse_clinvar_xml script, and make it unique on CHROM POS REF ALT
 '''
