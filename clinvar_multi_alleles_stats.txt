@@ -1,0 +1,110 @@
+Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
+================
+Total Rows: 825
+================
+clinical_significance
+ 517 Pathogenic
+ 152 Likely pathogenic
+  51 other
+  44 Uncertain significance
+  17 not provided
+  15 risk factor
+  10 Likely benign
+   7 Benign
+   6 association
+   4 drug response
+   2 protective
+================
+pathogenic
+ 669 1
+ 156 0
+================
+benign
+ 808 0
+  17 1
+================
+conflicted
+ 825 0
+================
+review_status
+ 594 no assertion criteria provided
+ 211 criteria provided, single submitter
+  17 no assertion provided
+   3 reviewed by expert panel
+================
+gold_stars
+ 611 0
+ 211 1
+   3 3
+================
+inheritance_modes
+ 531 
+ 217 Autosomal recessive inheritance
+  71 Autosomal dominant inheritance
+   8 X-linked recessive inheritance
+   4 Sporadic
+   2 X-linked inheritance
+   2 X-linked dominant inheritance
+   2 Codominant
+================
+age_of_onset
+ 368 
+ 174 Infancy
+  95 Childhood
+  67 All ages
+  57 Adolescent
+  34 Adult
+  26 Neonatal
+  14 Antenatal
+   2 Neonatal/infancy
+================
+prevalence
+ 426 
+ 141 <1 / 1 000 000
+ 124 1-9 / 100 000
+  89 1-9 / 1 000 000
+  33 1-5 / 10 000
+   9 1:3200
+   9 1 in 2000-4000 depending on the population studied.
+   4 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
+   4 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
+   4 Rare - 63 per million
+   4 1 per million
+   2 unknown, <1 per million
+   2 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
+   2 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
+   2 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
+   2 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
+   2 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
+   2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
+   2 Congenital deafness affects 1 in 1,000 births.
+   2 Congenital deafness affects 1 in 1,000 births
+   2 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
+   2 >1 / 1000
+   2 2:100 000 in Finland, 0,26:100 000 in the North of England
+   2 2.29 to 3.2 per 100,000 individuals
+   2 1:30,000 in males and 1:125,000 in females
+   2 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
+   2 1/200,000
+   2 1.3 per 100,000
+   2 1 in 248,000 (in combination with Niemann-Pick A)
+   1 1:3,000
+================
+disease_mechanism
+ 744 
+  75 loss of function
+   6 gain of function
+   2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
+================
+origin
+ 607 germline
+  94 unknown
+  52 not provided
+  32 inherited
+  20 maternal
+   6 somatic
+   6 paternal
+   6 not applicable
+   6 de novo
+   4 tested-inconclusive
+   2 biparental

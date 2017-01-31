@@ -7,7 +7,6 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-
 # then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
 # Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
 # Reference on clinvar XML tag: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
@@ -21,8 +20,8 @@ def replace_semicolons(s, replace_with=":"):
 def remove_newlines_and_tabs(s):
     return re.sub("[\t\n\r]", " ", s)
 
-def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
-
+def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='collapsed'):
+    
     #measureset -> rcv (one to many) 
     header = [
         'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
@@ -33,7 +32,11 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
         'disease_mechanism', 'origin','xrefs'
     ]
     dest.write(('\t'.join(header) + '\n').encode('utf-8'))
+    if multi is not None:
+        multi.write(('\t'.join(header) + '\n').encode('utf-8'))
     counter = 0
+    scounter = 0
+    mcounter = 0
     skipped_counter = defaultdict(int)
     for event, elem in ET.iterparse(handle):
         if elem.tag != 'ClinVarSet' or event != 'end':
@@ -68,76 +71,12 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
             continue
         
         measureset=measureset[0]
+        
+        measure=measureset.findall('.//Measure')
+        
         current_row['measureset_id']=measureset.attrib.get('ID')
         current_row['measureset_type']=measureset.get('Type')
         
-        
-        measure=measureset.findall('.//Measure')
-        if measure is None:
-            skipped_counter['missing measure/allele)'] += 1
-            elem.clear()
-            continue # skip variants without a allele ID
-        
-        #TODO: currently, skip the variation (measureset) with multiple alleles
-        elif(len(measure)>1):
-            skipped_counter['skipping the variation with multiple alleles']+=1
-            elem.clear()
-            continue
-
-        #find the allele ID (//Measure/@ID)
-        current_row['allele_id']=measure[0].attrib.get('ID')
-
-        # find the GRCh37 VCF representation
-        grch37_location = None
-        for sequence_location in elem.findall(".//SequenceLocation"):
-            if sequence_location.attrib.get('Assembly') == 'GRCh37':
-                if all(sequence_location.attrib.get(key) is not None for key in ('Chr', 'start', 'referenceAllele','alternateAllele')):
-                    grch37_location = sequence_location
-                    break
-        #break after finding the first non-empty GRCh37 location
-                
-        if grch37_location is None:
-            skipped_counter['missing SequenceLocation'] += 1
-            elem.clear()
-            continue # don't bother with variants that don't have a VCF location
-                
-        current_row['chrom'] = grch37_location.attrib['Chr']
-        current_row['pos'] = grch37_location.attrib['start']
-        current_row['ref'] = grch37_location.attrib['referenceAllele']
-        current_row['alt'] = grch37_location.attrib['alternateAllele']
-           
-        #find the gene symbol 
-        current_row['symbol']=''
-        genesymbol = elem.findall('.//Symbol')
-        if genesymbol is not None:
-            for symbol in genesymbol:
-                if(symbol.find('ElementValue').attrib.get('Type')=='Preferred'):
-                    current_row['symbol']=symbol.find('ElementValue').text;
-                    break
-
-        current_row['molecular_consequence']=set()
-        current_row['hgvs_c']=''
-        current_row['hgvs_p']=''
-
-        attributeset=elem.findall('./ReferenceClinVarAssertion/MeasureSet/Measure/AttributeSet')
-        for attribute_node in attributeset: 
-            attribute_type=attribute_node.find('./Attribute').attrib.get('Type')
-            attribute_value=attribute_node.find('./Attribute').text;
-            
-            #find hgvs_c
-            if(attribute_type=='HGVS, coding, RefSeq'):
-                current_row['hgvs_c']=attribute_value
-            
-            #find hgvs_p
-            if(attribute_type=='HGVS, protein, RefSeq'):
-                current_row['hgvs_p']=attribute_value
-            
-            #aggregate all molecular consequences
-            if (attribute_type=='MolecularConsequence'):
-                for xref in attribute_node.findall('.//XRef'):
-                    if xref.attrib.get('DB')=="RefSeq":
-                        #print xref.attrib.get('ID'), attribute_value
-                        current_row['molecular_consequence'].add(":".join([xref.attrib.get('ID'),attribute_value]))
         
         # find all the Citation nodes, and get the PMIDs out of them
         pmids = []
@@ -210,27 +149,95 @@ def parse_clinvar_tree(handle,dest=sys.stdout,verbose=True,mode='collapsed'):
         for origin in elem.findall('.//ReferenceClinVarAssertion/ObservedIn/Sample/Origin'):
             current_row['origin'].add(origin.text)
         
-        # done parsing the xml for this one clinvar set.
-        elem.clear()
-
-        # convert collection to string for the following fields
-        for column_name in ('molecular_consequence','all_traits', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin','xrefs'):
+        for column_name in ('all_traits', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin','xrefs'):
             column_value = current_row[column_name] if type(current_row[column_name]) == list else sorted(current_row[column_name])  # sort columns of type 'set' to get deterministic order
             current_row[column_name] = remove_newlines_and_tabs(';'.join(map(replace_semicolons, column_value)))
 
-        # write out the current_row
-        dest.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+        
+        for i in range(0,len(measure)):
+        #find the allele ID (//Measure/@ID)
+            current_row['allele_id']=measure[i].attrib.get('ID')
+        # find the GRCh37 VCF representation
+            grch37_location = None
+            for sequence_location in measure[i].findall(".//SequenceLocation"):
+                if sequence_location.attrib.get('Assembly') == 'GRCh37':
+                    if all(sequence_location.attrib.get(key) is not None for key in ('Chr', 'start', 'referenceAllele','alternateAllele')):
+                        grch37_location = sequence_location
+                        break
+        #break after finding the first non-empty GRCh37 location
+                
+            if grch37_location is None:
+                skipped_counter['missing SequenceLocation'] += 1
+                elem.clear()
+                continue # don't bother with variants that don't have a VCF location
+                
+            current_row['chrom'] = grch37_location.attrib['Chr']
+            current_row['pos'] = grch37_location.attrib['start']
+            current_row['ref'] = grch37_location.attrib['referenceAllele']
+            current_row['alt'] = grch37_location.attrib['alternateAllele']
+           
+            #find the gene symbol 
+            current_row['symbol']=''
+            genesymbol = measure[i].findall('.//Symbol')
+            if genesymbol is not None:
+                for symbol in genesymbol:
+                    if(symbol.find('ElementValue').attrib.get('Type')=='Preferred'):
+                        current_row['symbol']=symbol.find('ElementValue').text;
+                        break
 
+            current_row['molecular_consequence']=set()
+            current_row['hgvs_c']=''
+            current_row['hgvs_p']=''
+
+            attributeset=measure[i].findall('./AttributeSet')
+            for attribute_node in attributeset: 
+                attribute_type=attribute_node.find('./Attribute').attrib.get('Type')
+                attribute_value=attribute_node.find('./Attribute').text;
             
-
-        counter += 1
-        if counter % 100 == 0:
-            dest.flush()
-        if verbose:
-            sys.stderr.write("{0} entries completed, {1}, {2} total \r".format(
+            #find hgvs_c
+                if(attribute_type=='HGVS, coding, RefSeq'):
+                    current_row['hgvs_c']=attribute_value
+            
+            #find hgvs_p
+                if(attribute_type=='HGVS, protein, RefSeq'):
+                    current_row['hgvs_p']=attribute_value
+            
+            #aggregate all molecular consequences
+                if (attribute_type=='MolecularConsequence'):
+                    for xref in attribute_node.findall('.//XRef'):
+                        if xref.attrib.get('DB')=="RefSeq":
+                        #print xref.attrib.get('ID'), attribute_value
+                            current_row['molecular_consequence'].add(":".join([xref.attrib.get('ID'),attribute_value]))
+                
+            column_name = 'molecular_consequence'
+            column_value = current_row[column_name] if type(current_row[column_name]) == list else sorted(current_row[column_name])  # sort columns of type 'set' to get deterministic order
+            current_row[column_name] = remove_newlines_and_tabs(';'.join(map(replace_semicolons, column_value)))
+            
+            if len(measure)==1:
+                dest.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+                scounter += 1
+            else:
+                if multi is not None:
+                    multi.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+                    mcounter += 1
+            
+            if scounter % 100 == 0:
+                dest.flush()
+            if mcounter % 100 == 0:
+                if multi is not None:
+                    multi.flush()
+            
+            counter=scounter+mcounter
+            if verbose:
+                sys.stderr.write("{0} entries completed, {1}, {2} total \r".format(
                 counter, ', '.join('%s skipped due to %s' % (v, k) for k, v in skipped_counter.items()),
                 counter + sum(skipped_counter.values())))
-            sys.stderr.flush()
+                sys.stderr.flush()
+        
+        # done parsing the xml for this one clinvar set.
+        elem.clear()
+
+
     sys.stderr.write("Done\n")
 
 
@@ -247,5 +254,11 @@ if __name__ == '__main__':
                        type=str, help='Path to the ClinVar XML dump')
     parser.add_argument('-o', '--out', nargs='?', type=argparse.FileType('w'),
                        default=sys.stdout)
-    args = parser.parse_args()
-    parse_clinvar_tree(get_handle(args.xml_path),dest=args.out)
+    parser.add_argument('-m', '--multi', help="Output file name for complex alleles")
+    args = parser.parse_args() 
+    if args.multi is not None:
+        f=open(args.multi, 'w')
+        parse_clinvar_tree(get_handle(args.xml_path),dest=args.out,multi=f)
+        f.close()
+    else:
+        parse_clinvar_tree(get_handle(args.xml_path),dest=args.out)
