@@ -1,0 +1,238 @@
+Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
+================
+Total Rows: 238473
+================
+clinical_significance
+109673 Uncertain significance
+49703 Likely benign
+42162 Pathogenic
+32659 Benign
+18252 not provided
+10576 Likely pathogenic
+1938 other
+ 630 risk factor
+ 337 drug response
+ 144 association
+ 109 Affects
+  56 protective
+   2 not reported for simple variant
+================
+pathogenic
+187770 0
+50709 1
+================
+benign
+166116 0
+72365 1
+================
+conflicted
+237971 0
+ 503 1
+================
+review_status
+156358 criteria provided, single submitter
+31526 no assertion criteria provided
+22881 criteria provided, multiple submitters, no conflicts
+11862 no assertion provided
+8554 criteria provided, conflicting interpretations
+7297 reviewed by expert panel
+  23 practice guideline
+================
+gold_stars
+164909 1
+43388 0
+22881 2
+7297 3
+  23 4
+================
+inheritance_modes
+159560 
+54032 Autosomal dominant inheritance
+25148 Autosomal recessive inheritance
+2982 X-linked inheritance
+1281 Somatic mutation
+ 972 Sporadic
+ 704 X-linked recessive inheritance
+ 620 X-linked dominant inheritance
+ 400 Mitochondrial inheritance
+ 169 Autosomal unknown
+ 140 Other
+  92 Codominant
+  47 Sex-limited autosomal dominant
+================
+age_of_onset
+158629 
+21882 Infancy
+19473 All ages
+15902 Childhood
+7940 Adolescent
+6927 Antenatal
+6888 Adult
+6633 Neonatal
+1160 Neonatal/infancy
+  16 Variable
+   1 Adolescence / Young adulthood
+================
+prevalence
+163852 
+28889 1-9 / 100 000
+26061 <1 / 1 000 000
+14606 1-9 / 1 000 000
+7812 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
+6005 1-5 / 10 000
+2147 http://www.ncbi.nlm.nih.gov/books/NBK1247/
+1210 1:3200
+1210 1 in 2000-4000 depending on the population studied.
+ 997 Prevalence in Finland is at least 9:100,000 individuals.
+ 594 2.29 to 3.2 per 100,000 individuals
+ 526 1:3,000
+ 487 >1 / 1000
+ 396 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
+ 333 Rett syndrome is an X linked condition that occurs in 1 in 10,000 to 1 in 15,000 live births.
+ 318 MmD is thought to be rare. Actual prevalence figures are unknown.
+ 278 Cornelia de Lange syndrome occurs in 1 in 10-100,000 live births.
+ 278 CdLS occurs in 1 in 10-100,000 live births.
+ 262 ~1:10,000 but HHT is suspected to be under-diagnosed due to variability in clinical symptoms
+ 262 1:10,000
+ 258 CHARGE syndrome occurs in at least one in 10,000 births.
+ 258 CHARGE syndrome is an autosomal dominant condition that occurs in 1 in 12,000 live births.
+ 231 Hennekam et al [1990b] reported a birth prevalence of 1:100,000 to 1:125,000 for RSTS in the Netherlands.
+ 224 1 per million
+ 214 Sotos syndrome occurs in 1 in 14,000 live births.
+ 214 Sotos syndrome is an autosomal dominant condition that occurs in 1 in 14,000 live births.
+ 199 1 in 5,000 male live births
+ 195 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
+ 186 The prevalence of MEN 2 has been estimated at 1:35,000 [DeLellis et al 2004].
+ 186 1/35000
+ 180 The estimated incidence of permanent neonatal diabetes ranges from 1:215,000 to 1:260,000 live births
+ 175 The prevalence of AS is one in 12,000-20,000 population.
+ 175 The prevalence of AS is one in 12,000-20,000 population
+ 168 1:15,000
+ 168 1/15 000
+ 162 Occurs in 1 in approximately 32,000 live births
+ 162 KMS is an autosomal dominant condition that occurs in 1 in approximately 32,000 live births
+ 156 The prevalence of the G20210A in the general population is estimated to be 2.0%.     The prevalence of the G20210A substitution varies by ethnicity. It is most common in Europeans. the incidence is approximately 3.0% in southern Europeans, and 1.7% in northern Europeans. G20210A appears to be very rare in individuals of Asian and African descent.
+ 156 20210G>A heterozygosity occurs in 1.7%-3% of the general US and European populations: in the US, the prevalence of 20210G>A heterozygosity is 2%-5% in whites and 0%-0.3% in African Americans: among adults with VTE, 20210G>A heterozygosity is present in 6%-14% of those with a first VTE, and 18%-21% of those with a personal or family history of recurrent VTE: the prevalence of 20210G>A homozygosity is approximately one in 10,000. Double heterozygosity for the 20210G>A and factor V Leiden alleles occurs in approximately one in 1000 individuals in the general population and 2%-4.5% of persons with VTE
+ 155 1: 30,000
+ 154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births.  Less than 20% of these cases are due to de novo mutations.  Recurrence risk for a carrier female is 50%.  All daughters of affected males are obligate carriers and at risk for having affected sons.  Germline mosaicism has been observed.
+ 154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births
+ 153 1 in every 600-1500 pregnancies in Western Countries
+ 153 1 in every 600-1000 pregnancies in Western Countries
+ 151 6-9 / 10 000
+ 143 Pitt-Hopkins syndrome is a severe congenital encephalopathy that occurs in approximately 1 in 40,000 individuals
+ 138 The mutation in heterozygous form was also found in approximately 3.5% of the normal population.
+ 138 Heterozygosity for factor V Leiden occurs in 3%-8% of the general US and European populations: the mutation is extremely rare in Asian, African, and indigenous Australian populations. The factor V Leiden mutation is present in approximately 15%-20% of individuals with a first DVT: and up to 50% of individuals with recurrent venous thromboembolism or an estrogen-related thrombosis.
+ 135 Rare - 63 per million
+ 133 21-25% in familial FTLD and 6% in sporadic FTLD in North Americans and Europeans
+ 116 1:5 million
+ 114 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
+ 114 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall  incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
+ 114 1:2117 live births and carrier rate is 1:23 inhabitants in the French-Canadian population of the Saguenay and Lac-St-Jean regions of Quebec, Canada
+ 112 Estimates range from 1:250,000 to 1:50,000.
+ 110 1/200,000
+  99 Classic lissencephaly is rare. Birth prevalence is estimated to range from 11.7 per million births to 40 per million births
+  92 rare, unknown
+  86 The incidence of Menkes disease and its variants is estimated at one in 100,000 births.
+  86 1/20,000 births in general population
+  86 1/20,000 births (in all ethnic groups)
+  82 RBS is rare: no accurate estimates of prevalence have been published. Approximately 150 individuals of diverse racial and ethnic backgrounds have been reported.
+  71 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
+  69 Beta-thalassemia is one of the most common autosomal recessive disorders worldwide.  10% depending on the studied population
+  69 1 in 25,000 live male births
+  66 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
+  66 Congenital deafness affects 1 in 1,000 births.
+  66 Congenital deafness affects 1 in 1,000 births
+  63 BWS is a panethnic disorder with an estimated population incidence of 1 in 13 700.
+  51 Rare. 18% approximately of MODY patients have mutations in HNF1A.
+  50 11.8% of sporadic male patients suffer from an autosomal rather than an X-chromosomal mutation, most often LGMD2C or LGMD2D.   Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
+  47 Many common variants
+  45 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
+  44 Rare.    Populations with individuals described include northern and southern European, Lebanese/Middle eastern, Latino.  Disease allele frequency appears highest in specific migrant Lebanese populations.
+  44 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000. The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150. 30-50% of patients with Duchenne-like) muscular dystrophy have mutations on SGCA
+  42 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
+  40 unknown
+  38 unknown, <1 per million
+  38 2:100 000 in Finland, 0,26:100 000 in the North of England
+  37 The prevalence of individuals homozygous for the variant p.Cys282Tyr is approximately 3:1000 to 5:1000, or 1:200 to 1:400 [Adams et al 2005]:
+  37 Hereditary haemochromatosis which affects 1:400 individuals of Northern European decent, has a carrier rate in this population of 1:10
+  37 Based on rates of biochemical diagnosis of CDPX2 compared to Smith-Lemli-Opitz syndrome (incidence of 1 in 75-100,000 births) in one laboratory, the recognized incidence of CDPX2 is no more than one fifth the rate for Smith-Lemli-Opitz syndrome, or no greater than approximately one in 400,000 births. This number may be an underestimate because of individuals with milder features who may not be accurately diagnosed.
+  37 2 to 3 per 1000. I varies according to the population studied.
+  37 1:250 (Caucasians)
+  37 1:200 to 1:500 for the C282Y variant
+  33 1 in 1,000-2,500
+  30 Prevalence is estimated to be 1-3 in 1,000,000
+  29 1 in 248,000 (combined Niemann-Pick A/B)
+  28 Prevalence of MCT8-specific thyroid hormone cell transporter deficiency remains unknown. However, the identification of more than 50 families in approximately five years suggests that the syndrome is more common than previously suggested.
+  27 Rare. 4% approximately of MODY patients have mutations in HNF1A.
+  26 Rare
+  26 6-7:100,000.
+  26 0.1 per 10,000 live births
+  24 1:14,000
+  23 1:30,000 in males and 1:125,000 in females
+  23 1 in 248,000 (in combination with Niemann-Pick A)
+  23 1 in 200,000
+  21 1 in 1,846 live births (Saguenay-Lac Saint-Jean region of Québec)
+  19 MCPHA has been found primarily in the Old Order Amish who have ancestors in Lancaster County, Pennsylvania. At least 61 affected infants have been born to 33 nuclear families in the past 40 years. In this population, incidence is approximately one in 500 births.    The report of Siu et al [2010] shows that the phenotype is not limited to the Old Order Amish population, although prevalence is difficult to estimate.
+  19 1:50,000-100,000 births.
+  18 Gastric cancer is the 4th most frequently diagnosed cancer and the 2nd leading cause of death from cancer, with an estimated 990000 new cases and 738000 deaths registered.
+  18 3.2-7.6%
+  17 5-8/1000 live births
+  16 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations. The incidence may vary depending on ethnic origin.
+  15 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia. Among CBAVD patients, 78% had at least one CFTR mutation, 46% having two and 28% only one. Moreover, the common heterozygous F508del/5T and F508del/R117H were observed in 17 and 4% of CBAVD cases respectively.
+  15 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia
+  15 1/100,000
+  14 Unknown
+  14 The incidence of Crigler-Najjar syndrome is estimated to be approximately one in a million live births
+  14 The incidence of CN is estimated to be approximately one in a million live births
+  14 Risk of 40%-80% for breast cancer  1:400
+  14 1/250,000
+  13 Familial hyperinsulinism has been reported in virtually all major ethnic groups. Prevalence has been estimated at 1:50,000 in the European population, whereas consanguineous populations of central Finland and Saudi Arabia have disease prevalence of approximately 1:2,500. The apparent increased prevalence among Ashkenazi Jews has not been rigorously studied.
+  12 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
+  12 CDPX1 is a rare, X-linked recessive condition, occurring in less than 1:1,000,000 live births.
+  12 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
+  11 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
+  11 CMT has a prevalence of 1 in 3,300, but mutations in DNM2 are a rare cause of CMT.
+   9 A Dutch study reported a prevalence of 1:85,000 for lissencephaly type 1. However, the study presumably included individuals with non-DCX-related lissencephaly.
+   7 1/300,000 births
+   6 The prevalence of Joubert syndrome and related disorders has not been determined. Many authors use a range between 1:80,000 and 1:100,000, but this may represent an underestimate
+   6 1.3 per 100,000
+   5 1:8,000
+   4 Primary microcephaly has an incidence of 1:30,000 to 1:250,000.
+   3 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations.  The incidence may vary depending on ethnic origin.
+   2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
+   1 males affected with fragile X syndrome: 1:2,564 to 1:6,250  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:382  Females with FMR1-related POF: 1:7 (1:15 for the general population)
+   1 males affected with fragile X syndrome: 16 to 25:100,000  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:259  Females with FMR1-related POF: 4%-6% of all cases of 46,XX,POI  FXTAS males: an estimated 2%-4% of men with adult-onset cerebellar ataxia who represent simplex cases have a premutation in FMR1.
+   1 The prevalence is estimated to be one in 100,000
+   1 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown.
+   1 The JAK2 V617F is present in 95% to 98% of polycythemia vera, 50% to 60% of primary myelofibrosis, and 50% to 60% of essential thrombocythemia. It has also been described infrequently in other myeloid neoplasms, including chronic myelomonocytic leukemia and myelodysplastic syndrome.
+   1 2:100.000
+   1 2:100,000-4:100,000.   The carrier frequency is 1:60-1:100.
+   1 1:100,000
+   1 1/100,000 births
+================
+disease_mechanism
+211353 
+24845 loss of function
+1390 gain of function
+ 803 Disease mechanisms vary by gene.
+ 180 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
+ 106 Affects gamma-sarcoglycan and also disrupts the integrity of the entire sarcoglycan complex.
+ 105 Other
+  47 May be benign
+  17 unknown
+   2 Dominant Negative
+================
+origin
+222395 germline
+11931 not provided
+8487 unknown
+1955 somatic
+1229 de novo
+ 500 inherited
+ 390 maternal
+ 223 paternal
+  98 not applicable
+  19 tested-inconclusive
+  19 biparental
+   6 uniparental
+   1 

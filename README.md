@@ -30,7 +30,7 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
-3. Sort on genomic coordinates (we use GRCh37).
+3. Sort on genomic coordinates.
 4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]). The output file [clinvar_allele_trait_pairs.tsv.gz](clinvar_allele_trait_pairs.tsv.gz) after this step contains the variant-condition specific ClinVar records. 
 5. Join the TXT file using [src/join_data.R](src/join_data.R) to aggregate interpretations from multiple submitters independent of conditions. 
 6. Sort and de-duplicate  (this removes dups arising from duplicate records in the TXT dump). The output file [clinvar_alleles.tsv.gz](clinvar_alleles.tsv.gz) after this step contains the variant-specific aggregated data.
@@ -42,19 +42,20 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
 To run the pipeline:
+
 ```
 cd ./src
 pip install --user --upgrade -r requirements.txt
-python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
+python2.7 master.py --b37-genome /path/to/b37.fasta --b38-genome /path/to/b38.fasta -E /path/to/ExAC.r1.sites.vep.vcf.gz  
 ```
 
-See `python master.py -h` for additional options. The above solution pipeline would only output simple variation, i.e. one variation has a single variant. With option `-M`, the pipeline could output another flat file with complex variations (i.e. more than one variant interpreted together). 
+See `python master.py -h` for additional options. The above solution pipeline will output simple variation, i.e. one variation has a single variant as well as another flat file with complex variations (i.e. more than one variant interpreted together). 
 
 Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`).
 
 #### Usage notes
 
-Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/). Note that we also do not capture all of the complexity of the fields that are included. For example, the ClinVar website may display multiple HGVS notations for a single variant, while our file displays only one HGVS notation drawn from the ClinVar TXT dump.
+Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/). Note that we also do not capture all of the complexity of the fields that are included. 
 
 If you want to analyze the output file into R, a suitable line of code to read it in would be:
 

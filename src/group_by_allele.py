@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 
-import re
 import sys
-import gzip
 import argparse
-
-from parse_clinvar_xml import *
 
 # recommended usage:
 # ./group_by_allele.py < clinvar_table_sorted.tsv > clinvar_table_dedup.tsv

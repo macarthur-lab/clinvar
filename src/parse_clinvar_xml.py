@@ -20,8 +20,17 @@ def replace_semicolons(s, replace_with=":"):
 def remove_newlines_and_tabs(s):
     return re.sub("[\t\n\r]", " ", s)
 
-def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='collapsed'):
-    
+def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome_build='GRCh37'):
+    """Parse clinvar XML
+    Args:
+        handle: Open input file handle for reading the XML data
+        dest: Open output file handle or stream for simple variants
+        multi: Open output file handle or stream for complex non-single-variant clinvar records
+            (eg. compound het, haplotypes, etc.)
+        verbose: Whether to write extra stats to stderr
+        genome_build: Either 'GRCh37' or 'GRCh38'
+    """
+
     #measureset -> rcv (one to many) 
     header = [
         'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
@@ -34,7 +43,7 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
     dest.write(('\t'.join(header) + '\n').encode('utf-8'))
     if multi is not None:
         multi.write(('\t'.join(header) + '\n').encode('utf-8'))
-    counter = 0
+
     scounter = 0
     mcounter = 0
     skipped_counter = defaultdict(int)
@@ -43,8 +52,6 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
             continue
         
         #initialize all the fields
-
-        
         current_row = {}
         current_row['rcv']=''
         current_row['measureset_type']=''
@@ -53,25 +60,25 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
         
         rcv = elem.find('./ReferenceClinVarAssertion/ClinVarAccession')
         if rcv.attrib.get('Type')!='RCV':
-            print "Error, not RCV record" 
-            break;  
+            print("Error, not RCV record")
+            break
         else:
             current_row['rcv']=rcv.attrib.get('Acc')
         
         measureset = elem.findall(".//ReferenceClinVarAssertion/MeasureSet")
         
         #only the ones with just one measure set can be recorded
-        if(len(measureset)>1):
-            print "A submission has more than one measure set."+elem.find('./Title').text 
+        if len(measureset) > 1:
+            print("A submission has more than one measure set."+elem.find('./Title').text)
             elem.clear()
             continue
-        elif(len(measureset)==0):
-            print "A submission has no measure set type"+measureset.attrib.get('ID')
+        elif len(measureset) == 0:
+            print("A submission has no measure set type"+measureset.attrib.get('ID'))
             elem.clear()
             continue
         
         measureset=measureset[0]
-        
+
         measure=measureset.findall('.//Measure')
         
         current_row['measureset_id']=measureset.attrib.get('ID')
@@ -153,28 +160,27 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
             column_value = current_row[column_name] if type(current_row[column_name]) == list else sorted(current_row[column_name])  # sort columns of type 'set' to get deterministic order
             current_row[column_name] = remove_newlines_and_tabs(';'.join(map(replace_semicolons, column_value)))
 
-        
-        for i in range(0,len(measure)):
-        #find the allele ID (//Measure/@ID)
+        for i in range(len(measure)):
+            #find the allele ID (//Measure/@ID)
             current_row['allele_id']=measure[i].attrib.get('ID')
-        # find the GRCh37 VCF representation
-            grch37_location = None
+            # find the GRCh37 or GRCh38 VCF representation
+            genomic_location = None
             for sequence_location in measure[i].findall(".//SequenceLocation"):
-                if sequence_location.attrib.get('Assembly') == 'GRCh37':
+                if sequence_location.attrib.get('Assembly') == genome_build:
                     if all(sequence_location.attrib.get(key) is not None for key in ('Chr', 'start', 'referenceAllele','alternateAllele')):
-                        grch37_location = sequence_location
+                        genomic_location = sequence_location
                         break
-        #break after finding the first non-empty GRCh37 location
-                
-            if grch37_location is None:
+
+            #break after finding the first non-empty GRCh37 or GRCh38 location
+            if genomic_location is None:
                 skipped_counter['missing SequenceLocation'] += 1
                 elem.clear()
                 continue # don't bother with variants that don't have a VCF location
                 
-            current_row['chrom'] = grch37_location.attrib['Chr']
-            current_row['pos'] = grch37_location.attrib['start']
-            current_row['ref'] = grch37_location.attrib['referenceAllele']
-            current_row['alt'] = grch37_location.attrib['alternateAllele']
+            current_row['chrom'] = genomic_location.attrib['Chr']
+            current_row['pos'] = genomic_location.attrib['start']
+            current_row['ref'] = genomic_location.attrib['referenceAllele']
+            current_row['alt'] = genomic_location.attrib['alternateAllele']
            
             #find the gene symbol 
             current_row['symbol']=''
@@ -194,15 +200,15 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
                 attribute_type=attribute_node.find('./Attribute').attrib.get('Type')
                 attribute_value=attribute_node.find('./Attribute').text;
             
-            #find hgvs_c
+                #find hgvs_c
                 if(attribute_type=='HGVS, coding, RefSeq'):
                     current_row['hgvs_c']=attribute_value
             
-            #find hgvs_p
+                #find hgvs_p
                 if(attribute_type=='HGVS, protein, RefSeq'):
                     current_row['hgvs_p']=attribute_value
             
-            #aggregate all molecular consequences
+                #aggregate all molecular consequences
                 if (attribute_type=='MolecularConsequence'):
                     for xref in attribute_node.findall('.//XRef'):
                         if xref.attrib.get('DB')=="RefSeq":
@@ -237,7 +243,6 @@ def parse_clinvar_tree(handle,dest=sys.stdout,multi=None,verbose=True,mode='coll
         # done parsing the xml for this one clinvar set.
         elem.clear()
 
-
     sys.stderr.write("Done\n")
 
 
@@ -250,15 +255,17 @@ def get_handle(path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract PMIDs from the ClinVar XML dump')
+    parser.add_argument('-g','--genome-build', choices=['GRCh37', 'GRCh38'],
+                        help='Genome version (either GRCh37 or GRCh38)', required=True)
     parser.add_argument('-x','--xml', dest='xml_path',
-                       type=str, help='Path to the ClinVar XML dump')
-    parser.add_argument('-o', '--out', nargs='?', type=argparse.FileType('w'),
-                       default=sys.stdout)
+                       type=str, help='Path to the ClinVar XML dump', required=True)
+    parser.add_argument('-o', '--out', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
     parser.add_argument('-m', '--multi', help="Output file name for complex alleles")
-    args = parser.parse_args() 
+
+    args = parser.parse_args()
     if args.multi is not None:
-        f=open(args.multi, 'w')
-        parse_clinvar_tree(get_handle(args.xml_path),dest=args.out,multi=f)
+        f = open(args.multi, 'w')
+        parse_clinvar_tree(get_handle(args.xml_path), dest=args.out, multi=f, genome_build=args.genome_build)
         f.close()
     else:
-        parse_clinvar_tree(get_handle(args.xml_path),dest=args.out)
+        parse_clinvar_tree(get_handle(args.xml_path), dest=args.out, genome_build=args.genome_build)

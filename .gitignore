@@ -1,0 +1,24 @@
+src/*.pyc
+
+# IDE files
+.idea 
+
+# R files
+src/.RData
+src/.Rhistory
+
+# temporary output files
+src/*.tsv
+src/*.tsv.gz
+src/*.txt
+src/*.txt.gz
+src/*.vcf
+src/*.vcf.gz
+src/*.tbi
+src/*.xml.gz
+src/logs
+
+# normalize.py is retrieved from another repo
+src/normalize.py
+
+**/.DS_Store
