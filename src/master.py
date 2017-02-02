@@ -122,17 +122,15 @@ for genome_build in ('b37', 'b38'):
         output_dir = '../output/%(genome_build)s/%(single_or_multi)s' % locals()
         os.system('mkdir -p ' + output_dir)
 
-        job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_raw.%(fsuffix)s.tsv > OUT:clinvar_table_normalized.%(fsuffix)s.tsv" % locals())
-
-        #remove empty rows
-        #job.add("ex -s +'bufdo!v/\S/d' -cxa clinvar_table_normalized.tsv") #remove the empty lines
+        #normalize variants  (use grep -v '^$' to remove empty rows)
+        job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:clinvar_table_raw.%(fsuffix)s.tsv | grep -v ^$ > OUT:clinvar_table_normalized.%(fsuffix)s.tsv" % locals())
 
         #sort
         job.add(("(cat IN:clinvar_table_normalized.%(fsuffix)s.tsv | head -1 > OUT:clinvar_allele_trait_pairs.%(fsuffix)s.tsv ) && " + # header row
             "(cat IN:clinvar_table_normalized.%(fsuffix)s.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:clinvar_allele_trait_pairs.%(fsuffix)s.tsv ) && " + # numerically sort chroms 1-22
             "(cat IN:clinvar_table_normalized.%(fsuffix)s.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:clinvar_allele_trait_pairs.%(fsuffix)s.tsv )") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
-        job.add("cat IN:clinvar_allele_trait_pairs.%(fsuffix)s.tsv | grep -v ^$ | bgzip -c > OUT:clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals())
+        job.add("cat IN:clinvar_allele_trait_pairs.%(fsuffix)s.tsv | bgzip -c > OUT:clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals())
         job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()])
         job.add("cp IN:clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
                 "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(),
