@@ -8,3 +8,5 @@
 *.tsv
 *.vcf
 *.vcf.tbi
+*.vcf.gz
+*.vcf.gz.tbi
