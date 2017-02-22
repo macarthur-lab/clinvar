@@ -43,9 +43,15 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 
 #### Dependancies
 
-Other requirements are 
+Enviroment must contain these executables wget, Rscript, tabix, vt: 
 R, [htslib](https://github.com/samtools/htslib) 
+
+tabix [How To Install](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html) is already apart of the samtools software package.
+
 vt [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`) [wkik](http://genome.sph.umich.edu/wiki/Vt).
+
+
+#### Usage
 
 To run the pipeline:
 ```
