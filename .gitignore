@@ -1,0 +1,10 @@
+### Intellij IDE ###
+.idea/
+*.iml
+
+### Heavy Data Files ###
+*.tsv.gz
+*.tsv.gz.tbi
+*.tsv
+*.vcf
+*.vcf.tbi
