@@ -41,6 +41,18 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 + `benign` is `1` if the variant has *ever* been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
+#### Dependancies
+
+Enviroment must contain these executables wget, Rscript, tabix, vt: 
+R, [htslib](https://github.com/samtools/htslib) 
+
+tabix [How To Install](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html) is already apart of the samtools software package.
+
+vt [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`) [wkik](http://genome.sph.umich.edu/wiki/Vt).
+
+
+#### Usage
+
 To run the pipeline:
 ```
 cd ./src
@@ -50,7 +62,6 @@ python master.py -R hg19.fasta -E ExAC.r0.3.1.sites.vep.vcf.gz
 
 See `python master.py -h` for additional options. The above solution pipeline would only output simple variation, i.e. one variation has a single variant. With option `-M`, the pipeline could output another flat file with complex variations (i.e. more than one variant interpreted together). 
 
-Other requirements are R, [htslib](https://github.com/samtools/htslib) and [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`).
 
 #### Usage notes
 
