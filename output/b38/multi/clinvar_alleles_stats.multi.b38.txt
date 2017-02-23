@@ -1,10 +1,17 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
 ================
-Total Rows: 761
+Total Rows: 762
 ================
-clinical_significance
+column 5: measureset_type
+ 427 Haplotype
+ 323 CompoundHeterozygote
+  11 Phase unknown
+   5 Variant
+   2 Distinct chromosomes
+================
+column 13: clinical_significance
  448 not reported for simple variant
- 194 Pathogenic
+ 195 Pathogenic
   50 Uncertain significance
   45 not provided
   43 Likely benign
@@ -15,21 +22,21 @@ clinical_significance
    4 risk factor
    3 protective
 ================
-pathogenic
+column 14: pathogenic
  554 0
- 207 1
+ 208 1
 ================
-benign
- 697 0
+column 15: benign
+ 698 0
   64 1
 ================
-conflicted
- 751 0
+column 16: conflicted
+ 752 0
   10 1
 ================
-review_status
+column 17: review_status
  447 no assertion for the individual variant
- 112 no assertion criteria provided
+ 113 no assertion criteria provided
   79 criteria provided, single submitter
   66 criteria provided, multiple submitters, no conflicts
   38 criteria provided, conflicting interpretations
@@ -37,15 +44,81 @@ review_status
    8 reviewed by expert panel
    1 practice guideline
 ================
-gold_stars
- 569 0
+column 18: gold_stars
+ 570 0
  117 1
   66 2
    8 3
    1 4
 ================
-inheritance_modes
- 479 
+column 19: all_submitters
+ 303 OMIM
+  93 UCLA Clinical Genomics Center, UCLA
+  43 GeneReviews
+  37 Center for Genetic Medicine Research,Children's National Medical Center
+  36 Mendelics Analise Genomica
+  20 ARUP Institute,ARUP Laboratories
+  19 Laboratory of Prof. Karen Avraham,Tel Aviv University
+  18 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
+  16 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
+  16 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
+  15 Institut IMAGINE,Institut National de la Sante et de la Recherche Medicale
+  13 University of Washington Center for Mendelian Genomics, University of Washington
+  11 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
+   9 Colsan,Colsan
+   8 Medical Research Institute,Tokyo Medical and Dental University
+   8 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
+   7 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
+   6 Section of Medical Genetics, Telemark Hospital
+   6 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
+   6 Clinical Biochemistry Laboratory,Health Services Laboratory
+   5 Tuberous sclerosis database (TSC2)
+   5 Metabolic Research Unit,Children's University Hospital Muenster
+   4 Eye Genetics Research Group,Children's Medical Research Institute
+   3 Shaikh Laboratory, University of Colorado
+   3 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
+   3 Genetic Diagnostic Laboratory,University of Szeged
+   2 emedgene Technologies
+   2 Science and Research Branch, Islamic Azad University,Islamic Azad University
+   2 RettBASE
+   2 Research Centre for  Medical Genetics
+   2 Puck Laboratory, University of California, San Francisco
+   2 Neurogenetics Research, Murdoch Childrens Research Institute
+   2 NCBI curation
+   2 Molecular Genetics and RNA Biology, Humanitas University
+   2 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
+   2 Laboratory of Molecular Genetics,CHU RENNES
+   2 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
+   2 Laboratorio de Medicina Genomica, Hospital General de Culiacan
+   2 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
+   2 LDLR-LOVD, British Heart Foundation
+   2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
+   2 Human Genetics Disease in Children – Taif University,Taif University
+   2 HerediLab, Inc.
+   2 Genomic Research Center,Shahid Beheshti University of Medical Sciences
+   2 Genetics of Mitochondrial Disorders,HelmholtzZentrum Munchen
+   2 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
+   2 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
+   2 Dr. Guy Rouleau's laboratory,McGill University
+   2 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
+   2 Department of Neurology,Children's Hospital of Fudan University
+   2 Department of Medical Genetics, Oslo University Hospital and University of Oslo
+   2 Department of Human Genetics,McGill University
+   2 Collagen Diagnostic Laboratory
+   2 Clinical Genetics, Erasmus University Medical Center
+   2 Bone Marrow Failure laboratory,Queen Mary University London
+   2 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
+   2 Biochimie-Hormonologie,Robert Debre Hospital
+   2 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
+   2 Baylor Miraca Genetics Laboratories
+   2 Abrahams Lab,Albert Einstein College of Medicine
+   2 ARUP Laboratories, Molecular Genetics and Genomics
+   1 Medical Genomics Laboratory,Department of Genetics UAB
+   1 Klein lab,Ludwig-Maximilians-University
+   1 CFTR2
+================
+column 22: inheritance_modes
+ 480 
  203 Autosomal recessive inheritance
   73 Autosomal dominant inheritance
    8 X-linked recessive inheritance
@@ -54,8 +127,8 @@ inheritance_modes
    2 X-linked dominant inheritance
    2 Codominant
 ================
-age_of_onset
- 319 
+column 23: age_of_onset
+ 320 
  165 Infancy
   96 Childhood
   60 All ages
@@ -65,8 +138,8 @@ age_of_onset
   16 Antenatal
    2 Neonatal/infancy
 ================
-prevalence
- 368 
+column 24: prevalence
+ 369 
  146 <1 / 1 000 000
  115 1-9 / 100 000
   89 1-9 / 1 000 000
@@ -98,14 +171,14 @@ prevalence
    2 1 - 9 / 100 000
    1 1:3,000
 ================
-disease_mechanism
- 679 
+column 25: disease_mechanism
+ 680 
   76 loss of function
    6 gain of function
    2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
 ================
-origin
- 545 germline
+column 26: origin
+ 546 germline
   90 unknown
   44 not provided
   42 inherited

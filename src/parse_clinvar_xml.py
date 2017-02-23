@@ -243,11 +243,13 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
                 if multi is not None:
                     multi.flush()
             
-            counter=scounter+mcounter
+            counter = scounter + mcounter
             if verbose:
                 sys.stderr.write("{0} entries completed, {1}, {2} total \r".format(
-                counter, ', '.join('%s skipped due to %s' % (v, k) for k, v in skipped_counter.items()),
-                counter + sum(skipped_counter.values())))
+                    counter,
+                    ', '.join('%s skipped due to %s' % (v, k) for k, v in skipped_counter.items()),
+                    counter + sum(skipped_counter.values())
+                ))
                 sys.stderr.flush()
         
         # done parsing the xml for this one clinvar set.
@@ -261,7 +263,7 @@ def get_handle(path):
         handle = gzip.open(path)
     else:
         handle = open(path)
-    return (handle)
+    return handle
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Extract PMIDs from the ClinVar XML dump')

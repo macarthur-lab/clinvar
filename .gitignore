@@ -11,16 +11,10 @@ src/normalize.py
 ### R files ###
 src/.RData
 src/.Rhistory
+src/last.dump.rda
 
 ### Heavy Data Files ###
-src/*.tsv
-src/*.tsv.gz
-src/*.txt
-src/*.txt.gz
-src/*.vcf
-src/*.vcf.gz
-src/*.tbi
-src/*.xml.gz
+src/pipeline_output
 src/logs
 
 ### MacOS ###
