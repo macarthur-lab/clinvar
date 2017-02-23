@@ -1,13 +1,18 @@
+### Intellij IDE ###
+.idea/
+*.iml
+
+### Python files ###
 src/*.pyc
 
-# IDE files
-.idea 
+# normalize.py is retrieved from another repo
+src/normalize.py
 
-# R files
+### R files ###
 src/.RData
 src/.Rhistory
 
-# temporary output files
+### Heavy Data Files ###
 src/*.tsv
 src/*.tsv.gz
 src/*.txt
@@ -18,7 +23,5 @@ src/*.tbi
 src/*.xml.gz
 src/logs
 
-# normalize.py is retrieved from another repo
-src/normalize.py
-
+### MacOS ###
 **/.DS_Store
