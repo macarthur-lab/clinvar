@@ -28,7 +28,9 @@ Each of these directories contains the following files:
 
 ClinVar makes its data available via [FTP](ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/) in three formats: XML, TXT, and VCF. We found that none of these files were ideally suited for our purposes. The VCF only contains variants present in dbSNP; it is not a comprehensive catalogue of ClinVar variants. The TXT file lacks certain annotations such as PubMed IDs for related publications. The XML file is large and complex, with multiple entries for the same genomic variant, making it difficult to quickly look up a variant of interest. In addition, both the XML and TXT representations are not guaranteed to be unique on genomic coordinates, and also contain many genomic coordinates that have been parsed from HGVS notation, and therefore may be right-aligned (in contrast to left alignment, the standard for VCF) and may also be non-minimal (containing additional nucleotides of context to the left or right of a given variant).
 
-#### Solution
+#### Solution - Processing Pipeline
+
+[![Build Status](https://travis-ci.org/macarthur-lab/clinvar.svg?branch=master)](https://travis-ci.org/macarthur-lab/clinvar)
 
 To create a flat representation of ClinVar suited for our purposes, we took several steps, encapsulated in the pipeline [src/master.py](src/master.py) 
 (which supercedes the older [src/master.bash](src/master.bash) script):
