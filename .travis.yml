@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "2.7"
+
+install: 
+  - pip install -r src/requirements.txt
+
+script: 
+  - cd src && python test_group_by_allele.py
+  - cd src && python clinvar_table_checks.py ../output/b38/single/clinvar_alleles.single.b38.tsv.gz
+  - cd src && python clinvar_table_checks.py ../output/b38/multi/clinvar_alleles.multi.b38.tsv.gz
+  - cd src && python clinvar_table_checks.py ../output/b37/single/clinvar_alleles.single.b37.tsv.gz
+  - cd src && python clinvar_table_checks.py ../output/b37/multi/clinvar_alleles.multi.b37.tsv.gz

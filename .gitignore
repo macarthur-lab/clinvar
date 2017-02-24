@@ -2,11 +2,23 @@
 .idea/
 *.iml
 
+### Python files ###
+src/*.pyc
+
+# normalize.py is retrieved from another repo
+src/normalize.py
+
+### R files ###
+src/.RData
+src/.Rhistory
+src/last.dump.rda
+
 ### Heavy Data Files ###
-*.tsv.gz
-*.tsv.gz.tbi
-*.tsv
-*.vcf
-*.vcf.tbi
-*.vcf.gz
-*.vcf.gz.tbi
+src/pipeline_output
+src/logs
+*.old.*
+ClinVarFullRelease*
+variant_summary.txt.gz
+
+### MacOS ###
+**/.DS_Store
