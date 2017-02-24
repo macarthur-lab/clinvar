@@ -16,6 +16,9 @@ src/last.dump.rda
 ### Heavy Data Files ###
 src/pipeline_output
 src/logs
+*.old.*
+ClinVarFullRelease*
+variant_summary.txt.gz
 
 ### MacOS ###
 **/.DS_Store
