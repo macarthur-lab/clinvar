@@ -15,18 +15,19 @@ def group_by_allele(infile, outfile):
         outfile: Output file stream to write to.
     """
 
-    header = infile.readline()
+    header = next(infile)
     outfile.write(header)
     column_names = header.strip('\n').split('\t')
 
     last_data = None
     last_unique_id = None
     counter = 0
+
     for line in infile:
         data = dict(zip(column_names, line.strip('\n').split('\t')))
         unique_id = '_'.join([data['chrom'], str(data['pos']), data['ref'], data['alt']])
         if unique_id == last_unique_id:
-            data = group_alleles(data, last_data)
+            data = group_alleles(last_data, data)
         elif last_data is not None:
             # note that using a comprehension instead of just data.values() preserves column order
             # the next line (data) is not duplicated as the current line(last_data) then just print last_data
@@ -34,6 +35,7 @@ def group_by_allele(infile, outfile):
         last_data = data
         last_unique_id = unique_id
         counter += 1
+
     outfile.write('\t'.join([last_data[colname] for colname in column_names])+'\n')
 
 
@@ -57,11 +59,15 @@ def group_alleles(data1, data2):
         'review_status', 'all_submitters',
         'all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence',
         'disease_mechanism', 'origin', 'xrefs'):
-        combined_data[column_name] = ';'.join(
-            set(filter(lambda s: s,
-                data1[column_name].split(';') + 
-                data2[column_name].split(';')))
-        )
+        all_non_empty_values = filter(lambda s: s, data1[column_name].split(';') + data2[column_name].split(';'))
+
+        # deduplicate values, while preserving order
+        deduplicated_values = []
+        for value in all_non_empty_values:
+            if value not in deduplicated_values:
+                deduplicated_values.append(value)
+
+        combined_data[column_name] = ';'.join(deduplicated_values)
 
     return combined_data
 
