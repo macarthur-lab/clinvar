@@ -181,20 +181,20 @@ for genome_build in ('b37', 'b38'):
         job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_example_750_rows.%(fsuffix)s.vcf" % locals())
 
         # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
-        if exac_sites_vcf and genome_build == "GRCh37":
+        if exac_sites_vcf and genome_build == "b37":
             normalized_vcf = os.path.basename(exac_sites_vcf).split('.vcf')[0] + ".normalized.vcf.gz" % locals()
-            job.add(("vt decompose -s IN:%(tmp_dir)s/%(exac_sites_vcf)s | "
-                     "vt normalize -r IN:%(tmp_dir)s/%(reference_genome)s - | "
-                     "bgzip -c > OUT:%(normalized_vcf)s") % locals())
+            job.add(("vt decompose -s IN:%(exac_sites_vcf)s | "
+                     "vt normalize -r IN:%(reference_genome)s - | "
+                     "bgzip -c > OUT:%(tmp_dir)s/%(normalized_vcf)s") % locals())
             job.add("tabix IN:%(tmp_dir)s/%(normalized_vcf)s" % locals(), output_filenames=["%(tmp_dir)s/%(normalized_vcf)s.tbi" % locals()])
             job.add(("python -u IN:add_exac_fields.py -i IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv -e IN:%(tmp_dir)s/%(normalized_vcf)s | "
-                        "bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz") % locals())
-            job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz.tbi" % locals()])
-            job.add("cp IN:%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
-                "%(output_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz" % locals(),
-                "%(output_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz.tbi" % locals()])
+                        "bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz") % locals())
+            job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz.tbi" % locals()])
+            job.add("cp IN:%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
+                "%(output_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz" % locals(),
+                "%(output_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz.tbi" % locals()])
 
-            job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles_with_exac.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_with_exac_example_750_rows.%(fsuffix)s.tsv" % locals())
+            job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles_with_exac_v1.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_with_exac_v1_example_750_rows.%(fsuffix)s.tsv" % locals())
 
         # create a stats file that summarizes some of the columns of clinvar_alleles.tsv.gz file
         # Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id,
