@@ -29,6 +29,9 @@ g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the v
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
 g.add("-GE", "--gnomad-exome-sites-vcf",  help="gnomAD exome sites vcf file. If specified, a clinvar table with extra gnomAD exome info fields will also be created.")
 g.add("-GG", "--gnomad-genome-sites-vcf",  help="gnomAD genome sites vcf file. If specified, a clinvar table with extra gnomAD genome info fields will also be created.")
+g = p.add_mutually_exclusive_group()
+g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
+g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -43,7 +46,7 @@ gnomad_exome_sites_vcf = args.gnomad_exome_sites_vcf
 gnomad_genome_sites_vcf = args.gnomad_genome_sites_vcf
 clinvar_variant_summary_table = args.clinvar_variant_summary_table
 
-tmp_dir = "pipeline_output"
+tmp_dir = "output_tmp"
 os.system("mkdir -p " + tmp_dir)
 
 for key, path in reference_genomes.items():
@@ -131,47 +134,46 @@ for genome_build in ('b37', 'b38'):
 
     for is_multi in (True, False):  # multi = clinvar submission that describes multiple alleles (eg. compound het, haplotypes, etc.)
         single_or_multi = 'multi' if is_multi else 'single'
+        if args.single_or_multi and single_or_multi != args.single_or_multi:
+            print("Skippping steps to generate %s table." % single_or_multi)
+            continue
+            
         fsuffix = "%(single_or_multi)s.%(genome_build)s" % locals() # file suffix
         output_dir = '../output/%(genome_build)s/%(single_or_multi)s' % locals()
         os.system('mkdir -p ' + output_dir)
 
         # normalize variants  (use grep -v '^$' to remove empty rows)
-        job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:%(tmp_dir)s/clinvar_table_raw.%(fsuffix)s.tsv | grep -v ^$ > OUT:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv" % locals())
+        job.add("python -u normalize.py -R IN:%(reference_genome)s < IN:%(tmp_dir)s/clinvar_table_raw.%(fsuffix)s.tsv | grep -v ^$ | bgzip -c > OUT:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz" % locals())
 
         # sort
-        job.add(("(cat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv | head -1 > OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv ) && " + # header row
-            "(cat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv ) && " + # numerically sort chroms 1-22
-            "(cat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv )") % locals())   # lexicogaraphically sort non-numerical chroms at end
+        job.add(("cat " +
+            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            " | bgzip -c > OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
-        # gzip and tabix
-        job.add("cat IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv | bgzip -c > OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals())
+        # tabix and copy to output dir
         job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()])
-
-        # copy to output dir
         job.add("cp IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(),
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()
             ])
 
         # group by allele, since clinvar_allele_trait_pairs.*.tsv will have more than 1 record for some alleles
-        job.add("python -u IN:group_by_allele.py -i IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv | tee %(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz" % locals())
+        job.add("python -u IN:group_by_allele.py -i IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz" % locals())
 
         # join information from the tab-delimited summary to the normalized genomic coordinates
-        job.add(("Rscript IN:join_data.R "
-                 "IN:%(variant_summary_table)s "
-                 "IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv "
-                 "OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv") % locals())
+        job.add("Rscript IN:join_data.R IN:%(variant_summary_table)s IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz" % locals())
 
         # sort again by genomic coordinates (because R's merge function doesn't preserve order)
-        job.add(("(cat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv | head -1 > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv ) && " + # header row
-                 "(cat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 >> OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv ) && " + # numerically sort chroms 1-22
-                 "(cat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 >> OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv )") % locals())   # lexicogaraphically sort non-numerical chroms at end
+        job.add(("cat " +
+            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            " | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
-        # gzip and tabix
-        job.add("cat IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals())
+        # tabix and copy to output dir
         job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz.tbi" % locals()])
-
-        # copy to output dir
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/"  % locals(),
                 output_filenames=[
                     "%(output_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(),
@@ -179,7 +181,7 @@ for genome_build in ('b37', 'b38'):
                 ])
 
         # create vcf
-        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
+        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
         job.add("tabix IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi" % locals()])
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(),
@@ -200,7 +202,7 @@ for genome_build in ('b37', 'b38'):
                          "vt normalize -r IN:%(reference_genome)s - | "
                          "bgzip -c > OUT:%(tmp_dir)s/%(normalized_vcf)s") % locals())
                 job.add("tabix IN:%(tmp_dir)s/%(normalized_vcf)s" % locals(), output_filenames=["%(tmp_dir)s/%(normalized_vcf)s.tbi" % locals()])
-                job.add(("python -u IN:%(script_name)s -i IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv %(vcf_arg)s IN:%(tmp_dir)s/%(normalized_vcf)s | "
+                job.add(("python -u IN:%(script_name)s -i IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz %(vcf_arg)s IN:%(tmp_dir)s/%(normalized_vcf)s | "
                          "bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz") % locals())
                 job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz.tbi" % locals()])
                 job.add("cp IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
@@ -233,7 +235,7 @@ for genome_build in ('b37', 'b38'):
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt OUT:%(output_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" % locals())
 
         # run basic checks
-        job.add("python IN:clinvar_table_checks.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals())
+        job.add("python IN:check_allele_table.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals())
 
 # run the above commands
 jr.run(job)
