@@ -84,7 +84,12 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
     info_fields = [('Filter', filter_value)] + [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')]
     info_fields = filter(lambda kv: kv[0] in NEEDED_EXAC_FIELDS_SET, info_fields)
     info_fields = dict(info_fields)
-    exac_column_values = [info_fields[k] for k in NEEDED_EXAC_FIELDS]
+    try:
+        exac_column_values = [info_fields[k] for k in NEEDED_EXAC_FIELDS]
+    except Exception, e:
+        print([('Filter', filter_value)] + [tuple(kv.split('=')) for kv in exac_row_fields[7].split(';')])
+        print(info_fields)
+        raise ValueError("ERROR: unable to parse INFO fields in row: %s.  %s" % (exac_row_fields, e)) 
 
     # check that the clinvar alt allele matches (one of the) ExAC alt allele(s)    
     #if len(alt_alleles) > 1:

@@ -6,7 +6,7 @@ import re
 import pandas as pd
 import sys
 
-def gzopen(path, mode, verbose=True):
+def gzopen(path, mode='r', verbose=True):
     if path.endswith(".gz"):
         return gzip.open(path, mode)
     else:
@@ -19,7 +19,7 @@ def table_to_vcf(input_table_path):
         sys.exit("ERROR: %s not found" % input_table_path)
 
     # read input table. low_memory allows dtypes to be inferred
-    t = pd.read_table(input_table_path, low_memory=False)
+    t = pd.read_table(gzopen(input_table_path), low_memory=False)
 
     missing_columns = {"chrom", "pos", "ref", "alt"} - set(t.columns)
     if missing_columns:

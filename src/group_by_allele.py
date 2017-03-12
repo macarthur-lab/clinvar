@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import sys
 import argparse
+import gzip
+import sys
 
 # recommended usage:
 # ./group_by_allele.py < clinvar_combined.tsv > clinvar_alleles.tsv
@@ -36,8 +37,10 @@ def group_by_allele(infile, outfile):
         last_unique_id = unique_id
         counter += 1
 
-    outfile.write('\t'.join([last_data[colname] for colname in column_names])+'\n')
-
+    if last_data is not None:
+        outfile.write('\t'.join([last_data[colname] for colname in column_names])+'\n')
+    else:
+        raise ValueError("%s has 0 records" % infile)
 
 def group_alleles(data1, data2):
     """Group two variants with same genomic coordinates.
@@ -73,7 +76,16 @@ def group_alleles(data1, data2):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='De-duplicate the output from parse_clinvar_xml.py')
-    parser.add_argument('-i', '--infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
-    parser.add_argument('-o', '--outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+    parser.add_argument('-i', '--infile', type=argparse.FileType('r'), default=sys.stdin)
+    parser.add_argument('-o', '--outfile', type=argparse.FileType('w'), default=sys.stdout)
     args = parser.parse_args()
-    group_by_allele(args.infile,args.outfile)
+
+    if args.infile.name.endswith(".gz"):
+        args.infile.close()
+        args.infile = gzip.open(args.infile.name)
+    
+    if args.outfile.name.endswith(".gz"):
+        args.outfile.close()
+        args.outfile = gzip.open(args.outfile.name, 'w')
+    
+    group_by_allele(args.infile, args.outfile)
