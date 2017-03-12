@@ -9,21 +9,23 @@ import os
 from pprint import pprint
 
 p = argparse.ArgumentParser(description="Basic consistency checks on the final clinvar table")
-p.add_argument("clinvar_table")
+p.add_argument("alleles_table_path")
 args = p.parse_args()
 
-clinvar_table = args.clinvar_table
-if not os.path.isfile(clinvar_table):
-    p.error("%s doesn't exist" % clinvar_table)
+alleles_table_path = args.alleles_table_path
+if not os.path.isfile(alleles_table_path):
+    p.error("%s doesn't exist" % alleles_table_path)
 
 CHROMS = list(map(str, range(1, 23))) + ['X', 'Y', 'MT']
 
-f = gzip.open(clinvar_table) if clinvar_table.endswith('gz') else open(clinvar_table)
+f = gzip.open(alleles_table_path) if alleles_table_path.endswith('gz') else open(alleles_table_path)
 header = next(f).strip('\n').split('\t')
 #print(header)
 #print(next(f).strip('\n').split('\t'))
+counter = 0
 errors_counter = 0
 for i, line in enumerate(f):
+    counter += 1
     #print(line.strip('\n').split('\t'))
 
     record = dict(zip(header, line.strip('\n').split('\t')))
@@ -51,9 +53,14 @@ for i, line in enumerate(f):
 
     except AssertionError as e:
         print("====================================")
-        print("ERROR in %s - line %s: " % (clinvar_table, i))
+        print("ERROR in %s - line %s: " % (alleles_table_path, i))
         print(e)
         pprint(record)
         errors_counter += 1
+
+assert ("multi" in alleles_table_path and counter > 500) or ("single" in alleles_table_path and counter > 10000), 'Table %s has only %s records' % (alleles_table_path, counter)
+    
+    
+
 if errors_counter > 0:
     p.error("%s errors found" % errors_counter)
