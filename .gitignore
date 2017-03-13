@@ -15,6 +15,7 @@ src/last.dump.rda
 
 ### Heavy Data Files ###
 src/pipeline_output
+src/output_tmp
 src/logs
 *.old.*
 ClinVarFullRelease*

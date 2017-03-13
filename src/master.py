@@ -189,6 +189,7 @@ for genome_build in ('b37', 'b38'):
 
         # create uncompressed example files that contain the 1st 750 lines of the compressed tsvs so people can easily see typical values online on github
         job.add("gunzip -c IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_allele_trait_pairs_example_750_rows.%(fsuffix)s.tsv" % locals())
+        job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_example_750_rows.%(fsuffix)s.tsv" % locals())
         job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_example_750_rows.%(fsuffix)s.vcf" % locals())
 
         # create tsv table with extra fields from ExAC: filter, ac_adj, an_adj, popmax_ac, popmax_an, popmax
