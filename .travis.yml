@@ -1,15 +1,13 @@
 language: python
-
 python:
-  - "2.7"
-
-#install: 
-#  - pip install -r src/requirements.txt
-
-script: 
-  - cd src
-  - python test_group_by_allele.py
-  - python check_allele_table.py ../output/b38/single/clinvar_alleles.single.b38.tsv.gz
-  - python check_allele_table.py ../output/b38/multi/clinvar_alleles.multi.b38.tsv.gz
-  - python check_allele_table.py ../output/b37/single/clinvar_alleles.single.b37.tsv.gz
-  - python check_allele_table.py ../output/b37/multi/clinvar_alleles.multi.b37.tsv.gz
+- '2.7'
+script:
+- cd src
+- python test_group_by_allele.py
+- python check_allele_table.py ../output/b38/single/clinvar_alleles.single.b38.tsv.gz
+- python check_allele_table.py ../output/b38/multi/clinvar_alleles.multi.b38.tsv.gz
+- python check_allele_table.py ../output/b37/single/clinvar_alleles.single.b37.tsv.gz
+- python check_allele_table.py ../output/b37/multi/clinvar_alleles.multi.b37.tsv.gz
+notifications:
+  slack:
+    secure: CnSI59fvNk9aPltkq5nrTojcgrsiz9JlQWqYUvlzRnYTWV6VyGCnaixkCmB74omiWSC/wl5RKzNVKzlGP5Cg7h+06nogstkEkGw+rV2NxJwgKrqVT8mVY8QDWWmLKU3nywgepsevgaWDcV9IesV2zvilh6a5GzR30XwSx2p/zV0sxP2W0acuEO9zREdXIZDaA/U46EURXNERMiurfxp0gOFPzmqWa9P+t60Br4YCT7EnPF/QaG2CQSZSYNATZPYF69EPvwvHa6BWGbwyegItfJHwyd47Cdk21tKhbj24SXjA0KKMo3n2HhnhZQuSz8RdhdvtG8ORMe63Jn+NEaETh+FP5o0ql4lDAeTbh1yDN8bDuEbbqjGqMsZ9nvtFLJPm1dUFsgpeM5IxiDFaSVXiu5plB4unhEjxU6xAYgldty5QmD90NA2HY09BIR4mHaodRO07NcQ88VXVI6Hg9+qgSnPOUoAm7bJtaE2OHLcMiOJT5ON8aRvVMfRIUl8BeMkRC6pyhXe6TN0rENjCdvY9+h0LhcymjBJqC8lS6/rH2UTcxG4GgJRr/cXX0UyJfR9068JCp9ov86HggpJ59gGMm1X/hDRpwwTbONy0AkZAXg0Av90xwJuSnUEji9NW0W/nB0gZmEvIH5DuGVXHmeXMn+S8emaBN394vZr6J3S/o8Y=
