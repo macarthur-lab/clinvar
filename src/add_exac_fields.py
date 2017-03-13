@@ -3,6 +3,7 @@ Script for generating a new clinvar table with the ExAC fields below added to ea
 """
 import argparse
 from collections import defaultdict
+import gzip
 import pysam
 import sys
 
@@ -101,7 +102,7 @@ def get_exac_column_values(exac_f, chrom, pos, ref, alt):
 
 
 exac_f = pysam.TabixFile(args.exac_sites_vcf)
-clinvar_f = open(args.clinvar_table)
+clinvar_f = gzip.open(args.clinvar_table) if args.clinvar_table.endswith('.gz') else open(args.clinvar_table)
 clinvar_header = next(clinvar_f).rstrip('\n').split('\t')
 clinvar_with_exac_header = clinvar_header + NEEDED_EXAC_FIELDS
 print("\t".join(clinvar_with_exac_header))
