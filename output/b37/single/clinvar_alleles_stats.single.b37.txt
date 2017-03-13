@@ -1,826 +1,846 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
 ================
-Total Rows: 243067
+Total Rows: 243477
 ================
 column 5: measureset_type
-243067 Variant
+ 243477 Variant
 ================
 column 13: clinical_significance
-111721 Uncertain significance
-49984 Likely benign
-42955 Pathogenic
-32660 Benign
-17291 not provided
-13161 Likely pathogenic
-1938 other
- 630 risk factor
- 337 drug response
- 144 association
- 110 Affects
-  57 protective
-   2 not reported for simple variant
+ 111800 Uncertain significance
+  49995 Likely benign
+  43214 Pathogenic
+  32664 Benign
+  17292 not provided
+  13232 Likely pathogenic
+   1938 other
+    643 risk factor
+    355 drug response
+    145 association
+    111 Affects
+     57 protective
+      2 not reported for simple variant
 ================
 column 14: pathogenic
-189125 0
-53942 1
+ 189224 0
+  54253 1
 ================
 column 15: benign
-170471 0
-72596 1
+ 170870 0
+  72607 1
 ================
 column 16: conflicted
-242556 0
- 511 1
+ 242968 0
+    509 1
 ================
 column 17: review_status
-160377 criteria provided, single submitter
-31481 no assertion criteria provided
-23963 criteria provided, multiple submitters, no conflicts
-11173 no assertion provided
-8795 criteria provided, conflicting interpretations
-7255 reviewed by expert panel
-  23 practice guideline
+ 160477 criteria provided, single submitter
+  31735 no assertion criteria provided
+  23991 criteria provided, multiple submitters, no conflicts
+  11171 no assertion provided
+   8809 criteria provided, conflicting interpretations
+   7271 reviewed by expert panel
+     23 practice guideline
 ================
 column 18: gold_stars
-169172 1
-42654 0
-23963 2
-7255 3
-  23 4
+ 169286 1
+  42906 0
+  23991 2
+   7271 3
+     23 4
 ================
 column 19: all_submitters
-94614 Illumina Clinical Services Laboratory,Illumina
-31476 GeneDx
-28578 Emory Genetics Laboratory,Emory University
-22047 Invitae
-20916 OMIM
-19247 Ambry Genetics
-16196 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
-15711 PreventionGenetics,PreventionGenetics
-10256 Genetic Services Laboratory, University of Chicago
-5671 Counsyl
-5173 GeneReviews
-4816 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
-3006 Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge
-2686 ITMI
-2231 Sharing Clinical Reports Project (SCRP)
-2214 Biesecker Lab/Human Development Section,National Institutes of Health
-2105 InSiGHT
-1872 Breast Cancer Information Core (BIC) (BRCA2)
-1655 Breast Cancer Information Core (BIC) (BRCA1)
-1638 Division of Genomic Diagnostics,The Children's Hospital of Philadelphia
-1573 Tuberous sclerosis database (TSC2)
-1527 Retina International
-1516 Cardiovascular Biomedical Research Unit,Royal Brompton & Harefield NHS Foundation Trust
-1394 LDLR-LOVD, British Heart Foundation
-1380 LabCorp
-1233 ARUP Institute,ARUP Laboratories
-1195 Blueprint Genetics
-1081 Epithelial Biology,  Institute of Medical Biology, Singapore
-1053 Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics
-1024 Systems Biology Platform Zhejiang California International NanoSystems Institute
- 968 Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario
- 921 UniProtKB/Swiss-Prot
- 903 University of Washington Department of Laboratory Medicine,University of Washington
- 828 Juha Muilu Group, Institute for Molecular Medicine Finland (FIMM)
- 769 RettBASE
- 692 CSER_CC_NCGL, University of Washington Medical Center
- 629 Unité médicale des maladies autoinflammatoires, CHRU Montpellier
- 565 Praxis fuer Humangenetik Tuebingen,
- 556 Tuberous sclerosis database (TSC1)
- 551 Developmental Genetics Unit,King Faisal Specialist Hospital & Research Centre
- 535 Human Evolutionary Genetics, Institut Pasteur
- 531 Stanford Center for Inherited Cardiovascular Disease,Stanford University
- 524 DeBelle Laboratory for Biochemical Genetics, MUHC/MCH RESEARCH INSTITUTE
- 508 Centre for Mendelian Genomics,University Medical Centre Ljubljana
- 482 Quest Diagnostics Nichols Institute San Juan Capistrano
- 434 Baylor Miraca Genetics Laboratories
- 407 Science for Life laboratory,  Karolinska Institutet
- 395 Richard Lifton Laboratory, Yale University School of Medicine
- 385 Mayo Clinic Genetic Testing Laboratories,Mayo Clinic
- 385 Collagen Diagnostic Laboratory
- 379 Academic Unit of Haematology, University of Sheffield
- 376 Leiden Muscular Dystrophy (RYR1)
- 332 VIB  Department of Molecular Genetics, University of Antwerp
- 316 Michigan Medical Genetics Laboratories,University of Michigan
- 315 GenMed Metabolism Lab
- 302 Clinical Biochemistry Laboratory,Health Services Laboratory
- 280 UW Hindbrain Malformation Research Program,University of Washington
- 276 Athena Diagnostics Inc
- 241 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
- 238 Cardiovascular Research Group,Instituto Nacional de Saude Doutor Ricardo Jorge
- 237 Pathway Genomics
- 236 Psychiatry Genetics Yale University
- 234 Martin Pollak Beth Israel Deaconess Medical Center, Dept. of Nephrology
- 227 CFTR2
- 218 ClinVar Staff, National Center for Biotechnology Information (NCBI)
- 213 PALB2 database
- 213 Center for Bioinformatics, Peking University
- 189 Department of Ophthalmology and Visual Sciences Kyoto University
- 173 HudsonAlpha Institute for Biotechnology
- 172 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
- 171 Centre for Genomic Medicine, Manchester,Central Manchester University Hospitals
- 163 UCLA Clinical Genomics Center, UCLA
- 153 Robarts Research Institute,University of Western Ontario
- 148 PharmGKB
- 148 Color Genomics, Inc.
- 146 ARUP Laboratories, Molecular Genetics and Genomics
- 139 Knight Diagnostic Laboratories,Oregon Health and Sciences University
- 137 Cardiovascular Genetics Laboratory,PathWest Laboratory Medicine WA - Fiona Stanley Hospital
- 117 Medical Research Institute,Tokyo Medical and Dental University
- 116 Vantari Genetics
- 114 Laboratory of Molecular Diagnosis of Cancer,West China Hospital, Sichuan University
- 111 SNPedia
- 107 Diasio Lab,  Mayo Clinic
- 101 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
-  99 Harris Lab, University of Minnesota
-  97 Claritas Genomics
-  95 NEI DNA Diagnostic Laboratory,National Institutes of Health
-  95 Genomic Research Center,Shahid Beheshti University of Medical Sciences
-  94 Cancer Genetics Laboratory,Peter MacCallum Cancer Centre
-  87 Mendelics Analise Genomica
-  86 Laboratory of Genetics and Molecular Cardiology,University of São Paulo
-  86 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
-  82 International Pleuropulmonary Blastoma Registry,Children's Hospitals and Clinics of Minnesota
-  82 GeneKor MSA
-  81 University Children's Hospital, University of Zurich
-  80 Greenwood Genetic Center Diagnostic Laboratories,Greenwood Genetic Center
-  79 University of Washington Center for Mendelian Genomics, University of Washington
-  79 Institute of Medical Genetics and Genomics,Sir Ganga Ram Hospital
-  79 Dept. of Genetics and Pharmacogenomics, Merck Research Labs
-  72 Division of Human Genetics,Children's Hospital of Philadelphia
-  70 Agnes Ginges Centre for Molecular Cardiology,Centenary Institute
-  69 Inserm U 954, Faculté de Médecine de Nancy
-  66 Leiden Muscular Dystrophy (CAV3)
-  65 Laboratory of Molecular Genetics,CHU RENNES
-  63 Paul Sabatier University EA-4555, Paul Sabatier University
-  63 Genetic Diagnostic Laboratory,University of Pennsylvania School of Medicine
-  61 Prostate Cancer Research Center,Institute of Biosciences and Medical Technology, University of Tampere
-  58 Department of Zoology Govt. MVM College
-  56 Center for Genetic Medicine Research,Children's National Medical Center
-  53 ZMPSTE24 homepage - Leiden Muscular Dystrophy pages
-  53 Laboratory of Genomics and Molecular Biology,A. C. Camargo Cancer Center
-  53 Eye Genetics Research Group,Children's Medical Research Institute
-  52 Casey Eye Institute Glaucoma Genetics Lab 
-  49 Molecular Genetics Laboratory,Children's Mercy Hospital and Clinics
-  48 Leiden Muscular Dystrophy (MYPN)
-  47 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
-  46 Evolutionary and Medical Genetics Laboratory,  Centre for Cellular and Molecular Biology
-  46 Albrecht-Kossel-Institute,Medical University Rostock
-  44 Immunobiology Lab, University of Kashmir
-  44 Center for Medical Genetics Ghent,University of Ghent
-  42 University of Sydney Medical Foundation
-  42 Molecular Diagnostics Lab,Nemours Alfred I. duPont Hospital for Children
-  42 Division of Human Genetics Innsbruck,Medical University Innsbruck
-  42 Courtagen Diagnostics Laboratory,Courtagen Life Sciences
-  42 CHU Sainte-Justine Research Center,University of Montreal
-  40 Laboratory of Translational Genomics,  National Cancer Institute
-  39 Next Generation Diagnostics,Novartis Institutes for BioMedical Research, Inc.
-  39 Genetic Testing Lab,Ashok and Rita Patel Institute of Integrated Study and Research in Biotechnology and Allied Sciences
-  37 Northcott Neuroscience Laboratory, ANZAC Research Institute
-  36 Department of Endocrinology, Seth G.S. Medical College and K.E.M. Hospital
-  35 Molecular Psychiatry Laboratory, RIKEN
-  35 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
-  34 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
-  33 Willoughby Group, Queen's University Belfast
-  33 Victorian Clinical Genetics Services,Murdoch Childrens Research Institute
-  33 Research Lab, National Institute of Public Health
-  33 Genome Clinic of Geneva,University Hospital of Geneva
-  32 Department of Medical Genetics,University Hospital of North Norway
-  32 ANO5 homepage - Leiden Muscular Dystrophy pages
-  31 Leiden Muscular Dystrophy (TPM1)
-  30 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
-  29 Laboratory of Prof. Karen Avraham,Tel Aviv University
-  28 Centre for molecular medicine, Karolinska Institutet
-  27 Diagnostic Laboratory,Strasbourg University Hospital
-  26 Molecular Diagnostics Laboratory,Seoul National University Hospital
-  26 Medical Genetics Unit, Ain Shams University Pediatrics Hospital
-  26 Genetics Laboratories, Oxford Radcliffe Hospitals NHS Trust
-  26 Division of Molecular Genetics and Division of Molecular Medicine, Department of Research and Development,Faculty of Medicine Siriraj Hospital, Mahidol University
-  26 Demyelinating Disease Laboratories, VA Medical Center and University of Tennessee
-  24 Institute for Integrative and Experimental Genomics,University of Luebeck
-  24 Hubei Clinical and Research Center of Thrombosis and Hemostasis Institute of Hematology, Union Hospital
-  23 Wellcome Trust Centre for Mitochondrial Research, Newcastle University
-  23 TPM2 homepage - Leiden Muscular Dystrophy pages
-  23 Section of Medical Genetics, Telemark Hospital
-  23 Gray Institute for Radiation Oncology & Biology, University of Oxford
-  23 Center for Neuroscience and Cell Biology,University of Coimbra, Portugal
-  23 American College of Medical Genetics and Genomics  (ACMG)
-  22 Reparto di Fisiopatologia delle Malattie Genetiche, Dipartimento di Ematologia, Oncologia, Istituto Superiore di Sanità
-  22 Rajkovic Lab, University of Pittsburgh
-  22 Leiden Muscular Dystrophy (MYL2)
-  22 Institute of Molecular Pathology and Immunology of the University of Porto (IPATIMUP)
-  22 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
-  22 Department of Molecular and Human Genetics, Baylor College of Medicine
-  22 Clinical Genetics Research Group, University of Calgary
-  21 Tulane Cancer Center,Tulane University
-  21 Dr. Guy Rouleau's laboratory,McGill University
-  21 Chan Lab,Boston Children's Hospital
-  20 Unidad de Diagnostico y Tratamiento de Errores Congenitos del Metabolismo. Hospital Clínico Universitário de Santiago de Compostela
-  20 Medical Biology Lab,  Gaziantep University
-  20 James Howe Lab,University of Iowa Hospital and Clinics
-  20 Institute for Biomarker Research,Medical Diagnostic Laboratories, L.L.C.
-  19 SN ONGC Dept of Genetics and Molecular biology Vision Research Foundation
-  19 Institute. of Biochemistry and Experimental Oncology, First Faculty of Medicine, Charles University in Prague
-  19 HerediLab, Inc.
-  19 Familial Cancer Clinic,Veneto Institute of Oncology
-  18 NeuroMeGen,Hospital Clinico Santiago de Compostela
-  18 Lee Lab(KAT6B), Baylor College of Medicine
-  18 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
-  18 Division of Medical Genetics, Sainte-Justine Hospital
-  18 Department of Medical Genetics, Oslo University Hospital and University of Oslo
-  18 Cardiovascular Biomarker Research Laboratory,Mayo Clinic
-  17 Undiagnosed Diseases Program Translational Research Laboratory, National Institutes of Health
-  17 TPM3 homepage - Leiden Muscular Dystrophy pages
-  17 Department of Genetics, Reproduction and Fetal Medicine.,Institute of Biomedicine of Seville (IBIS), University Hospital Virgen del Rocío/CSIC/University of Seville.
-  16 Strand Center for Genomics and Personalized Medicine,Strand Life Sciences Pvt Ltd
-  16 Elahi Laboratory, University of Tehran
-  15 Shanghain Institute for Pediatric Research
-  15 Neurogenetics Laboratory,Royal Perth Hospital
-  15 National Institute of Mental Health and Neurosciences
-  15 Molecular Genetics Laboratory, Baylor College of Medicine
-  15 Department of Internal Medicine, University of Texas Health Science Center at Houston
-  15 Department of Genetics,Robert DEBRE University Hospital
-  15 Deafness Gene Diagnosis,Xijing Hospital
-  14 Whole genome laboratory, Baylor College of Medicine
-  14 Shaikh Laboratory, University of Colorado
-  14 Service de Génétique Moléculaire,Hôpital Robert Debré
-  14 Leiden Muscular Dystrophy (MYL3)
-  14 Human Genetics Disease in Children – Taif University,Taif University
-  14 Cytogenetics Laboratory,Banaras Hindu University
-  13 State Key Lab of Medical Genetics, Central South University
-  13 Programa de Pós-Graduação em Ciências Genômicas e Biotecnologia,Universidade Católica de Brasília
-  13 Laboratory of Genomics, Instituto Nacional de Cardiología Ignacio Chávez
-  13 Karsan Lab,BC Cancer Agency
-  13 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
-  13 Genetic Diagnostic Laboratory,University of Szeged
-  13 Forensic Genetics Laboratory,Harris County Institute of Forensic Sciences
-  13 Department of Molecular Biophysics, University of Lodz
-  13 Department of Immunology,Hospital Universitario Virgen del Rocio
-  13 Clinical Molecular Genetics Laboratory,Johns Hopkins All Children's Hospital
-  12 Scripps Translational Science Institute,Scripps Health and The Scripps Research Institute
-  12 GOLD service, Hunter New England Health
-  12 Department of Mental Retardation and Birth Defect Research,  National Center of Neurology and Psychiatry
-  12 Centre of Medical Genetics, University of Antwerp
-  12 Center for Human Genetics and Laboratory Diagnostics, Dr. Klein, Dr. Rost and Colleagues,
-  11 Seattle Children's Research Institute
-  11 Osteogenesis Imperfecta Variant Database (PPIB)
-  11 Leiden Muscular Dystrophy (TNNT1)
-  11 Klein lab,Ludwig-Maximilians-University
-  11 Department of Pharmacy and Biotechnology,University of Bologna
-  11 Center for Human Genetics,University of Leuven
-  10 Neurogenetics Research, Murdoch Childrens Research Institute
-  10 Molecular and Medical Genetics Group,King's College London
-  10 McDonnell Genome Institute,Washington University in St. Louis
-  10 Leiden Muscular Dystrophy (TNNT3)
-  10 Institute of Human Genetics,University of Wuerzburg
-  10 Centre de Recherche Saint Antoine,  Université Pierre et Marie Curie
-   9 UMR_S938_Pr. Le Bouc INSERM
-   9 Research Unit for Molecular Medicine, Department for Clinical Medicine,Aarhus University
-   9 MOLECULAR BIOLOGY LABORATORY,INSTITUTO NACIONAL DE PEDIATRIA
-   9 Leiden Muscular Dystrophy (DAG1)
-   9 Leeds Amelogenesis Imperfecta Research Group,Leeds University
-   9 Laboratory of Cell Biology, Institute of Biomedical Sciences Abel Salazar (ICBAS)
-   9 Institute for Medical Genetics and Human Genetics,Charité - Universitätsmedizin Berlin
-   9 Institute for Genomic Medicine, Columbia University,Columbia University Medical Center
-   9 IUMS Hospital Medical Genetics Lab,Iran University of Medical Sciences (IUMS)
-   9 Human Genetics School of Medicine of Albacete, Castilla-La Mancha University
-   9 Genomics and Pathology Services,Washington University in St.Louis
-   9 Functional Genomics, Thrombosis Research Institute, India
-   9 Department of Medical Genetics, Faculty of Medicine,Ege University
-   9 Center for Statistical Genetics,Baylor College of Medicine
-   9 Center for Individualized Medicine,Mayo Clinic
-   8 TNNI2 homepage - Leiden Muscular Dystrophy pages
-   8 Neurogenetics of motion laboratory,Montreal Neurological Institute
-   8 Molecular Genetics and Enzymology, National Research Centre
-   8 Molecular Genetics Diagnostic Laboratory,Detroit Medical Center University Laboratories
-   8 Medizinische Klinik 1/ Institut für Bioinformatik,Universitätsklinikum Großhadern, München/ Helmholtz Zentrum München
-   8 Leiden Muscular Dystrophy pages (B3GALNT2)
-   8 Laboratory for Genetics of Human Development Center for Human Genetics, Catholic University of Leuven
-   8 Laboratory Genomica,Gynecology and Assisted Reproduction Hospital Malinov DM
-   8 Laboratorio de Genetica Humana, Universidad de los Andes
-   8 Karolinska institutet
-   8 Johns Hopkins Genetic Resources Core Facility, Johns Hopkins University
-   8 Institute for Ophthalmic Research,University Tuebingen
-   8 Genetics Research Center,University of Social Welfare and Rehabilitation Sciences
-   8 Faculty of Pharmacy,Medical University of Gdansk
-   8 Center for Genomic Medicine,Kyoto University Graduate School of Medicine
-   7 Samuels research lab,Centre de Recherche du CHU Ste-Justine
-   7 Molecular Genetics Lab,Istituto Giannina Gaslini
-   7 Leeds Vision Research Group,University of Leeds
-   7 Laboratory of Molecular Genetics,  Faculty of Medical Sciences - University of Campinas
-   7 Laboratory of Metabolic Disorders,Peking University First Hospital
-   7 L V Prasad Eye Institute, Hyderabad Eye Research Foundation
-   7 Institute of Human Genetics,Cologne University
-   7 Genetics Research Lab, Taif University
-   7 Forschungslabor Klinik Innere Medizin A University Medicine Greifswald
-   7 Centro de Genética y Biología Molecular,Universidad de San Martín de Porres
-   6 Unidad de Estudios Geneticos y Forenses,Instituto Venezolano de Investigaciones Cientificas
-   6 Translational Genetics in Neurodegenerative disease,Karolinska Institutet
-   6 Section on Endocrinology and Genetics,National Institutes of Health / The Eunice Kennedy Shriver National Institute of Child Health and Human Development
-   6 STRNAD Lab,  University Hospital of Ulm
-   6 Pediatric Endocrinology Laboratory, Christian Albrechts University of Kiel
-   6 Neurogenetic Laboratory,Oslo University Hospital
-   6 Narod's Lab,  University of Toronto
-   6 Leiden Muscular Dystrophy (MYOZ2)
-   6 Hehr Laboratory,Center for Human Genetics - University of Regensburg
-   6 Genetics, Bhagwan Mahavir Medical Research Centre
-   6 Faculty of Pharmacy, Ain Shams University
-   6 Department of Breast and Endocrine Surgery,Kumamoto University
-   6 Bone Marrow Failure laboratory,Queen Mary University London
-   6 Andelfinger Lab,Centre de Recherche, CHU Sainte Justine
-   5 Vavilov Institute of General Genetics RAS, Laboratory of Evolutional Genomics
-   5 Science and Research Branch, Islamic Azad University,Islamic Azad University
-   5 Oxford Medical Genetics Laboratories,Oxford University Hospitals NHS Foundation Trust
-   5 Medical Genomics Laboratory,Department of Genetics UAB
-   5 Laboratory of Human Molecular Genetics, Department of Medical Research,Taipei Veterans General Hospital
-   5 Laboratoire de Génétique Moléculaire, CHU Pontchaillou
-   5 Institute of Human Genetics,University Medical Center Hamburg-Eppendorf
-   5 Institute of Human Genetics,Friedrich-Alexander-Universität Erlangen-Nürnberg
-   5 George Lab Vanderbilt University
-   5 Division of Blood Purification,Kakanzawa University’
-   5 Department of Psychiatry,Nagoya University
-   5 Department of Medical Genetics,Sanjay Gandhi Post Graduate Institute of Medical Sciences
-   5 Department of Immunology, Genetics and Pathology,  Uppsala University
-   5 Curoverse
-   5 Cole and Hamvas Lab,  Washington University - St. Louis
-   5 Centre for Genetic Disorders, Banaras Hindu University
-   5 Centre de Biotechnologie de Sfax,Université de Sfax
-   5 Center for Advanced Molecular Diagnostics, Cytogenetics Laboratory,Brigham and Women's Hospital
-   5 Brain and Spine Institute,INSERM
-   5 Bonnen Lab,Baylor College of Medicine
-   5 Blood Cell Research,Sanquin
-   5 Australian Red Cross Blood Service
-   4 Zabetian_UW Neurogenetics Lab, University of Washington/VAPSHCS
-   4 Unit U781, INSERM (Institut National de la Santé Et de la Recherche Médicale)
-   4 UF de Génétique Moléculaire,Hôpital Lariboisière
-   4 Prof. Thelma's Laboratory, Department of Genetics,University of Delhi South Campus
-   4 Pediatric Services,National Institutes of Health, Clinical Center
-   4 Oral and Maxillofacial Surgery,Tokyo Medical and Dental University
-   4 Nyegaard lab, Aarhus University
-   4 Medical Molecular Genetics,University of Birmingham
-   4 Medical Genetics of Dicle University
-   4 MVZ Praenatalmedizin und Genetik Nuernberg
-   4 Lyon Laboratory, Cold Spring Harbor Laboratory
-   4 Leiden Muscular Dystrophy (PDLIM3)
-   4 Kruer lab,Phoenix Children's Hospital
-   4 Institute of Human Genetics,University of Bonn
-   4 Institute of Human Genetics,University Hospital Ulm
-   4 Institute for Genetics of Heart Diseases,  University Hospital Muenster
-   4 Gene Discovery Core-Manton Center,Boston Children's Hospital
-   4 Endocrine Unit 2,University Hospital of Pisa
-   4 Department of Prenatal Diagnosis, Center for Genetic Medicine,Nanjing Maternity and Child Health Care Hospital Affiliated to Nanjing Medical University
-   4 Department of Human Genetics,University of Michigan
-   4 Department of Hematology,University of Health Sciences
-   4 Congenital Heart Disease Genetic Program Lab,American University of Beirut
-   4 Chelly Lab, Institut de Génétique et de Biologie Moléculaire et Cellulaire,Strasbourg University - CNRS UMR 7104 - Inserm U 964
-   4 Centre for Genomic Sciences,University of Hong Kong
-   4 Center for Pediatric Genomic Medicine, Children's Mercy Hospital and Clinics
-   4 Center for Narcolepsy, Stanford University
-   4 AG Schumann,Charité Universitätsmedizin Berlin
-   3 Universitäts-Kinderspital Zürich
-   3 University of British Columbia
-   3 UCL Genetics Institute,UCL
-   3 TilsonLab,Columbia University
-   3 Sanford Children's Health Research Center, Sanford-Burnham-Prebys Medical Discovery Institute
-   3 Puck Laboratory, University of California, San Francisco
-   3 Peking Union Medical College Hospital
-   3 Pediatric Genetics Division, Center for Pediatrics and Adolescent Medicine,University Medical Center Freiburg
-   3 Pediatric Diabetes Laboratory, Experimental and Clinical Research Center (ECRC)
-   3 Osteogenesis Imperfecta Variant Database (SERPINF1)
-   3 National Center for Biotechnology Information, National Institutes of Health
-   3 Mount Sinai Genetic Testing Laboratory,Icahn School of Medicine at Mount Sinai 
-   3 Molecular Oncology Laboratory,Centre Jean Perrin
-   3 Molecular Genetics and RNA Biology,University of Milan
-   3 Molecular Genetics Pathology Laboratory, University Of Arkansas for Medical Sciences
-   3 Medical Genetic Department,Shiraz University Of Medical Science
-   3 McKusick-Nathans Institute of Genetic Medicine,Johns Hopkins University
-   3 Mayo Muscle Lab,  Mayo Clinic
-   3 Leiden Muscular Dystrophy (DPM3)
-   3 Language and Genetics Department,Max Planck Institute for Psycholinguistics
-   3 Laboratory of Molecular Diagnostics and Monitoring of CML and Ph+ Leukemias, Institute of Hematology and Blood Transfusion
-   3 Laboratory of Genetic Epidemiology,Research Centre of Medical Genetics
-   3 Laboratoire de Génétique et de Physiologie Neuroendocrinienne, Faculté des Sciences
-   3 Lab of Dermatology,  Peking University First Hospital
-   3 Institute of Microbiology, University Hospital and Univeristy of Lausanne
-   3 Institut de genetique medicale,Centre Hospitalier Regional Universitaire de Lille
-   3 Institut Pasteur du Maroc
-   3 Human Genetics,Philipps Universitaet Marburg
-   3 Hospital of the University of Pennsylvania,Center for Personalized Diagnostics
-   3 Harry Perkins Institute of Medical Research,University of Western Australia
-   3 Genome Diagnostics Laboratory,University Medical Center Utrecht
-   3 Garry R Cutting Laboratory,Johns Hopkins University
-   3 Engle Laboratory,Boston Children's Hospital
-   3 E. Rossignol Lab,CHU Ste-Justine, Universite de Montreal
-   3 Department of Plant Molecular and Cellular Biology Adam Mickiewicz University
-   3 Department of Pediatrics,Kobe University
-   3 Department of Neurology, University Hospital of Strasbourg
-   3 Department of Endocrinology and Metabolism,The First Affiliated Hospital of Sun Yet-sen University
-   3 Department of Clinical Genetics,Oxford University Hospitals NHS Trust
-   3 Department of Biological Science,Sunandan Divatia School of Science, NMIMS University
-   3 Clinical Genetics Laboratory of Dermatology,Peking University First Hospital
-   3 Child and Family Research Institute
-   3 Centre of Chronic Immunodeficiency, Freiburg University
-   3 Centre for Genomic and Experimental Medicine,University of Edinburgh
-   3 Biology Pathology Center,Lille University Hospital
-   3 Atomic Energy Commission of Syria (AECS)
-   3 Akiko Shimamura Lab,Fred Hutchinson Cancer Research Center
-   2 idemuth, Charité - Universiätsmedizin Berlin
-   2 University of Arizona Genetics Core,University of Arizona
-   2 U955 Equipe 11,INSERM
-   2 Tgen's Center For Rare Childhood Disorders,Translational Genomics Research Institute (TGEN)
-   2 Systems Biology Division, Zhejiang-California International Nanosystems Institute
-   2 Shendure Lab,University of Washington
-   2 Sharon E. Plon Laboratory,Baylor College of Medicine
-   2 Reproductive Endocrinology and immunology College of Medicine, National Cheng Kung University
-   2 Radiation Cancer Biology Lab, University of Rajasthan Jaipur
-   2 Otology & Neurotology- Genomics of vestibular disorders (CTS-495),Jose Antonio López Escámez, Centro Pfizer - Universidad de Granada - Junta de Andalucía de Genómica e Investigación Oncológica (GENYO)
-   2 Northern Blood Research Centre, University of Sydney
-   2 Neurology Department,Peking University First Hospital
-   2 Molecular Neurogenomics lab,VIB Department of Molecular Genetics, University of Antwerp
-   2 Molecular Genetics and RNA Biology, Humanitas University
-   2 Molecular Diagnostic Laboratory for Inherited Cardiovascular Disease,Montreal Heart Institute
-   2 Mitochondrial Research, Murdoch Childrens Research Institute
-   2 Miller Lab NIH/NIDDK
-   2 Medical Genetics,University of Parma
-   2 Mayo Clinic Health System - Franciscan Health care,Mayo Clinic Health System
-   2 Laboratório de Genética Molecula,r University of Campinas - Unicamp
-   2 Laboratório de Genética Humana e Médica,  Universidade Federal do Pará
-   2 Laboratory of Human Genetics, Universidade de São Paulo
-   2 Lab. of Molecular Biology of Arterial Hypertension University of Padova
-   2 Korbonits Lab,Queen Mary University of London
-   2 King Laboratory,University of Washington
-   2 Kangwon National University Hospital
-   2 Institute of Otorhinolaryngology, The First affiliated hospital,Sun Yat-sen University
-   2 Institute of Human Genetics, University Hospital Bonn,Institute of Human Genetics
-   2 Institute of Experimental Endocrinology,Slovak Academy of Sciences
-   2 Institut für Integrative und Experimentelle Genomik, Universität zu Lübeck
-   2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
-   2 Human Genetics and Genome Research Division,National Research Centre
-   2 Hauner Childrens Hospital, Department of Pediatrics,Dr. von Hauner Children's Hospital, Ludwig Maximilians University
-   2 Genomic Medicine Lab,University of Southampton
-   2 FRIGE's Institute of Human Genetics
-   2 FORGE Canada,Children's Hospital of Eastern Ontario
-   2 Erez Levanon lab,Bar Ilan University
-   2 Duke University Health System Sequencing Clinic,Duke University Health System
-   2 Diagnostic Molecular Genetics Laboratory, Memorial Sloan Kettering Cancer Center
-   2 Devine Lab Institute for Genome Sciences, University of Maryland School of Medicine
-   2 Department of Prosthodontics,Peking University School and Hospital of Stomatology
-   2 Department of Neurology The University of Tokyo, Graduate School of Medicine
-   2 Department of Medical Genetics,Gazi University
-   2 Department of Immunology, School of Medicine,Complutense University
-   2 Department of Endocrinology,The Affiliated hospital of QingDao University
-   2 DNA Repair Laboratory,Institute of Biomedical Sciences - University of Sao Paulo
-   2 Clinics for Rare Diseases Referral (Hong Kong),The University of Hong Kong
-   2 Clinical Genetics Karolinska University Hospital,Karolinska University Hospital
-   2 Center for Personalized Medicine, Roswell Park Cancer Institute
-   2 Center for Human Genetics,University Hospitals Case Medical Center/Case Western Reserve University
-   2 Center for Applied Genomics,Children's Hospital of Philadelphia
-   2 American University of Beirut,Same Uiversity Hospital
-   2 Alzheimer Center and Department of Neurology, VU University Medical Center 
-   1 emedgene Technologies
-   1 University of Washington School of Medicine
-   1 University of Mississippi Medical Center,University of Mississippi
-   1 UZ-KU Leuven,KU Leuven
-   1 UDP Translational Laboratory,National Institute of Health
-   1 Toronto General Hospital,University of Toronto
-   1 Thoracic Oncology,University of Hawaii Cancer Center
-   1 The International Peace Maternity & Child Health Hospital,Shanghai Jiao Tong University School of Medicine
-   1 The Institute of Human Genetics, Galilee Medical Center
-   1 The Institute for Molecular Bioscience,The University of Queensland
-   1 The Canberra Hospital
-   1 Stoller Lab Children's Hospital of Philadelphia
-   1 Sidra Medical and Research Center
-   1 Shiraz Institute for Cancer Research, Shiraz University of Medical Sciences
-   1 Shiraz Comprehensive Medical Genetics Center,Shiraz University of Medical Sciences
-   1 Scientific Bio-Minds
-   1 School of Biological Sciences, University of the Punjab
-   1 Sankaran Lab,Boston Children's Hospital
-   1 Russ Altman Lab,Stanford University
-   1 Rui Chen Lab,Baylor College of Medicine
-   1 Research lab,Institute of Genetics and Molecular and Cellular Biology
-   1 Research Centre for  Medical Genetics
-   1 Research Center for Immunodeficiencies,Tehran University of Medical Sciences
-   1 Rappaport Faculty of Medicine,Technion-Israel Institute of Technology
-   1 Rademakers Lab,Mayo Clinic
-   1 QMC Molecular Diagnostics,Queen's Medical Center
-   1 Pôle de Biologie Pathologie Génétique,CHRU LILLE
-   1 Programa de Ciencias Genomicas e Biotecnologia,Universidade Catolica de Brasilia
-   1 Pharmacogenetics and Inflammatory Diseases Research Group, University of Otago
-   1 Petrovsky National Research Centre of Surgery,The Federal Agency for Scientific Organizations
-   1 Personalis, Inc.
-   1 Osteogenesis Imperfecta Variant Database (SP7)
-   1 Neurology IV Unit, Fondazione Istituto Neurologico C. Besta
-   1 Neurogenetics Laboratory,GH Pitie Salpetriere APHP
-   1 NeuroCure Clinial Research Center,Charite Universitaetsmedizin Berlin
-   1 National Centre for Medical Genetics,Crumlin Children's Hospital, Dublin
-   1 NCBI curation
-   1 Mutsuddi Laboratory, Department of Molecular and Human Genetics,Banaras Hindu University
-   1 Molecular and pathophysiological bases of cognitive disorders,Institute Imagine
-   1 Molecular Otolaryngology and Renal Research Laboratories, University of Iowa Hospital and Clinics
-   1 Molecular Metabolic laboratory,Sheba Medical Center  Tel-Hashomer
-   1 Molecular Genetics Unit, Terrassa Hospital
-   1 Molecular Genetics Laboratory, Institute for Ophthalmic Research
-   1 Molecular Genetics Department,Federal State Budget Institution Research Center for Obstetrics, Gynecology and Perinatology
-   1 Molecular Genetic Center,Genetaq
-   1 Molecular Diagnostics Laboratory,Hospital Sainte-Justine
-   1 Molecular Diagnostics Lab,GoPath Laboratories
-   1 Molecular Biology of Hearing and Deafness Laboratory, Xinhua Hospital
-   1 Miami Human Genetics,University of Miami Miller School of Medicine
-   1 Medical Genetics,Meyer Children Hospital
-   1 Medical Genetics and Mitochondrial Research group,Latvian Biomedical Research and Study center
-   1 Medical Genetics Unit,Zeynep Kamil Women and Children's Hospital
-   1 Medical Genetics UMG,Mater Domini University Hospital/ Magna Graecia University of Catanzaro
-   1 McDonald Lab, Albert Einstein College of Medicine
-   1 Max Planck Institute for Molecular Genetics
-   1 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
-   1 MS Genetics Lab,University of British Columbia
-   1 Laboratory of Personalized Genomic Medicine,Columbia University Medical Center
-   1 Laboratory of Molecular Oncology,N.N. Petrov Institute of Oncology
-   1 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
-   1 Laboratorio de Biomedicina,Instituto de Biotecnología de Misiones
-   1 Laboratoire de Biologie Moléculaire,Centre Hospitalo-Universitaire
-   1 Lab of Molecular Dermatology,University Medical Center Freiburg
-   1 Keegan Laboratory,University of Michigan
-   1 Kariminejad-Najmabadi Pathology and Genetics Center,KNPGC
-   1 Jonathan Rios,  Texas Scottish Rite Hospital for Children
-   1 Institute of metabolic science
-   1 Institute of Human Genetics,Martin-Luther-Universität Halle-Wittemberg
-   1 Institute of Human Genetics,Justus-Liebig University
-   1 Institute of Human Genetics,FAU Erlangen-Nuremberg
-   1 Institute of Human Genetics, RWTH University Hospital Aachen
-   1 Institute of Experimental Medicine, Department of Genetics,Istanbul University
-   1 Institute of Biochemistry, Molecular Biology and Biotechnology,University of Colombo
-   1 Institute for Clinical Genetics, TU Dresden
-   1 INSERM U1051,Institut des Neurosciences de Montpellier
-   1 Human Population Biology Research Unit, Department of Anatomy and Anthropology, Sackler Faculty of Medicine,Tel Aviv University
-   1 Human Molecular Genetics Lab,Quaid-I-Azam University
-   1 Human Genetics,Leiden University Medical Centre
-   1 Human Genetics Research Group, DBT,Shri Mata Vaishno Devi University
-   1 Human Genetics Research Centre, St George's University of London
-   1 Heart Center,Academic Medical Center Amsterdam
-   1 Hadassah Hebrew University Medical center
-   1 Génétique des Anomalies du Développement (GAD), Université de Bourgogne
-   1 Guangxi Key laboratory of Metabolic Diseases Research, Guilin 181st Hospital
-   1 Gromoll Lab CeRA, University of Muenster
-   1 Genome Sciences Centre,British Columbia Cancer Agency
-   1 Genetic Testing Lab, University of Kentucky College of Medicine
-   1 Genetech,Genetech Research Institute
-   1 GenePathDx,Causeway Health Care Private Ltd
-   1 Geha Laboratory, Boston Childrens Hospital
-   1 Garg Lab, Nationwide Children's Hospital
-   1 Gahl Group, Medical Genetics Branch, National Human Genome Research Institute, National Institutes of Health
-   1 GENETICS INSTITUTE,National university of Colombia
-   1 Fundacion Rioja Salud,Center for Biomedical Research (CIBIR)
-   1 Fulgent Clinical Diagnostics Lab,Fulgent Diagnostics 
-   1 Fujian Institute of Hematology, Fujian Medical University
-   1 Freeman-Sheldon Research Group,deGruyter-McKusick Institute of Health Sciences
-   1 Foundation Medicine, Inc.
-   1 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
-   1 Faculty of Medicine, Iran University of Medical Sciences (IUMS)
-   1 Faculty of Health Sciences-Genetics Diagnosis Lab,Islamic University of Gaza
-   1 Evolutionary and Medical Genetics Laboratory,Center for Cellular and Molecular Biology
-   1 Dhiti Omics Technologies Pvt. Ltd.
-   1 Dept of Medicine and Surgery, University of Milano-Bicocca
-   1 Dept of Medical Genetics, Shandong University
-   1 Dept of Clinical Genetics,Karolinska University Hospital Solna
-   1 Department of Zoology,University of the Punjab, Lahore
-   1 Department of Women and Children's Health,University of New South Wales
-   1 Department of Pediatrics,1st Faculty of Medicine, Charles University in Prague
-   1 Department of Paediatric Surgery,The Canberra Hospital
-   1 Department of Neuroscience, King Faisal Specialist Hospital
-   1 Department of Molecular and Medical Genetics,Osaka Medical Center for Cancer and Cardiovascular Diseases
-   1 Department of Medicine, University of Cambridge
-   1 Department of Medical Genetics,National Institute of Health
-   1 Department of Human Genetics Rambam Health Care Campus
-   1 Department of Genetics,Yale University
-   1 Department of Genetics,University Medical Center Groningen, University of Groningen
-   1 Department of Genetics, Osmania University
-   1 Department of Clinical Science, University of Bergen
-   1 Department of Biology and Molecular Genetics,St Antoine Hospital - APHP
-   1 Department of Anatomy, Embryology and Physiology,Academic Medical Center
-   1 Deafness research group, Biosystems & Integrative Sciences Institute,University of Lisbon
-   1 Datar Genetics Limited, India,Datar Genetics Limited, India
-   1 Community Genetics, University of British Columbia
-   1 College of Pharmacy,University of Babylon
-   1 Clinical Molecular and Personalized Diagnostics,Institute of Biochemistry and Clinical Biochemistry, Teaching and Research Hospital Agostino Gemelli Foundation
-   1 Clinical Genetics, Erasmus University Medical Center
-   1 Clinic of Pediatric and Adolescent Medicine, University Hospital Ulm
-   1 Choi Lab,Seoul National University
-   1 Childrens Diabetes Center,University of Wisconsin-Madison 
-   1 Centro Hospitalar S Joao,Faculty of Medicine of Porto
-   1 Centro Diagnostico Italiano
-   1 Centre for Translational Omics - GOSgene,University College London
-   1 Centre for Molecular Medicine and Therapeutics,University of British Columbia
-   1 Central Laboratory, The First Affiliated Hospital, Jinan University
-   1 Center for Medical Genomics, Jagiellonian University Medical College
-   1 Center for Genomic Medicine,University of Copenhagen
-   1 Center for Breast Cancer,National Cancer Center
-   1 Cancer Genomic Medicine Translational Research Lab,Cleveland Clinic Genomic Medicine Institute
-   1 CVG, University of British Columbia
-   1 Brunetti-Pierri's lab TIGEM
-   1 Biosciences and Nutrition,Karolinska Institutet
-   1 Biomedicum, University of Helsinki
-   1 Biochimie Génétique et moléculaire,CHUGA
-   1 Biochemical and Molecular Genetics Department, Hospital Clinic of Barcelona
-   1 BioTalentum Ltd.
-   1 Ahituv Lab,University of California San Francisco
-   1 Abrahams Lab,Albert Einstein College of Medicine
+  94618 Illumina Clinical Services Laboratory,Illumina
+  31476 GeneDx
+  28579 Emory Genetics Laboratory,Emory University
+  22047 Invitae
+  21027 OMIM
+  19247 Ambry Genetics
+  16196 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
+  15711 PreventionGenetics,PreventionGenetics
+  10257 Genetic Services Laboratory, University of Chicago
+   5671 Counsyl
+   5259 GeneReviews
+   4816 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
+   3006 Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge
+   2686 ITMI
+   2231 Sharing Clinical Reports Project (SCRP)
+   2214 Biesecker Lab/Human Development Section,National Institutes of Health
+   2105 InSiGHT
+   1872 Breast Cancer Information Core (BIC) (BRCA2)
+   1655 Breast Cancer Information Core (BIC) (BRCA1)
+   1638 Division of Genomic Diagnostics,The Children's Hospital of Philadelphia
+   1573 Tuberous sclerosis database (TSC2)
+   1527 Retina International
+   1525 LabCorp
+   1516 Cardiovascular Biomedical Research Unit,Royal Brompton & Harefield NHS Foundation Trust
+   1394 LDLR-LOVD, British Heart Foundation
+   1233 ARUP Institute,ARUP Laboratories
+   1195 Blueprint Genetics
+   1081 Epithelial Biology,  Institute of Medical Biology, Singapore
+   1053 Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics
+   1024 Systems Biology Platform Zhejiang California International NanoSystems Institute
+    969 Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario
+    921 UniProtKB/Swiss-Prot
+    903 University of Washington Department of Laboratory Medicine,University of Washington
+    828 Juha Muilu Group, Institute for Molecular Medicine Finland (FIMM)
+    770 RettBASE
+    692 CSER_CC_NCGL, University of Washington Medical Center
+    629 Unité médicale des maladies autoinflammatoires, CHRU Montpellier
+    565 Praxis fuer Humangenetik Tuebingen,
+    556 Tuberous sclerosis database (TSC1)
+    551 Developmental Genetics Unit,King Faisal Specialist Hospital & Research Centre
+    535 Human Evolutionary Genetics, Institut Pasteur
+    531 Stanford Center for Inherited Cardiovascular Disease,Stanford University
+    524 DeBelle Laboratory for Biochemical Genetics, MUHC/MCH RESEARCH INSTITUTE
+    509 Centre for Mendelian Genomics,University Medical Centre Ljubljana
+    482 Quest Diagnostics Nichols Institute San Juan Capistrano
+    436 Baylor Miraca Genetics Laboratories
+    407 Science for Life laboratory,  Karolinska Institutet
+    395 Richard Lifton Laboratory, Yale University School of Medicine
+    385 Mayo Clinic Genetic Testing Laboratories,Mayo Clinic
+    385 Collagen Diagnostic Laboratory
+    379 Academic Unit of Haematology, University of Sheffield
+    376 Leiden Muscular Dystrophy (RYR1)
+    332 VIB  Department of Molecular Genetics, University of Antwerp
+    321 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
+    316 Michigan Medical Genetics Laboratories,University of Michigan
+    315 GenMed Metabolism Lab
+    302 Clinical Biochemistry Laboratory,Health Services Laboratory
+    280 UW Hindbrain Malformation Research Program,University of Washington
+    276 Athena Diagnostics Inc
+    238 Cardiovascular Research Group,Instituto Nacional de Saude Doutor Ricardo Jorge
+    237 Pathway Genomics
+    236 Psychiatry Genetics Yale University
+    234 Martin Pollak Laboratory,  Beth Israel Deaconess Medical Center
+    227 CFTR2
+    218 ClinVar Staff, National Center for Biotechnology Information (NCBI)
+    213 PALB2 database
+    213 Center for Bioinformatics, Peking University
+    189 Department of Ophthalmology and Visual Sciences Kyoto University
+    181 HudsonAlpha Institute for Biotechnology
+    172 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
+    171 Centre for Genomic Medicine, Manchester,Central Manchester University Hospitals
+    167 PharmGKB
+    163 UCLA Clinical Genomics Center, UCLA
+    159 Knight Diagnostic Laboratories,Oregon Health and Sciences University
+    153 Robarts Research Institute,University of Western Ontario
+    148 Color Genomics, Inc.
+    146 ARUP Laboratories, Molecular Genetics and Genomics
+    137 Cardiovascular Genetics Laboratory,PathWest Laboratory Medicine WA - Fiona Stanley Hospital
+    117 Medical Research Institute,Tokyo Medical and Dental University
+    116 Vantari Genetics
+    114 Laboratory of Molecular Diagnosis of Cancer,West China Hospital, Sichuan University
+    111 SNPedia
+    107 Diasio Lab,  Mayo Clinic
+    101 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
+     99 Harris Lab, University of Minnesota
+     97 Genomic Research Center,Shahid Beheshti University of Medical Sciences
+     97 Claritas Genomics,
+     95 NEI DNA Diagnostic Laboratory,National Institutes of Health
+     94 Cancer Genetics Laboratory,Peter MacCallum Cancer Centre
+     87 University Children's Hospital, University of Zurich
+     87 Mendelics Analise Genomica
+     86 Laboratory of Genetics and Molecular Cardiology,University of São Paulo
+     86 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
+     82 International Pleuropulmonary Blastoma Registry,Children's Hospitals and Clinics of Minnesota
+     82 GeneKor MSA
+     80 Greenwood Genetic Center Diagnostic Laboratories,Greenwood Genetic Center
+     79 University of Washington Center for Mendelian Genomics, University of Washington
+     79 Institute of Medical Genetics and Genomics,Sir Ganga Ram Hospital
+     79 Dept. of Genetics and Pharmacogenomics, Merck Research Labs
+     72 Division of Human Genetics,Children's Hospital of Philadelphia
+     70 Agnes Ginges Centre for Molecular Cardiology,Centenary Institute
+     69 Inserm U 954, Faculté de Médecine de Nancy
+     67 Neurogenetics Laboratory - MEYER,AOU Meyer
+     66 Leiden Muscular Dystrophy (CAV3)
+     65 Laboratory of Molecular Genetics,CHU RENNES
+     64 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
+     63 Paul Sabatier University EA-4555, Paul Sabatier University
+     63 Genetic Diagnostic Laboratory,University of Pennsylvania School of Medicine
+     61 Prostate Cancer Research Center,Institute of Biosciences and Medical Technology, University of Tampere
+     61 Genome Clinic of Geneva,University Hospital of Geneva
+     58 Department of Zoology Govt. MVM College
+     56 Center for Genetic Medicine Research,Children's National Medical Center
+     53 ZMPSTE24 homepage - Leiden Muscular Dystrophy pages
+     53 Laboratory of Genomics and Molecular Biology,A. C. Camargo Cancer Center
+     53 Eye Genetics Research Group,Children's Medical Research Institute
+     52 Casey Eye Institute Glaucoma Genetics Lab 
+     50 Molecular Genetics Laboratory,Children's Mercy Hospital and Clinics
+     48 Leiden Muscular Dystrophy (MYPN)
+     47 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
+     46 Evolutionary and Medical Genetics Laboratory,  Centre for Cellular and Molecular Biology
+     46 Albrecht-Kossel-Institute,Medical University Rostock
+     44 Immunobiology Lab, University of Kashmir
+     44 Center for Medical Genetics Ghent,University of Ghent
+     43 Division of Human Genetics Innsbruck,Medical University Innsbruck
+     42 University of Sydney Medical Foundation
+     42 Molecular Diagnostics Lab,Nemours Alfred I. duPont Hospital for Children
+     42 Courtagen Diagnostics Laboratory,Courtagen Life Sciences
+     42 CHU Sainte-Justine Research Center,University of Montreal
+     40 Laboratory of Translational Genomics,  National Cancer Institute
+     39 Next Generation Diagnostics,Novartis Institutes for BioMedical Research, Inc.
+     39 Genetic Testing Lab,Ashok and Rita Patel Institute of Integrated Study and Research in Biotechnology and Allied Sciences
+     37 Northcott Neuroscience Laboratory, ANZAC Research Institute
+     36 Department of Endocrinology, Seth G.S. Medical College and K.E.M. Hospital
+     35 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
+     35 Molecular Psychiatry Laboratory, RIKEN
+     33 Willoughby Group, Queen's University Belfast
+     33 Victorian Clinical Genetics Services,Murdoch Childrens Research Institute
+     33 Research Lab, National Institute of Public Health
+     32 Department of Medical Genetics,University Hospital of North Norway
+     32 ANO5 homepage - Leiden Muscular Dystrophy pages
+     31 Leiden Muscular Dystrophy (TPM1)
+     30 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
+     29 Laboratory of Prof. Karen Avraham,Tel Aviv University
+     28 Centre for molecular medicine, Karolinska Institutet
+     27 Diagnostic Laboratory,Strasbourg University Hospital
+     26 Molecular Diagnostics Laboratory,Seoul National University Hospital
+     26 Medical Genetics Unit, Ain Shams University Pediatrics Hospital
+     26 Genetics Laboratories, Oxford Radcliffe Hospitals NHS Trust
+     26 Division of Molecular Genetics and Division of Molecular Medicine, Department of Research and Development,Faculty of Medicine Siriraj Hospital, Mahidol University
+     26 Demyelinating Disease Laboratories, VA Medical Center and University of Tennessee
+     25 Institut de genetique medicale,Centre Hospitalier Regional Universitaire de Lille
+     24 Institute for Integrative and Experimental Genomics,University of Luebeck
+     24 Hubei Clinical and Research Center of Thrombosis and Hemostasis Institute of Hematology, Union Hospital
+     23 Wellcome Trust Centre for Mitochondrial Research, Newcastle University
+     23 TPM2 homepage - Leiden Muscular Dystrophy pages
+     23 Section of Medical Genetics, Telemark Hospital
+     23 Gray Institute for Radiation Oncology & Biology, University of Oxford
+     23 Department of Molecular and Human Genetics, Baylor College of Medicine
+     23 Center for Neuroscience and Cell Biology,University of Coimbra, Portugal
+     23 American College of Medical Genetics and Genomics  (ACMG)
+     22 Reparto di Fisiopatologia delle Malattie Genetiche, Dipartimento di Ematologia, Oncologia, Istituto Superiore di Sanità
+     22 Rajkovic Lab, University of Pittsburgh
+     22 Leiden Muscular Dystrophy (MYL2)
+     22 Institute of Molecular Pathology and Immunology of the University of Porto (IPATIMUP)
+     22 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
+     22 Clinical Genetics Research Group, University of Calgary
+     21 Tulane Cancer Center,Tulane University
+     21 Dr. Guy Rouleau's laboratory,McGill University
+     21 Chan Lab,Boston Children's Hospital
+     20 Unidad de Diagnostico y Tratamiento de Errores Congenitos del Metabolismo. Hospital Clínico Universitário de Santiago de Compostela
+     20 Medical Biology Lab,  Gaziantep University
+     20 James Howe Lab,University of Iowa Hospital and Clinics
+     20 Institute for Biomarker Research,Medical Diagnostic Laboratories, L.L.C.
+     19 SN ONGC Dept of Genetics and Molecular biology Vision Research Foundation
+     19 Institute. of Biochemistry and Experimental Oncology, First Faculty of Medicine, Charles University in Prague
+     19 HerediLab, Inc.
+     19 Familial Cancer Clinic,Veneto Institute of Oncology
+     19 Department of Medical Genetics,Oslo University Hospital
+     18 NeuroMeGen,Hospital Clinico Santiago de Compostela
+     18 Lee Lab(KAT6B), Baylor College of Medicine
+     18 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
+     18 Division of Medical Genetics, Sainte-Justine Hospital
+     18 Cardiovascular Biomarker Research Laboratory,Mayo Clinic
+     17 Undiagnosed Diseases Program Translational Research Laboratory, National Institutes of Health
+     17 TPM3 homepage - Leiden Muscular Dystrophy pages
+     17 Department of Genetics, Reproduction and Fetal Medicine.,Institute of Biomedicine of Seville (IBIS), University Hospital Virgen del Rocío/CSIC/University of Seville.
+     16 Strand Center for Genomics and Personalized Medicine,Strand Life Sciences Pvt Ltd
+     16 Molecular Pathology, SA Pathology
+     16 Elahi Laboratory, University of Tehran
+     15 Shanghain Institute for Pediatric Research
+     15 Neurogenetics Laboratory,Royal Perth Hospital
+     15 National Institute of Mental Health and Neurosciences
+     15 Molecular Genetics Laboratory, Baylor College of Medicine
+     15 Department of Internal Medicine, University of Texas Health Science Center at Houston
+     15 Department of Genetics,Robert DEBRE University Hospital
+     15 Deafness Gene Diagnosis,Xijing Hospital
+     14 Whole genome laboratory, Baylor College of Medicine
+     14 Shaikh Laboratory, University of Colorado
+     14 Service de Génétique Moléculaire,Hôpital Robert Debré
+     14 Leiden Muscular Dystrophy (MYL3)
+     14 Human Genetics Disease in Children – Taif University,Taif University
+     14 Cytogenetics Laboratory,Banaras Hindu University
+     13 State Key Lab of Medical Genetics, Central South University
+     13 Programa de Pós-Graduação em Ciências Genômicas e Biotecnologia,Universidade Católica de Brasília
+     13 Laboratory of Genomics, Instituto Nacional de Cardiología Ignacio Chávez
+     13 Karsan Lab,BC Cancer Agency
+     13 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
+     13 Genetic Diagnostic Laboratory,University of Szeged
+     13 Forensic Genetics Laboratory,Harris County Institute of Forensic Sciences
+     13 Department of Molecular Biophysics, University of Lodz
+     13 Department of Immunology,Hospital Universitario Virgen del Rocio
+     13 Clinical Molecular Genetics Laboratory,Johns Hopkins All Children's Hospital
+     12 Scripps Translational Science Institute,Scripps Health and The Scripps Research Institute
+     12 GOLD service, Hunter New England Health
+     12 Department of Mental Retardation and Birth Defect Research,  National Center of Neurology and Psychiatry
+     12 Centre of Medical Genetics, University of Antwerp
+     12 Center for Human Genetics and Laboratory Diagnostics, Dr. Klein, Dr. Rost and Colleagues,
+     11 Seattle Children's Research Institute
+     11 Osteogenesis Imperfecta Variant Database (PPIB)
+     11 Leiden Muscular Dystrophy (TNNT1)
+     11 Klein lab,Ludwig-Maximilians-University
+     11 Department of Pharmacy and Biotechnology,University of Bologna
+     11 Center for Human Genetics,University of Leuven
+     10 Otology & Neurotology- Genomics of vestibular disorders (CTS-495),Jose Antonio López Escámez, Centro Pfizer - Universidad de Granada - Junta de Andalucía de Genómica e Investigación Oncológica (GENYO)
+     10 Neurogenetics Research, Murdoch Childrens Research Institute
+     10 Molecular and Medical Genetics Group,King's College London
+     10 McDonnell Genome Institute,Washington University in St. Louis
+     10 Leiden Muscular Dystrophy (TNNT3)
+     10 Institute of Human Genetics,University of Wuerzburg
+     10 Centre de Recherche Saint Antoine,  Université Pierre et Marie Curie
+      9 UMR_S938_Pr. Le Bouc INSERM
+      9 Research Unit for Molecular Medicine, Department for Clinical Medicine,Aarhus University
+      9 National Institute on Deafness and Communication Disorders,National Institutes of Health
+      9 MOLECULAR BIOLOGY LABORATORY,INSTITUTO NACIONAL DE PEDIATRIA
+      9 Leiden Muscular Dystrophy (DAG1)
+      9 Leeds Vision Research Group,University of Leeds
+      9 Leeds Amelogenesis Imperfecta Research Group,Leeds University
+      9 Laboratory of Cell Biology, Institute of Biomedical Sciences Abel Salazar (ICBAS)
+      9 Institute for Medical Genetics and Human Genetics,Charité - Universitätsmedizin Berlin
+      9 Institute for Genomic Medicine, Columbia University,Columbia University Medical Center
+      9 IUMS Hospital Medical Genetics Lab,Iran University of Medical Sciences (IUMS)
+      9 Human Genetics School of Medicine of Albacete, Castilla-La Mancha University
+      9 Genomics and Pathology Services,Washington University in St.Louis
+      9 Functional Genomics, Thrombosis Research Institute, India
+      9 Dr. Peter K. Rogan Lab,Western University
+      9 Department of Medical Genetics, Faculty of Medicine,Ege University
+      9 Center for Statistical Genetics,Baylor College of Medicine
+      9 Center for Individualized Medicine,Mayo Clinic
+      8 TNNI2 homepage - Leiden Muscular Dystrophy pages
+      8 Neurogenetics of motion laboratory,Montreal Neurological Institute
+      8 Molecular Genetics and Enzymology, National Research Centre
+      8 Molecular Genetics Diagnostic Laboratory,Detroit Medical Center University Laboratories
+      8 Medizinische Klinik 1/ Institut für Bioinformatik,Universitätsklinikum Großhadern, München/ Helmholtz Zentrum München
+      8 Leiden Muscular Dystrophy pages (B3GALNT2)
+      8 Laboratory for Genetics of Human Development Center for Human Genetics, Catholic University of Leuven
+      8 Laboratory Genomica,Gynecology and Assisted Reproduction Hospital Malinov DM
+      8 Laboratorio de Genetica Humana, Universidad de los Andes
+      8 Karolinska institutet
+      8 Johns Hopkins Genetic Resources Core Facility, Johns Hopkins University
+      8 Institute for Ophthalmic Research,University Tuebingen
+      8 Genetics Research Center,University of Social Welfare and Rehabilitation Sciences
+      8 Faculty of Pharmacy,Medical University of Gdansk
+      8 Center for Genomic Medicine,Kyoto University Graduate School of Medicine
+      7 Samuels research lab,Centre de Recherche du CHU Ste-Justine
+      7 Molecular Genetics Lab,Istituto Giannina Gaslini
+      7 Laboratory of Molecular Genetics,  Faculty of Medical Sciences - University of Campinas
+      7 Laboratory of Metabolic Disorders,Peking University First Hospital
+      7 L V Prasad Eye Institute, Hyderabad Eye Research Foundation
+      7 Institute of Human Genetics,Cologne University
+      7 Genetics Research Lab, Taif University
+      7 Genetic Predisposition to Colorectal Cancer Group,Institut d’Investigacions Biomediques August Pi i Sunyer
+      7 Forschungslabor Klinik Innere Medizin A University Medicine Greifswald
+      7 Centro de Genética y Biología Molecular,Universidad de San Martín de Porres
+      6 Weber Lab,Hannover Medical School
+      6 Unidad de Estudios Geneticos y Forenses,Instituto Venezolano de Investigaciones Cientificas
+      6 Translational Genetics in Neurodegenerative disease,Karolinska Institutet
+      6 Section on Endocrinology and Genetics,National Institutes of Health / The Eunice Kennedy Shriver National Institute of Child Health and Human Development
+      6 STRNAD Lab,  University Hospital of Ulm
+      6 Pediatric Endocrinology Laboratory, Christian Albrechts University of Kiel
+      6 Neurogenetic Laboratory,Oslo University Hospital
+      6 Narod's Lab,  University of Toronto
+      6 Leiden Muscular Dystrophy (MYOZ2)
+      6 Hehr Laboratory,Center for Human Genetics - University of Regensburg
+      6 Genetics, Bhagwan Mahavir Medical Research Centre
+      6 Faculty of Pharmacy, Ain Shams University
+      6 Department of Breast and Endocrine Surgery,Kumamoto University
+      6 Bone Marrow Failure laboratory,Queen Mary University London
+      6 Andelfinger Lab,Centre de Recherche, CHU Sainte Justine
+      5 Vavilov Institute of General Genetics RAS, Laboratory of Evolutional Genomics
+      5 Science and Research Branch, Islamic Azad University,Islamic Azad University
+      5 Oxford Medical Genetics Laboratories,Oxford University Hospitals NHS Foundation Trust
+      5 Medical Genomics Laboratory,Department of Genetics UAB
+      5 Laboratory of Human Molecular Genetics, Department of Medical Research,Taipei Veterans General Hospital
+      5 Laboratoire de Génétique Moléculaire, CHU Pontchaillou
+      5 Institute of Human Genetics,University Medical Center Hamburg-Eppendorf
+      5 Institute of Human Genetics,Friedrich-Alexander-Universität Erlangen-Nürnberg
+      5 George Lab Vanderbilt University
+      5 Fundacion Rioja Salud,Center for Biomedical Research (CIBIR)
+      5 Flinders Ophthalmology,Flinders University
+      5 Division of Blood Purification,Kakanzawa University’
+      5 Department of Psychiatry,Nagoya University
+      5 Department of Medical Genetics,Sanjay Gandhi Post Graduate Institute of Medical Sciences
+      5 Department of Immunology, Genetics and Pathology,  Uppsala University
+      5 DST/NWU Preclinical Drug Development Platform,North-West University
+      5 Curoverse
+      5 Cole and Hamvas Lab,  Washington University - St. Louis
+      5 Centre for Genetic Disorders, Banaras Hindu University
+      5 Centre de Biotechnologie de Sfax,Université de Sfax
+      5 Center for Advanced Molecular Diagnostics, Cytogenetics Laboratory,Brigham and Women's Hospital
+      5 Brain and Spine Institute,INSERM
+      5 Bonnen Lab,Baylor College of Medicine
+      5 Blood Cell Research,Sanquin
+      5 Australian Red Cross Blood Service
+      4 Zabetian_UW Neurogenetics Lab, University of Washington/VAPSHCS
+      4 Veritas Genetics,Veritas Genetics
+      4 Unit U781, INSERM (Institut National de la Santé Et de la Recherche Médicale)
+      4 UF de Génétique Moléculaire,Hôpital Lariboisière
+      4 Tgen's Center For Rare Childhood Disorders,Translational Genomics Research Institute (TGEN)
+      4 Prof. Thelma's Laboratory, Department of Genetics,University of Delhi South Campus
+      4 Pediatric Services,National Institutes of Health, Clinical Center
+      4 Oral and Maxillofacial Surgery,Tokyo Medical and Dental University
+      4 Nyegaard lab, Aarhus University
+      4 Medical Molecular Genetics,University of Birmingham
+      4 Medical Genetics of Dicle University
+      4 MVZ Praenatalmedizin und Genetik Nuernberg
+      4 Lyon Laboratory, Cold Spring Harbor Laboratory
+      4 Ludwig Lab, Institute of Human Genetics, University Hospital Bonn
+      4 Leiden Muscular Dystrophy (PDLIM3)
+      4 Kruer lab,Phoenix Children's Hospital
+      4 Institute of Human Genetics,University Hospital Ulm
+      4 Institute for Genetics of Heart Diseases,  University Hospital Muenster
+      4 Institut Pasteur du Maroc
+      4 Gene Discovery Core-Manton Center,Boston Children's Hospital
+      4 Endocrine Unit 2,University Hospital of Pisa
+      4 Department of Prenatal Diagnosis, Center for Genetic Medicine,Nanjing Maternity and Child Health Care Hospital Affiliated to Nanjing Medical University
+      4 Department of Pediatrics and Neonatology,Nagoya City University Graduate School of Medical Sciences
+      4 Department of Human Genetics,University of Michigan
+      4 Department of Hematology,University of Health Sciences
+      4 Congenital Heart Disease Genetic Program Lab,American University of Beirut
+      4 Chelly Lab, Institut de Génétique et de Biologie Moléculaire et Cellulaire,Strasbourg University - CNRS UMR 7104 - Inserm U 964
+      4 Centre for Genomic Sciences,University of Hong Kong
+      4 Center for Pediatric Genomic Medicine, Children's Mercy Hospital and Clinics
+      4 Center for Narcolepsy, Stanford University
+      4 AG Schumann,Charité Universitätsmedizin Berlin
+      3 Universitäts-Kinderspital Zürich
+      3 University of British Columbia
+      3 UCL Genetics Institute,UCL
+      3 TilsonLab,Columbia University
+      3 Sanford Children's Health Research Center, Sanford-Burnham-Prebys Medical Discovery Institute
+      3 Puck Laboratory, University of California, San Francisco
+      3 Peking Union Medical College Hospital
+      3 Pediatric Genetics Division, Center for Pediatrics and Adolescent Medicine,University Medical Center Freiburg
+      3 Pediatric Diabetes Laboratory, Experimental and Clinical Research Center (ECRC)
+      3 Osteogenesis Imperfecta Variant Database (SERPINF1)
+      3 National Center for Biotechnology Information, National Institutes of Health
+      3 Mount Sinai Genetic Testing Laboratory,Icahn School of Medicine at Mount Sinai 
+      3 Molecular Oncology Laboratory,Centre Jean Perrin
+      3 Molecular Genetics and RNA Biology,University of Milan
+      3 Molecular Genetics Pathology Laboratory, University Of Arkansas for Medical Sciences
+      3 Medical Genetic Department,Shiraz University Of Medical Science
+      3 McKusick-Nathans Institute of Genetic Medicine,Johns Hopkins University
+      3 Mayo Muscle Lab,  Mayo Clinic
+      3 Leiden Muscular Dystrophy (DPM3)
+      3 Language and Genetics Department,Max Planck Institute for Psycholinguistics
+      3 Laboratory of Molecular Genetics,National Institutes of Health
+      3 Laboratory of Molecular Diagnostics and Monitoring of CML and Ph+ Leukemias, Institute of Hematology and Blood Transfusion
+      3 Laboratory of Genetic Epidemiology,Research Centre of Medical Genetics
+      3 Laboratoire de Génétique et de Physiologie Neuroendocrinienne, Faculté des Sciences
+      3 Lab of Dermatology,  Peking University First Hospital
+      3 Institute of Microbiology, University Hospital and Univeristy of Lausanne
+      3 Human Genetics,Philipps Universitaet Marburg
+      3 Hospital of the University of Pennsylvania,Center for Personalized Diagnostics
+      3 Harry Perkins Institute of Medical Research,University of Western Australia
+      3 Genome Diagnostics Laboratory,University Medical Center Utrecht
+      3 Garry R Cutting Laboratory,Johns Hopkins University
+      3 Engle Laboratory,Boston Children's Hospital
+      3 E. Rossignol Lab,CHU Ste-Justine, Universite de Montreal
+      3 Department of Research and Development,Institute Hermes Pardini
+      3 Department of Plant Molecular and Cellular Biology Adam Mickiewicz University
+      3 Department of Pediatrics,Kobe University
+      3 Department of Neurology, University Hospital of Strasbourg
+      3 Department of Endocrinology and Metabolism,The First Affiliated Hospital of Sun Yet-sen University
+      3 Department of Clinical Genetics,Oxford University Hospitals NHS Trust
+      3 Department of Biological Science,Sunandan Divatia School of Science, NMIMS University
+      3 Clinical Genetics Laboratory of Dermatology,Peking University First Hospital
+      3 Child and Family Research Institute
+      3 Centre of Chronic Immunodeficiency, Freiburg University
+      3 Centre for Genomic and Experimental Medicine,University of Edinburgh
+      3 Biology Pathology Center,Lille University Hospital
+      3 Atomic Energy Commission of Syria (AECS)
+      3 Akiko Shimamura Lab,Fred Hutchinson Cancer Research Center
+      2 idemuth, Charité - Universiätsmedizin Berlin
+      2 University of Arizona Genetics Core,University of Arizona
+      2 U955 Equipe 11,INSERM
+      2 Systems Biology Division, Zhejiang-California International Nanosystems Institute
+      2 Shendure Lab,University of Washington
+      2 Sharon E. Plon Laboratory,Baylor College of Medicine
+      2 Reutter Lab, Institute of Human Genetics,University Hospital Bonn
+      2 Reproductive Endocrinology and immunology College of Medicine, National Cheng Kung University
+      2 Radiation Cancer Biology Lab, University of Rajasthan Jaipur
+      2 Northern Blood Research Centre, University of Sydney
+      2 Neurology Department,Peking University First Hospital
+      2 Molecular Neurogenomics lab,VIB Department of Molecular Genetics, University of Antwerp
+      2 Molecular Genetics and RNA Biology, Humanitas University
+      2 Molecular Diagnostic Laboratory for Inherited Cardiovascular Disease,Montreal Heart Institute
+      2 Mitochondrial Research, Murdoch Childrens Research Institute
+      2 Miller Lab NIH/NIDDK
+      2 Medical Genetics,University of Parma
+      2 Mayo Clinic Health System - Franciscan Health care,Mayo Clinic Health System
+      2 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
+      2 Laboratório de Genética Molecula,r University of Campinas - Unicamp
+      2 Laboratório de Genética Humana e Médica,  Universidade Federal do Pará
+      2 Laboratory of Human Genetics, Universidade de São Paulo
+      2 Lab. of Molecular Biology of Arterial Hypertension University of Padova
+      2 Korbonits Lab,Queen Mary University of London
+      2 King Laboratory,University of Washington
+      2 Kangwon National University Hospital
+      2 Institute of Otorhinolaryngology, The First affiliated hospital,Sun Yat-sen University
+      2 Institute of Human Genetics,University of Goettingen
+      2 Institute of Experimental Endocrinology,Slovak Academy of Sciences
+      2 Institut für Integrative und Experimentelle Genomik, Universität zu Lübeck
+      2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
+      2 Human Genetics and Genome Research Division,National Research Centre
+      2 Heart Center,Academic Medical Center Amsterdam
+      2 Hauner Childrens Hospital, Department of Pediatrics,Dr. von Hauner Children's Hospital, Ludwig Maximilians University
+      2 Genomic Medicine Lab,University of Southampton
+      2 FRIGE's Institute of Human Genetics
+      2 FORGE Canada,Children's Hospital of Eastern Ontario
+      2 Erez Levanon lab,Bar Ilan University
+      2 Duke University Health System Sequencing Clinic,Duke University Health System
+      2 Diagnostic Molecular Genetics Laboratory, Memorial Sloan Kettering Cancer Center
+      2 Devine Lab Institute for Genome Sciences, University of Maryland School of Medicine
+      2 Department of Prosthodontics,Peking University School and Hospital of Stomatology
+      2 Department of Oral Pathology,Peking University School and Hospital of Stomatology
+      2 Department of Neurology The University of Tokyo, Graduate School of Medicine
+      2 Department of Medical Genetics,Gazi University
+      2 Department of Immunology, School of Medicine,Complutense University
+      2 Department of Endocrinology,The Affiliated hospital of QingDao University
+      2 DNA Repair Laboratory,Institute of Biomedical Sciences - University of Sao Paulo
+      2 Clinics for Rare Diseases Referral (Hong Kong),The University of Hong Kong
+      2 Clinical Genetics Karolinska University Hospital,Karolinska University Hospital
+      2 Center for Personalized Medicine, Roswell Park Cancer Institute
+      2 Center for Human Genetics,University Hospitals Case Medical Center/Case Western Reserve University
+      2 Center for Applied Genomics,Children's Hospital of Philadelphia
+      2 Care4Rare,CHEO
+      2 American University of Beirut,Same Uiversity Hospital
+      2 Alzheimer Center and Department of Neurology, VU University Medical Center 
+      1 emedgene Technologies
+      1 University of Washington School of Medicine
+      1 University of Mississippi Medical Center,University of Mississippi
+      1 UZ-KU Leuven,KU Leuven
+      1 UDP Translational Laboratory,National Institute of Health
+      1 Toronto General Hospital,University of Toronto
+      1 Thoracic Oncology,University of Hawaii Cancer Center
+      1 The International Peace Maternity & Child Health Hospital,Shanghai Jiao Tong University School of Medicine
+      1 The Institute of Human Genetics, Galilee Medical Center
+      1 The Institute for Molecular Bioscience,The University of Queensland
+      1 The Canberra Hospital
+      1 Texas Scottish Rite Hospital for Children
+      1 Stoller Lab Children's Hospital of Philadelphia
+      1 Sidra Medical and Research Center
+      1 Shiraz Institute for Cancer Research, Shiraz University of Medical Sciences
+      1 Shiraz Comprehensive Medical Genetics Center,Shiraz University of Medical Sciences
+      1 Servicio inmunologia,Hospital 12 de Octubre
+      1 Scientific Bio-Minds
+      1 School of Biological Sciences, University of the Punjab
+      1 Sankaran Lab,Boston Children's Hospital
+      1 Russ Altman Lab,Stanford University
+      1 Rui Chen Lab,Baylor College of Medicine
+      1 Research lab,Institute of Genetics and Molecular and Cellular Biology
+      1 Research Centre for  Medical Genetics
+      1 Research Center for Immunodeficiencies,Tehran University of Medical Sciences
+      1 Rappaport Faculty of Medicine,Technion-Israel Institute of Technology
+      1 Rademakers Lab,Mayo Clinic
+      1 QMC Molecular Diagnostics,Queen's Medical Center
+      1 Pôle de Biologie Pathologie Génétique,CHRU LILLE
+      1 Programa de Ciencias Genomicas e Biotecnologia,Universidade Catolica de Brasilia
+      1 Pharmacogenetics and Inflammatory Diseases Research Group, University of Otago
+      1 Petrovsky National Research Centre of Surgery,The Federal Agency for Scientific Organizations
+      1 Personalis, Inc.
+      1 Osteogenesis Imperfecta Variant Database (SP7)
+      1 Neurology IV Unit, Fondazione Istituto Neurologico C. Besta
+      1 Neurogenetics Laboratory,GH Pitie Salpetriere APHP
+      1 NeuroCure Clinial Research Center,Charite Universitaetsmedizin Berlin
+      1 National Centre for Medical Genetics,Crumlin Children's Hospital, Dublin
+      1 NCBI curation
+      1 Mutsuddi Laboratory, Department of Molecular and Human Genetics,Banaras Hindu University
+      1 Molecular and pathophysiological bases of cognitive disorders,Institute Imagine
+      1 Molecular Otolaryngology and Renal Research Laboratories, University of Iowa Hospital and Clinics
+      1 Molecular Metabolic laboratory,Sheba Medical Center  Tel-Hashomer
+      1 Molecular Genetics Unit, Terrassa Hospital
+      1 Molecular Genetics Laboratory, Institute for Ophthalmic Research
+      1 Molecular Genetics Department,Federal State Budget Institution Research Center for Obstetrics, Gynecology and Perinatology
+      1 Molecular Genetic Center,Genetaq
+      1 Molecular Diagnostics Laboratory,Hospital Sainte-Justine
+      1 Molecular Diagnostics Lab,GoPath Laboratories
+      1 Molecular Biology of Hearing and Deafness Laboratory, Xinhua Hospital
+      1 Miami Human Genetics,University of Miami Miller School of Medicine
+      1 Medical Genetics,Meyer Children Hospital
+      1 Medical Genetics and Mitochondrial Research group,Latvian Biomedical Research and Study center
+      1 Medical Genetics Unit,Zeynep Kamil Women and Children's Hospital
+      1 Medical Genetics UMG,Mater Domini University Hospital/ Magna Graecia University of Catanzaro
+      1 McDonald Lab, Albert Einstein College of Medicine
+      1 Max Planck Institute for Molecular Genetics
+      1 MS Genetics Lab,University of British Columbia
+      1 Laboratory of Personalized Genomic Medicine,Columbia University Medical Center
+      1 Laboratory of Molecular Oncology,N.N. Petrov Institute of Oncology
+      1 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
+      1 Laboratory of Molecular Biology and Genetics,St Antoine Hospital - APHP
+      1 Laboratorio de Biomedicina,Instituto de Biotecnología de Misiones
+      1 Laboratoire de Biologie Moléculaire,Centre Hospitalo-Universitaire
+      1 Labor Lademannbogen MVZ GmbH
+      1 Lab of Molecular Dermatology,University Medical Center Freiburg
+      1 Keegan Laboratory,University of Michigan
+      1 Kariminejad-Najmabadi Pathology and Genetics Center,KNPGC
+      1 Institute of metabolic science
+      1 Institute of Human Genetics,Martin-Luther-Universität Halle-Wittemberg
+      1 Institute of Human Genetics,Justus-Liebig University
+      1 Institute of Human Genetics,FAU Erlangen-Nuremberg
+      1 Institute of Human Genetics, RWTH University Hospital Aachen
+      1 Institute of Experimental Medicine, Department of Genetics,Istanbul University
+      1 Institute of Biochemistry, Molecular Biology and Biotechnology,University of Colombo
+      1 Institute for Clinical Genetics, TU Dresden
+      1 Inherited Metabolic Diseases Molecular Laboratory,University of Cape Town / National Health Laboratory Services
+      1 INSERM U1051,Institut des Neurosciences de Montpellier
+      1 Human Population Biology Research Unit, Department of Anatomy and Anthropology, Sackler Faculty of Medicine,Tel Aviv University
+      1 Human Molecular Genetics Lab,Quaid-I-Azam University
+      1 Human Genetics,Leiden University Medical Centre
+      1 Human Genetics Research Group, DBT,Shri Mata Vaishno Devi University
+      1 Human Genetics Research Centre, St George's University of London
+      1 Hadassah Hebrew University Medical center
+      1 Génétique des Anomalies du Développement (GAD), Université de Bourgogne
+      1 Guangxi Key laboratory of Metabolic Diseases Research, Guilin 181st Hospital
+      1 Gromoll Lab CeRA, University of Muenster
+      1 Genome Sciences Centre,British Columbia Cancer Agency
+      1 Genetic Testing Lab, University of Kentucky College of Medicine
+      1 Genetech,Genetech Research Institute
+      1 GenePathDx,Causeway Health Care Private Ltd
+      1 Geha Laboratory, Boston Childrens Hospital
+      1 Garg Lab, Nationwide Children's Hospital
+      1 Gahl Group, Medical Genetics Branch, National Human Genome Research Institute, National Institutes of Health
+      1 GENETICS INSTITUTE,National university of Colombia
+      1 Fulgent Genetics,Fulgent Genetics
+      1 Fujian Institute of Hematology, Fujian Medical University
+      1 Freeman-Sheldon Research Group,deGruyter-McKusick Institute of Health Sciences
+      1 Foundation Medicine, Inc.
+      1 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
+      1 Faculty of Medicine, Iran University of Medical Sciences (IUMS)
+      1 Faculty of Health Sciences-Genetics Diagnosis Lab,Islamic University of Gaza
+      1 Evolutionary and Medical Genetics Laboratory,Center for Cellular and Molecular Biology
+      1 Dhiti Omics Technologies Pvt. Ltd.
+      1 Dept of Medicine and Surgery, University of Milano-Bicocca
+      1 Dept of Medical Genetics, Shandong University
+      1 Dept of Clinical Genetics,Karolinska University Hospital Solna
+      1 Department of Zoology,University of the Punjab, Lahore
+      1 Department of Women and Children's Health,University of New South Wales
+      1 Department of Pediatrics,1st Faculty of Medicine, Charles University in Prague
+      1 Department of Paediatric Surgery,The Canberra Hospital
+      1 Department of Neuroscience, King Faisal Specialist Hospital
+      1 Department of Molecular and Medical Genetics,Osaka Medical Center for Cancer and Cardiovascular Diseases
+      1 Department of Medicine, University of Cambridge
+      1 Department of Medical Genetics,University of Szeged
+      1 Department of Medical Genetics,National Institute of Health
+      1 Department of Human Genetics Rambam Health Care Campus
+      1 Department of Genetics,Yale University
+      1 Department of Genetics,University Medical Center Groningen, University of Groningen
+      1 Department of Genetics, Osmania University
+      1 Department of Clinical Science, University of Bergen
+      1 Department of Anatomy, Embryology and Physiology,Academic Medical Center
+      1 Deafness research group, Biosystems & Integrative Sciences Institute,University of Lisbon
+      1 Datar Genetics Limited, India,Datar Genetics Limited, India
+      1 Community Genetics, University of British Columbia
+      1 College of Pharmacy,University of Babylon
+      1 Clinical Molecular and Personalized Diagnostics,Institute of Biochemistry and Clinical Biochemistry, Teaching and Research Hospital Agostino Gemelli Foundation
+      1 Clinical Genetics, Erasmus University Medical Center
+      1 Clinic of Pediatric and Adolescent Medicine, University Hospital Ulm
+      1 Choi Lab,Seoul National University
+      1 Childrens Diabetes Center,University of Wisconsin-Madison 
+      1 Centro Hospitalar S Joao,Faculty of Medicine of Porto
+      1 Centro Diagnostico Italiano
+      1 Centre for Translational Omics - GOSgene,University College London
+      1 Centre for Molecular Medicine and Therapeutics,University of British Columbia
+      1 Central Laboratory, The First Affiliated Hospital, Jinan University
+      1 Center for Medical Genomics, Jagiellonian University Medical College
+      1 Center for Genomic Medicine,University of Copenhagen
+      1 Center for Breast Cancer,National Cancer Center
+      1 Cancer Genomic Medicine Translational Research Lab,Cleveland Clinic Genomic Medicine Institute
+      1 CVG, University of British Columbia
+      1 Brunetti-Pierri's lab TIGEM
+      1 Biosciences and Nutrition,Karolinska Institutet
+      1 Biomedicum, University of Helsinki
+      1 Biochimie Génétique et moléculaire,CHUGA
+      1 Biochemical and Molecular Genetics Department, Hospital Clinic of Barcelona
+      1 BioTalentum Ltd.
+      1 Ahituv Lab,University of California San Francisco
+      1 Abrahams Lab,Albert Einstein College of Medicine
 ================
 column 22: inheritance_modes
-161941 
-54417 Autosomal dominant inheritance
-27037 Autosomal recessive inheritance
-3008 X-linked inheritance
-1281 Somatic mutation
- 974 Sporadic
- 708 X-linked recessive inheritance
- 624 X-linked dominant inheritance
- 400 Mitochondrial inheritance
- 169 Autosomal unknown
- 138 Other
-  99 Codominant
-  47 Sex-limited autosomal dominant
+ 162251 
+  54463 Autosomal dominant inheritance
+  27077 Autosomal recessive inheritance
+   3015 X-linked inheritance
+   1287 Somatic mutation
+    979 Sporadic
+    711 X-linked recessive inheritance
+    628 X-linked dominant inheritance
+    400 Mitochondrial inheritance
+    169 Autosomal unknown
+    140 Other
+     99 Codominant
+     47 Sex-limited autosomal dominant
 ================
 column 23: age_of_onset
-160349 
-22772 Infancy
-19973 All ages
-16551 Childhood
-8123 Adolescent
-7422 Adult
-7081 Antenatal
-6752 Neonatal
-1165 Neonatal/infancy
-  15 Variable
-   1 Adolescence / Young adulthood
+ 160555 
+  22846 Infancy
+  20026 All ages
+  16592 Childhood
+   8131 Adolescent
+   7440 Adult
+   7088 Antenatal
+   6761 Neonatal
+   1166 Neonatal/infancy
+     15 Variable
+      1 Adolescence / Young adulthood
 ================
 column 24: prevalence
-166271 
-30046 1-9 / 100 000
-26440 <1 / 1 000 000
-15062 1-9 / 1 000 000
-7951 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
-6160 1-5 / 10 000
-2137 http://www.ncbi.nlm.nih.gov/books/NBK1247/
-1230 1:3200
-1230 1 in 2000-4000 depending on the population studied.
- 998 Prevalence in Finland is at least 9:100,000 individuals.
- 677 2.29 to 3.2 per 100,000 individuals
- 528 1:3,000
- 508 >1 / 1000
- 396 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
- 337 Rett syndrome is an X linked condition that occurs in 1 in 10,000 to 1 in 15,000 live births.
- 318 MmD is thought to be rare. Actual prevalence figures are unknown.
- 278 Cornelia de Lange syndrome occurs in 1 in 10-100,000 live births.
- 278 CdLS occurs in 1 in 10-100,000 live births.
- 263 ~1:10,000 but HHT is suspected to be under-diagnosed due to variability in clinical symptoms
- 263 1:10,000
- 259 CHARGE syndrome occurs in at least one in 10,000 births.
- 259 CHARGE syndrome is an autosomal dominant condition that occurs in 1 in 12,000 live births.
- 231 Hennekam et al [1990b] reported a birth prevalence of 1:100,000 to 1:125,000 for RSTS in the Netherlands.
- 228 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
- 225 1 per million
- 213 Sotos syndrome occurs in 1 in 14,000 live births.
- 213 Sotos syndrome is an autosomal dominant condition that occurs in 1 in 14,000 live births.
- 199 1 in 5,000 male live births
- 187 < 1 / 1 000 000
- 186 The prevalence of MEN 2 has been estimated at 1:35,000 [DeLellis et al 2004].
- 186 1/35000
- 180 The estimated incidence of permanent neonatal diabetes ranges from 1:215,000 to 1:260,000 live births
- 175 The prevalence of AS is one in 12,000-20,000 population.
- 175 The prevalence of AS is one in 12,000-20,000 population
- 168 1:15,000
- 168 1/15 000
- 163 Occurs in 1 in approximately 32,000 live births
- 163 KMS is an autosomal dominant condition that occurs in 1 in approximately 32,000 live births
- 156 The prevalence of the G20210A in the general population is estimated to be 2.0%.     The prevalence of the G20210A substitution varies by ethnicity. It is most common in Europeans. the incidence is approximately 3.0% in southern Europeans, and 1.7% in northern Europeans. G20210A appears to be very rare in individuals of Asian and African descent.
- 156 20210G>A heterozygosity occurs in 1.7%-3% of the general US and European populations: in the US, the prevalence of 20210G>A heterozygosity is 2%-5% in whites and 0%-0.3% in African Americans: among adults with VTE, 20210G>A heterozygosity is present in 6%-14% of those with a first VTE, and 18%-21% of those with a personal or family history of recurrent VTE: the prevalence of 20210G>A homozygosity is approximately one in 10,000. Double heterozygosity for the 20210G>A and factor V Leiden alleles occurs in approximately one in 1000 individuals in the general population and 2%-4.5% of persons with VTE
- 156 1: 30,000
- 154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births.  Less than 20% of these cases are due to de novo mutations.  Recurrence risk for a carrier female is 50%.  All daughters of affected males are obligate carriers and at risk for having affected sons.  Germline mosaicism has been observed.
- 154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births
- 153 6-9 / 10 000
- 153 1 in every 600-1500 pregnancies in Western Countries
- 153 1 in every 600-1000 pregnancies in Western Countries
- 143 Pitt-Hopkins syndrome is a severe congenital encephalopathy that occurs in approximately 1 in 40,000 individuals
- 138 The mutation in heterozygous form was also found in approximately 3.5% of the normal population.
- 138 Heterozygosity for factor V Leiden occurs in 3%-8% of the general US and European populations: the mutation is extremely rare in Asian, African, and indigenous Australian populations. The factor V Leiden mutation is present in approximately 15%-20% of individuals with a first DVT: and up to 50% of individuals with recurrent venous thromboembolism or an estrogen-related thrombosis.
- 135 Rare - 63 per million
- 132 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
- 132 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall  incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
- 132 21-25% in familial FTLD and 6% in sporadic FTLD in North Americans and Europeans
- 132 1:2117 live births and carrier rate is 1:23 inhabitants in the French-Canadian population of the Saguenay and Lac-St-Jean regions of Quebec, Canada
- 128 1/200,000
- 121 1 - 9 / 100 000
- 116 1:5 million
- 112 Estimates range from 1:250,000 to 1:50,000.
-  99 Classic lissencephaly is rare. Birth prevalence is estimated to range from 11.7 per million births to 40 per million births
-  92 rare, unknown
-  86 The incidence of Menkes disease and its variants is estimated at one in 100,000 births.
-  86 1/20,000 births in general population
-  86 1/20,000 births (in all ethnic groups)
-  82 RBS is rare: no accurate estimates of prevalence have been published. Approximately 150 individuals of diverse racial and ethnic backgrounds have been reported.
-  77 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
-  77 Congenital deafness affects 1 in 1,000 births.
-  77 Congenital deafness affects 1 in 1,000 births
-  71 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
-  70 Beta-thalassemia is one of the most common autosomal recessive disorders worldwide.  10% depending on the studied population
-  69 1 in 25,000 live male births
-  63 Many common variants
-  63 BWS is a panethnic disorder with an estimated population incidence of 1 in 13 700.
-  56 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000. The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150. 30-50% of patients with Duchenne-like) muscular dystrophy have mutations on SGCA
-  55 1 in 248,000 (combined Niemann-Pick A/B)
-  51 Rare. 18% approximately of MODY patients have mutations in HNF1A.
-  50 unknown, <1 per million
-  50 11.8% of sporadic male patients suffer from an autosomal rather than an X-chromosomal mutation, most often LGMD2C or LGMD2D.   Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
-  47 1 in 200,000
-  45 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
-  44 Rare.    Populations with individuals described include northern and southern European, Lebanese/Middle eastern, Latino.  Disease allele frequency appears highest in specific migrant Lebanese populations.
-  42 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
-  40 unknown
-  38 2:100 000 in Finland, 0,26:100 000 in the North of England
-  37 The prevalence of individuals homozygous for the variant p.Cys282Tyr is approximately 3:1000 to 5:1000, or 1:200 to 1:400 [Adams et al 2005]:
-  37 Hereditary haemochromatosis which affects 1:400 individuals of Northern European decent, has a carrier rate in this population of 1:10
-  37 Based on rates of biochemical diagnosis of CDPX2 compared to Smith-Lemli-Opitz syndrome (incidence of 1 in 75-100,000 births) in one laboratory, the recognized incidence of CDPX2 is no more than one fifth the rate for Smith-Lemli-Opitz syndrome, or no greater than approximately one in 400,000 births. This number may be an underestimate because of individuals with milder features who may not be accurately diagnosed.
-  37 2 to 3 per 1000. I varies according to the population studied.
-  37 1:250 (Caucasians)
-  37 1:200 to 1:500 for the C282Y variant
-  35 1 in 1,846 live births (Saguenay-Lac Saint-Jean region of Québec)
-  34 1 in 1,000-2,500
-  30 Prevalence is estimated to be 1-3 in 1,000,000
-  28 Prevalence of MCT8-specific thyroid hormone cell transporter deficiency remains unknown. However, the identification of more than 50 families in approximately five years suggests that the syndrome is more common than previously suggested.
-  27 Rare. 4% approximately of MODY patients have mutations in HNF1A.
-  27 1/100,000
-  26 Rare
-  26 6-7:100,000.
-  26 1/250,000
-  26 0.1 per 10,000 live births
-  24 1:30,000 in males and 1:125,000 in females
-  24 1:14,000
-  23 Unknown
-  23 1 in 248,000 (in combination with Niemann-Pick A)
-  19 MCPHA has been found primarily in the Old Order Amish who have ancestors in Lancaster County, Pennsylvania. At least 61 affected infants have been born to 33 nuclear families in the past 40 years. In this population, incidence is approximately one in 500 births.    The report of Siu et al [2010] shows that the phenotype is not limited to the Old Order Amish population, although prevalence is difficult to estimate.
-  19 1:50,000-100,000 births.
-  18 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
-  18 Gastric cancer is the 4th most frequently diagnosed cancer and the 2nd leading cause of death from cancer, with an estimated 990000 new cases and 738000 deaths registered.
-  18 3.2-7.6%
-  17 5-8/1000 live births
-  16 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations. The incidence may vary depending on ethnic origin.
-  14 The incidence of Crigler-Najjar syndrome is estimated to be approximately one in a million live births
-  14 The incidence of CN is estimated to be approximately one in a million live births
-  14 Risk of 40%-80% for breast cancer  1:400
-  14 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia. Among CBAVD patients, 78% had at least one CFTR mutation, 46% having two and 28% only one. Moreover, the common heterozygous F508del/5T and F508del/R117H were observed in 17 and 4% of CBAVD cases respectively.
-  14 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia
-  13 Familial hyperinsulinism has been reported in virtually all major ethnic groups. Prevalence has been estimated at 1:50,000 in the European population, whereas consanguineous populations of central Finland and Saudi Arabia have disease prevalence of approximately 1:2,500. The apparent increased prevalence among Ashkenazi Jews has not been rigorously studied.
-  12 CDPX1 is a rare, X-linked recessive condition, occurring in less than 1:1,000,000 live births.
-  12 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
-  11 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
-  11 CMT has a prevalence of 1 in 3,300, but mutations in DNM2 are a rare cause of CMT.
-   9 A Dutch study reported a prevalence of 1:85,000 for lissencephaly type 1. However, the study presumably included individuals with non-DCX-related lissencephaly.
-   7 1/300,000 births
-   6 The prevalence of Joubert syndrome and related disorders has not been determined. Many authors use a range between 1:80,000 and 1:100,000, but this may represent an underestimate
-   6 1.3 per 100,000
-   6 1 / 1 000 000
-   5 1:8,000
-   4 Primary microcephaly has an incidence of 1:30,000 to 1:250,000.
-   3 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations.  The incidence may vary depending on ethnic origin.
-   3 1 / 900
-   2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
-   1 males affected with fragile X syndrome: 1:2,564 to 1:6,250  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:382  Females with FMR1-related POF: 1:7 (1:15 for the general population)
-   1 males affected with fragile X syndrome: 16 to 25:100,000  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:259  Females with FMR1-related POF: 4%-6% of all cases of 46,XX,POI  FXTAS males: an estimated 2%-4% of men with adult-onset cerebellar ataxia who represent simplex cases have a premutation in FMR1.
-   1 The prevalence is estimated to be one in 100,000
-   1 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown.
-   1 The JAK2 V617F is present in 95% to 98% of polycythemia vera, 50% to 60% of primary myelofibrosis, and 50% to 60% of essential thrombocythemia. It has also been described infrequently in other myeloid neoplasms, including chronic myelomonocytic leukemia and myelodysplastic syndrome.
-   1 Mental retardation is caused by aberrant copy numbers of subtelomeric regions in 3-8% of all cases.
-   1 Estimates of the prevalence of DM1 range from approximately 1:100,000 in some areas of Japan to approximately 1:10,000 in Iceland, with an overall worldwide prevalence of approximately 1:20,000
-   1 2:100.000
-   1 2:100,000-4:100,000.   The carrier frequency is 1:60-1:100.
-   1 1:100,000
-   1 1/100,000 births
+ 166472 
+  30112 1-9 / 100 000
+  26511 <1 / 1 000 000
+  15088 1-9 / 1 000 000
+   7951 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
+   6189 1-5 / 10 000
+   2167 http://www.ncbi.nlm.nih.gov/books/NBK1247/
+   1230 1:3200
+   1230 1 in 2000-4000 depending on the population studied.
+    998 Prevalence in Finland is at least 9:100,000 individuals.
+    677 2.29 to 3.2 per 100,000 individuals
+    530 1:3,000
+    508 >1 / 1000
+    396 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
+    338 Rett syndrome is an X linked condition that occurs in 1 in 10,000 to 1 in 15,000 live births.
+    318 MmD is thought to be rare. Actual prevalence figures are unknown.
+    278 Cornelia de Lange syndrome occurs in 1 in 10-100,000 live births.
+    278 CdLS occurs in 1 in 10-100,000 live births.
+    263 ~1:10,000 but HHT is suspected to be under-diagnosed due to variability in clinical symptoms
+    263 1:10,000
+    260 CHARGE syndrome occurs in at least one in 10,000 births.
+    260 CHARGE syndrome is an autosomal dominant condition that occurs in 1 in 12,000 live births.
+    231 Hennekam et al [1990b] reported a birth prevalence of 1:100,000 to 1:125,000 for RSTS in the Netherlands.
+    228 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
+    225 1 per million
+    213 Sotos syndrome occurs in 1 in 14,000 live births.
+    213 Sotos syndrome is an autosomal dominant condition that occurs in 1 in 14,000 live births.
+    199 1 in 5,000 male live births
+    187 < 1 / 1 000 000
+    186 The prevalence of MEN 2 has been estimated at 1:35,000 [DeLellis et al 2004].
+    186 1/35000
+    180 The estimated incidence of permanent neonatal diabetes ranges from 1:215,000 to 1:260,000 live births
+    176 The prevalence of AS is one in 12,000-20,000 population.
+    176 The prevalence of AS is one in 12,000-20,000 population
+    168 1:15,000
+    168 1/15 000
+    165 Occurs in 1 in approximately 32,000 live births
+    165 KMS is an autosomal dominant condition that occurs in 1 in approximately 32,000 live births
+    156 The prevalence of the G20210A in the general population is estimated to be 2.0%.     The prevalence of the G20210A substitution varies by ethnicity. It is most common in Europeans. the incidence is approximately 3.0% in southern Europeans, and 1.7% in northern Europeans. G20210A appears to be very rare in individuals of Asian and African descent.
+    156 20210G>A heterozygosity occurs in 1.7%-3% of the general US and European populations: in the US, the prevalence of 20210G>A heterozygosity is 2%-5% in whites and 0%-0.3% in African Americans: among adults with VTE, 20210G>A heterozygosity is present in 6%-14% of those with a first VTE, and 18%-21% of those with a personal or family history of recurrent VTE: the prevalence of 20210G>A homozygosity is approximately one in 10,000. Double heterozygosity for the 20210G>A and factor V Leiden alleles occurs in approximately one in 1000 individuals in the general population and 2%-4.5% of persons with VTE
+    156 1: 30,000
+    154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births.  Less than 20% of these cases are due to de novo mutations.  Recurrence risk for a carrier female is 50%.  All daughters of affected males are obligate carriers and at risk for having affected sons.  Germline mosaicism has been observed.
+    154 XLMTM is an X-linked condition that occurs in 1 in 50,000 male live births
+    154 6-9 / 10 000
+    153 1 in every 600-1500 pregnancies in Western Countries
+    153 1 in every 600-1000 pregnancies in Western Countries
+    144 Pitt-Hopkins syndrome is a severe congenital encephalopathy that occurs in approximately 1 in 40,000 individuals
+    138 The mutation in heterozygous form was also found in approximately 3.5% of the normal population.
+    138 Heterozygosity for factor V Leiden occurs in 3%-8% of the general US and European populations: the mutation is extremely rare in Asian, African, and indigenous Australian populations. The factor V Leiden mutation is present in approximately 15%-20% of individuals with a first DVT: and up to 50% of individuals with recurrent venous thromboembolism or an estrogen-related thrombosis.
+    135 Rare - 63 per million
+    133 21-25% in familial FTLD and 6% in sporadic FTLD in North Americans and Europeans
+    132 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
+    132 HMSN/ACC has a high prevalence in the French Canadian  population of the Saguenay-Lac-St-Jean region and Charlevoix County of northeastern Quebec. The overall  incidence at birth is approximately 1 in 2000 live births and the carrier rate is approximately 1 in 23 in this specific  population.
+    132 1:2117 live births and carrier rate is 1:23 inhabitants in the French-Canadian population of the Saguenay and Lac-St-Jean regions of Quebec, Canada
+    128 1/200,000
+    121 1 - 9 / 100 000
+    116 1:5 million
+    112 Estimates range from 1:250,000 to 1:50,000.
+     99 Classic lissencephaly is rare. Birth prevalence is estimated to range from 11.7 per million births to 40 per million births
+     92 rare, unknown
+     86 The incidence of Menkes disease and its variants is estimated at one in 100,000 births.
+     86 1/20,000 births in general population
+     86 1/20,000 births (in all ethnic groups)
+     82 RBS is rare: no accurate estimates of prevalence have been published. Approximately 150 individuals of diverse racial and ethnic backgrounds have been reported.
+     79 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
+     79 Congenital deafness affects 1 in 1,000 births.
+     79 Congenital deafness affects 1 in 1,000 births
+     71 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
+     70 Beta-thalassemia is one of the most common autosomal recessive disorders worldwide.  10% depending on the studied population
+     69 1 in 25,000 live male births
+     63 Many common variants
+     63 BWS is a panethnic disorder with an estimated population incidence of 1 in 13 700.
+     56 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000. The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150. 30-50% of patients with Duchenne-like) muscular dystrophy have mutations on SGCA
+     55 1 in 248,000 (combined Niemann-Pick A/B)
+     51 Rare. 18% approximately of MODY patients have mutations in HNF1A.
+     50 unknown, <1 per million
+     50 11.8% of sporadic male patients suffer from an autosomal rather than an X-chromosomal mutation, most often LGMD2C or LGMD2D.   Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
+     47 1 in 200,000
+     45 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
+     44 Rare.    Populations with individuals described include northern and southern European, Lebanese/Middle eastern, Latino.  Disease allele frequency appears highest in specific migrant Lebanese populations.
+     42 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
+     40 unknown
+     38 2:100 000 in Finland, 0,26:100 000 in the North of England
+     37 The prevalence of individuals homozygous for the variant p.Cys282Tyr is approximately 3:1000 to 5:1000, or 1:200 to 1:400 [Adams et al 2005]:
+     37 Hereditary haemochromatosis which affects 1:400 individuals of Northern European decent, has a carrier rate in this population of 1:10
+     37 Based on rates of biochemical diagnosis of CDPX2 compared to Smith-Lemli-Opitz syndrome (incidence of 1 in 75-100,000 births) in one laboratory, the recognized incidence of CDPX2 is no more than one fifth the rate for Smith-Lemli-Opitz syndrome, or no greater than approximately one in 400,000 births. This number may be an underestimate because of individuals with milder features who may not be accurately diagnosed.
+     37 2 to 3 per 1000. I varies according to the population studied.
+     37 1:250 (Caucasians)
+     37 1:200 to 1:500 for the C282Y variant
+     35 1 in 1,846 live births (Saguenay-Lac Saint-Jean region of Québec)
+     35 1 in 1,000-2,500
+     30 Prevalence is estimated to be 1-3 in 1,000,000
+     28 Prevalence of MCT8-specific thyroid hormone cell transporter deficiency remains unknown. However, the identification of more than 50 families in approximately five years suggests that the syndrome is more common than previously suggested.
+     27 Rare. 4% approximately of MODY patients have mutations in HNF1A.
+     27 1:30,000 in males and 1:125,000 in females
+     27 1/100,000
+     26 Rare
+     26 6-7:100,000.
+     26 1/250,000
+     26 0.1 per 10,000 live births
+     24 1:14,000
+     23 Unknown
+     23 1 in 248,000 (in combination with Niemann-Pick A)
+     19 MCPHA has been found primarily in the Old Order Amish who have ancestors in Lancaster County, Pennsylvania. At least 61 affected infants have been born to 33 nuclear families in the past 40 years. In this population, incidence is approximately one in 500 births.    The report of Siu et al [2010] shows that the phenotype is not limited to the Old Order Amish population, although prevalence is difficult to estimate.
+     19 1:50,000-100,000 births.
+     18 Of all forms of LGMD the prevalence ranges from one in 14,500 to one in 123,000.  The estimated prevalence of primary sarcoglycanopathies is approximately one in 178,000 with a carrier frequency of sarcogycanopathy at 1:150.
+     18 Gastric cancer is the 4th most frequently diagnosed cancer and the 2nd leading cause of death from cancer, with an estimated 990000 new cases and 738000 deaths registered.
+     18 3.2-7.6%
+     17 5-8/1000 live births
+     16 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations. The incidence may vary depending on ethnic origin.
+     14 The incidence of Crigler-Najjar syndrome is estimated to be approximately one in a million live births
+     14 The incidence of CN is estimated to be approximately one in a million live births
+     14 Risk of 40%-80% for breast cancer  1:400
+     14 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia. Among CBAVD patients, 78% had at least one CFTR mutation, 46% having two and 28% only one. Moreover, the common heterozygous F508del/5T and F508del/R117H were observed in 17 and 4% of CBAVD cases respectively.
+     14 1–2% of the population of infertile, but otherwise healthy, males and up to 25% of those with obstructive azoospermia
+     13 Familial hyperinsulinism has been reported in virtually all major ethnic groups. Prevalence has been estimated at 1:50,000 in the European population, whereas consanguineous populations of central Finland and Saudi Arabia have disease prevalence of approximately 1:2,500. The apparent increased prevalence among Ashkenazi Jews has not been rigorously studied.
+     12 CDPX1 is a rare, X-linked recessive condition, occurring in less than 1:1,000,000 live births.
+     12 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
+     11 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
+     11 CMT has a prevalence of 1 in 3,300, but mutations in DNM2 are a rare cause of CMT.
+      9 A Dutch study reported a prevalence of 1:85,000 for lissencephaly type 1. However, the study presumably included individuals with non-DCX-related lissencephaly.
+      7 1/300,000 births
+      6 The prevalence of Joubert syndrome and related disorders has not been determined. Many authors use a range between 1:80,000 and 1:100,000, but this may represent an underestimate
+      6 1.3 per 100,000
+      6 1 / 1 000 000
+      5 1:8,000
+      4 Primary microcephaly has an incidence of 1:30,000 to 1:250,000.
+      3 Mental retardation is caused by aberrant copy numbers of subtelomeric regions in 3-8% of all cases.
+      3 Bernard-Soulier syndrome is a rare autosomal recessive disorder, occurring in less than 1 in 1,000,000 live births in European, North American, and Japanese populations.  The incidence may vary depending on ethnic origin.
+      3 1 / 900
+      2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
+      1 males affected with fragile X syndrome: 1:2,564 to 1:6,250  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:382  Females with FMR1-related POF: 1:7 (1:15 for the general population)
+      1 males affected with fragile X syndrome: 16 to 25:100,000  females affected with fragile X syndrome: approximately one-half the males prevalence  Unaffected female FMR1 carriers: 1:113 to 1:259  Females with FMR1-related POF: 4%-6% of all cases of 46,XX,POI  FXTAS males: an estimated 2%-4% of men with adult-onset cerebellar ataxia who represent simplex cases have a premutation in FMR1.
+      1 The prevalence is estimated to be one in 100,000
+      1 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown.
+      1 The JAK2 V617F is present in 95% to 98% of polycythemia vera, 50% to 60% of primary myelofibrosis, and 50% to 60% of essential thrombocythemia. It has also been described infrequently in other myeloid neoplasms, including chronic myelomonocytic leukemia and myelodysplastic syndrome.
+      1 Estimates of the prevalence of DM1 range from approximately 1:100,000 in some areas of Japan to approximately 1:10,000 in Iceland, with an overall worldwide prevalence of approximately 1:20,000
+      1 2:100.000
+      1 2:100,000-4:100,000.   The carrier frequency is 1:60-1:100.
+      1 1:100,000
+      1 1/100,000 births
 ================
 column 25: disease_mechanism
-215408 
-25336 loss of function
-1415 gain of function
- 803 Disease mechanisms vary by gene.
- 181 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
- 124 Affects gamma-sarcoglycan and also disrupts the integrity of the entire sarcoglycan complex.
- 105 Other
-  63 May be benign
-  17 unknown
-   2 Dominant Negative
+ 215788 
+  25364 loss of function
+   1417 gain of function
+    803 Disease mechanisms vary by gene.
+    181 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
+    124 Affects gamma-sarcoglycan and also disrupts the integrity of the entire sarcoglycan complex.
+    105 Other
+     63 May be benign
+     17 unknown
+      2 Dominant Negative
 ================
 column 26: origin
-224668 germline
-13427 unknown
-11853 not provided
-1954 somatic
-1320 de novo
- 509 inherited
- 419 maternal
- 252 paternal
- 103 not applicable
-  19 tested-inconclusive
-  19 biparental
-   6 uniparental
-   1 
+ 224892 germline
+  13494 unknown
+  11858 not provided
+   1956 somatic
+   1422 de novo
+    536 inherited
+    452 maternal
+    269 paternal
+    103 not applicable
+     20 tested-inconclusive
+     19 biparental
+      6 uniparental
+      1 not-reported
+      1 

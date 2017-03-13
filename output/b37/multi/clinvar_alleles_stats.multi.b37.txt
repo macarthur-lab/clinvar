@@ -1,191 +1,192 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
 ================
-Total Rows: 758
+Total Rows: 763
 ================
 column 5: measureset_type
- 424 Haplotype
- 322 CompoundHeterozygote
-  11 Phase unknown
-   5 Variant
-   2 Distinct chromosomes
+    434 Haplotype
+    322 CompoundHeterozygote
+     11 Phase unknown
+      2 Distinct chromosomes
 ================
 column 13: clinical_significance
- 444 not reported for simple variant
- 195 Pathogenic
-  50 Uncertain significance
-  45 not provided
-  43 Likely benign
-  43 Benign
-  37 Likely pathogenic
-  30 other
-   8 drug response
-   4 risk factor
-   3 protective
+    446 not reported for simple variant
+    198 Pathogenic
+     50 Uncertain significance
+     45 not provided
+     44 Benign
+     43 Likely benign
+     36 Likely pathogenic
+     30 other
+      7 drug response
+      4 risk factor
+      3 protective
 ================
 column 14: pathogenic
- 550 0
- 208 1
+    553 0
+    210 1
 ================
 column 15: benign
- 694 0
-  64 1
+    698 0
+     65 1
 ================
 column 16: conflicted
- 748 0
-  10 1
+    753 0
+     10 1
 ================
 column 17: review_status
- 443 no assertion for the individual variant
- 113 no assertion criteria provided
-  79 criteria provided, single submitter
-  66 criteria provided, multiple submitters, no conflicts
-  38 criteria provided, conflicting interpretations
-  10 no assertion provided
-   8 reviewed by expert panel
-   1 practice guideline
+    444 no assertion for the individual variant
+    118 no assertion criteria provided
+     81 criteria provided, single submitter
+     67 criteria provided, multiple submitters, no conflicts
+     38 criteria provided, conflicting interpretations
+     10 no assertion provided
+      4 reviewed by expert panel
+      1 practice guideline
 ================
 column 18: gold_stars
- 566 0
- 117 1
-  66 2
-   8 3
-   1 4
+    572 0
+    119 1
+     67 2
+      4 3
+      1 4
 ================
 column 19: all_submitters
- 301 OMIM
-  93 UCLA Clinical Genomics Center, UCLA
-  43 GeneReviews
-  37 Center for Genetic Medicine Research,Children's National Medical Center
-  36 Mendelics Analise Genomica
-  20 ARUP Institute,ARUP Laboratories
-  19 Laboratory of Prof. Karen Avraham,Tel Aviv University
-  17 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
-  16 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
-  16 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
-  15 Institut IMAGINE,Institut National de la Sante et de la Recherche Medicale
-  13 University of Washington Center for Mendelian Genomics, University of Washington
-  11 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
-   9 Colsan,Colsan
-   8 Medical Research Institute,Tokyo Medical and Dental University
-   8 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
-   7 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
-   6 Section of Medical Genetics, Telemark Hospital
-   6 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
-   6 Clinical Biochemistry Laboratory,Health Services Laboratory
-   5 Tuberous sclerosis database (TSC2)
-   5 Metabolic Research Unit,Children's University Hospital Muenster
-   4 Eye Genetics Research Group,Children's Medical Research Institute
-   3 Shaikh Laboratory, University of Colorado
-   3 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
-   3 Genetic Diagnostic Laboratory,University of Szeged
-   2 emedgene Technologies
-   2 Science and Research Branch, Islamic Azad University,Islamic Azad University
-   2 RettBASE
-   2 Research Centre for  Medical Genetics
-   2 Puck Laboratory, University of California, San Francisco
-   2 Neurogenetics Research, Murdoch Childrens Research Institute
-   2 NCBI curation
-   2 Molecular Genetics and RNA Biology, Humanitas University
-   2 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
-   2 Laboratory of Molecular Genetics,CHU RENNES
-   2 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
-   2 Laboratorio de Medicina Genomica, Hospital General de Culiacan
-   2 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
-   2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
-   2 Human Genetics Disease in Children – Taif University,Taif University
-   2 HerediLab, Inc.
-   2 Genomic Research Center,Shahid Beheshti University of Medical Sciences
-   2 Genetics of Mitochondrial Disorders,HelmholtzZentrum Munchen
-   2 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
-   2 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
-   2 Dr. Guy Rouleau's laboratory,McGill University
-   2 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
-   2 Department of Neurology,Children's Hospital of Fudan University
-   2 Department of Medical Genetics, Oslo University Hospital and University of Oslo
-   2 Department of Human Genetics,McGill University
-   2 Collagen Diagnostic Laboratory
-   2 Clinical Genetics, Erasmus University Medical Center
-   2 Bone Marrow Failure laboratory,Queen Mary University London
-   2 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
-   2 Biochimie-Hormonologie,Robert Debre Hospital
-   2 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
-   2 Baylor Miraca Genetics Laboratories
-   2 Abrahams Lab,Albert Einstein College of Medicine
-   2 ARUP Laboratories, Molecular Genetics and Genomics
-   1 Medical Genomics Laboratory,Department of Genetics UAB
-   1 LDLR-LOVD, British Heart Foundation
-   1 Klein lab,Ludwig-Maximilians-University
-   1 CFTR2
+    304 OMIM
+     93 UCLA Clinical Genomics Center, UCLA
+     43 GeneReviews
+     37 Center for Genetic Medicine Research,Children's National Medical Center
+     36 Mendelics Analise Genomica
+     20 ARUP Institute,ARUP Laboratories
+     19 Laboratory of Prof. Karen Avraham,Tel Aviv University
+     17 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
+     16 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
+     16 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
+     15 Institut IMAGINE,Institut National de la Sante et de la Recherche Medicale
+     13 University of Washington Center for Mendelian Genomics, University of Washington
+     11 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
+      9 Colsan,Colsan
+      8 Medical Research Institute,Tokyo Medical and Dental University
+      8 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
+      7 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
+      6 Section of Medical Genetics, Telemark Hospital
+      6 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
+      6 Clinical Biochemistry Laboratory,Health Services Laboratory
+      5 Tuberous sclerosis database (TSC2)
+      5 Metabolic Research Unit,Children's University Hospital Muenster
+      4 Eye Genetics Research Group,Children's Medical Research Institute
+      3 Shaikh Laboratory, University of Colorado
+      3 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
+      3 Genetic Diagnostic Laboratory,University of Szeged
+      2 emedgene Technologies
+      2 Science and Research Branch, Islamic Azad University,Islamic Azad University
+      2 RettBASE
+      2 Research Centre for  Medical Genetics
+      2 Puck Laboratory, University of California, San Francisco
+      2 Neurogenetics Research, Murdoch Childrens Research Institute
+      2 NCBI curation
+      2 Molecular Genetics and RNA Biology, Humanitas University
+      2 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
+      2 Laboratory of Molecular Genetics,National Institutes of Health
+      2 Laboratory of Molecular Genetics,CHU RENNES
+      2 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
+      2 Laboratorio de Medicina Genomica, Hospital General de Culiacan
+      2 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
+      2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
+      2 Human Genetics Disease in Children – Taif University,Taif University
+      2 HerediLab, Inc.
+      2 Genomic Research Center,Shahid Beheshti University of Medical Sciences
+      2 Genetics of Mitochondrial Disorders,HelmholtzZentrum Munchen
+      2 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
+      2 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
+      2 Dr. Guy Rouleau's laboratory,McGill University
+      2 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
+      2 Department of Neurology,Children's Hospital of Fudan University
+      2 Department of Medical Genetics,Oslo University Hospital
+      2 Department of Human Genetics,McGill University
+      2 Collagen Diagnostic Laboratory
+      2 Clinical Genetics, Erasmus University Medical Center
+      2 Bone Marrow Failure laboratory,Queen Mary University London
+      2 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
+      2 Biochimie-Hormonologie,Robert Debre Hospital
+      2 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
+      2 Baylor Miraca Genetics Laboratories
+      2 Abrahams Lab,Albert Einstein College of Medicine
+      2 ARUP Laboratories, Molecular Genetics and Genomics
+      1 Medical Genomics Laboratory,Department of Genetics UAB
+      1 LDLR-LOVD, British Heart Foundation
+      1 Klein lab,Ludwig-Maximilians-University
+      1 CFTR2
 ================
 column 22: inheritance_modes
- 477 
- 203 Autosomal recessive inheritance
-  72 Autosomal dominant inheritance
-   8 X-linked recessive inheritance
-   4 Sporadic
-   2 X-linked inheritance
-   2 X-linked dominant inheritance
-   2 Codominant
+    486 
+    199 Autosomal recessive inheritance
+     71 Autosomal dominant inheritance
+      8 X-linked recessive inheritance
+      4 Sporadic
+      3 X-linked inheritance
+      2 X-linked dominant inheritance
+      2 Codominant
 ================
 column 23: age_of_onset
- 316 
- 165 Infancy
-  96 Childhood
-  60 All ages
-  60 Adolescent
-  31 Adult
-  28 Neonatal
-  16 Antenatal
-   2 Neonatal/infancy
+    327 
+    164 Infancy
+     95 Childhood
+     60 Adolescent
+     56 All ages
+     31 Adult
+     28 Neonatal
+     16 Antenatal
+      2 Neonatal/infancy
 ================
 column 24: prevalence
- 366 
- 146 <1 / 1 000 000
- 115 1-9 / 100 000
-  88 1-9 / 1 000 000
-  33 1-5 / 10 000
-   9 1:3200
-   9 1 in 2000-4000 depending on the population studied.
-   4 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
-   4 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
-   4 Rare - 63 per million
-   4 >1 / 1000
-   4 1 per million
-   2 unknown, <1 per million
-   2 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
-   2 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
-   2 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
-   2 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
-   2 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
-   2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
-   2 Congenital deafness affects 1 in 1,000 births.
-   2 Congenital deafness affects 1 in 1,000 births
-   2 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
-   2 2:100 000 in Finland, 0,26:100 000 in the North of England
-   2 2.29 to 3.2 per 100,000 individuals
-   2 1:30,000 in males and 1:125,000 in females
-   2 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
-   2 1/200,000
-   2 1.3 per 100,000
-   2 1 in 248,000 (in combination with Niemann-Pick A)
-   2 1 - 9 / 100 000
-   1 1:3,000
+    375 
+    146 <1 / 1 000 000
+    111 1-9 / 100 000
+     89 1-9 / 1 000 000
+     32 1-5 / 10 000
+      5 1:3200
+      5 1 in 2000-4000 depending on the population studied.
+      4 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
+      4 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
+      4 Rare - 63 per million
+      4 >1 / 1000
+      4 1 per million
+      2 unknown, <1 per million
+      2 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
+      2 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
+      2 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
+      2 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
+      2 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
+      2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
+      2 Congenital deafness affects 1 in 1,000 births.
+      2 Congenital deafness affects 1 in 1,000 births
+      2 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
+      2 2:100 000 in Finland, 0,26:100 000 in the North of England
+      2 2.29 to 3.2 per 100,000 individuals
+      2 1:30,000 in males and 1:125,000 in females
+      2 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
+      2 1/200,000
+      2 1.3 per 100,000
+      2 1 in 248,000 (in combination with Niemann-Pick A)
+      2 1 - 9 / 100 000
+      1 Estimates range from 1:250,000 to 1:50,000.
+      1 1:3,000
 ================
 column 25: disease_mechanism
- 676 
-  76 loss of function
-   6 gain of function
-   2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
+    686 
+     71 loss of function
+      6 gain of function
+      2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
 ================
 column 26: origin
- 543 germline
-  90 unknown
-  44 not provided
-  41 inherited
-  20 maternal
-   8 de novo
-   6 somatic
-   6 paternal
-   6 not applicable
-   4 tested-inconclusive
-   2 biparental
+    548 germline
+     90 unknown
+     44 not provided
+     41 inherited
+     20 maternal
+      8 de novo
+      6 somatic
+      6 paternal
+      6 not applicable
+      4 tested-inconclusive
+      2 biparental
