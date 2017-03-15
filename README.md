@@ -32,12 +32,11 @@ Each of these directories contains the following files:
 
 ClinVar makes its data available via [FTP](ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/) in three formats: XML, TXT, and VCF. We found that none of these files were ideally suited for our purposes. The VCF only contains variants present in dbSNP; it is not a comprehensive catalogue of ClinVar variants. The TXT file lacks certain annotations such as PubMed IDs for related publications. The XML file is large and complex, with multiple entries for the same genomic variant, making it difficult to quickly look up a variant of interest. In addition, both the XML and TXT representations are not guaranteed to be unique on genomic coordinates, and also contain many genomic coordinates that have been parsed from HGVS notation, and therefore may be right-aligned (in contrast to left alignment, the standard for VCF) and may also be non-minimal (containing additional nucleotides of context to the left or right of a given variant).
 
-#### Solution - Processing Pipeline
+#### Processing Pipeline
 
 [![Build Status](https://travis-ci.org/macarthur-lab/clinvar.svg?branch=master)](https://travis-ci.org/macarthur-lab/clinvar)
 
 To create a flat representation of ClinVar suited for our purposes, we took several steps, encapsulated in the pipeline [src/master.py](src/master.py) 
-(which supercedes the older [src/master.bash](src/master.bash) script):
 
 1. Download the latest XML and TXT dumps from ClinVar FTP.
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
@@ -53,17 +52,15 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 + `benign` is `1` if the variant has *ever* been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise
 + `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
 
-#### Dependancies
-
-Enviroment must contain these executables wget, Rscript, tabix, vt: 
-R, [htslib](https://github.com/samtools/htslib) 
-
-tabix [How To Install](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html) is already apart of the samtools software package.
-
-vt [vt](https://github.com/atks/vt) (make sure the `vt` command is callable, i.e. in your `$PATH`) [wkik](http://genome.sph.umich.edu/wiki/Vt).
-
-
 #### Usage
+
+The pipeline scripts expect the following programs to be available on your system (and in your `$PATH`): 
+
+wget  
+python2.7  
+Rscript  
+[tabix](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html)  
+[vt](https://github.com/atks/vt)  
 
 To run the pipeline:
 
