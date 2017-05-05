@@ -6,6 +6,9 @@ import re
 import pandas as pd
 import sys
 
+from parse_clinvar_xml import HEADER
+
+
 def gzopen(path, mode='r', verbose=True):
     if path.endswith(".gz"):
         return gzip.open(path, mode)
@@ -31,18 +34,10 @@ def table_to_vcf(input_table_path, input_reference_genome):
 
     print("""##fileformat=VCFv4.1\n##source=clinvar""")
 
-    KEYS = [
-        'measureset_type', 'measureset_id', 'rcv', 'allele_id',
-        'symbol', 'hgvs_c', 'hgvs_p', 'molecular_consequence',
-        'clinical_significance', 'clinical_significance_ordered', 'pathogenic',
-        'benign', 'conflicted', 'review_status', 'review_status_ordered',
-        'gold_stars','all_submitters', 'submitters_ordered',
-        'all_traits','all_pmids', 'inheritance_modes', 'age_of_onset',
-        'prevalence', 'disease_mechanism', 'origin', 'xrefs', 'dates_ordered']
     descriptions = {
         'gold_stars': "Number of gold stars as shown on clinvar web pages to summarize review status. Lookup table described at http://www.ncbi.nlm.nih.gov/clinvar/docs/details/ was used to map the REVIEW_STATUS value to this number.",
     }
-    for key in KEYS:
+    for key in HEADER:
         print("""##INFO=<ID={},Number=1,Type=String,Description="{}">"""
               .format(key.upper(), descriptions.get(key, key.upper())))
     with open(input_reference_genome_fai) as in_fai:
@@ -69,7 +64,7 @@ def table_to_vcf(input_table_path, input_reference_genome):
         #    INFO - additional information: (String, no white-space, semi-colons, or equals-signs permitted; commas are
         #    permitted only as delimiters for lists of values) INFO fields are encoded as a semicolon-separated series of short
         #    keys with optional values in the format: <key>=<data>[,data].
-        for key in KEYS:
+        for key in HEADER:
             if pd.isnull(table_row[key]):
                 continue
             value = str(table_row[key])

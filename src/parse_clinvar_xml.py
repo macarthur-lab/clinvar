@@ -15,6 +15,17 @@ import xml.etree.ElementTree as ET
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)' # group(1) will be all the text after the word PubMed or PMID
 extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)' # group(1) will be the first PubMed ID, group(2) will be all remaining text
 
+HEADER = [
+    'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
+    'allele_id','symbol',
+    'hgvs_c','hgvs_p','molecular_consequence',
+    'clinical_significance', 'clinical_significance_ordered',
+    'review_status', 'review_status_ordered',
+    'all_submitters', 'submitters_ordered',
+    'all_traits', 'all_pmids','inheritance_modes', 'age_of_onset',
+    'prevalence', 'disease_mechanism', 'origin', 'xrefs', 'dates_ordered'
+]
+
 def replace_semicolons(s, replace_with=":"):
     return s.replace(";", replace_with)
 
@@ -33,19 +44,9 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
     """
 
     #measureset -> rcv (one to many) 
-    header = [
-        'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
-        'allele_id','symbol',
-        'hgvs_c','hgvs_p','molecular_consequence',
-        'clinical_significance', 'clinical_significance_ordered',
-        'review_status', 'review_status_ordered',
-        'all_submitters', 'submitters_ordered',
-        'all_traits', 'all_pmids','inheritance_modes', 'age_of_onset',
-        'prevalence', 'disease_mechanism', 'origin', 'xrefs', 'dates_ordered'
-    ]
-    dest.write(('\t'.join(header) + '\n').encode('utf-8'))
+    dest.write(('\t'.join(HEADER) + '\n').encode('utf-8'))
     if multi is not None:
-        multi.write(('\t'.join(header) + '\n').encode('utf-8'))
+        multi.write(('\t'.join(HEADER) + '\n').encode('utf-8'))
 
     scounter = 0
     mcounter = 0
@@ -240,11 +241,11 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             current_row[column_name] = remove_newlines_and_tabs(';'.join(map(replace_semicolons, column_value)))
             
             if len(measure)==1:
-                dest.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+                dest.write(('\t'.join([current_row[column] for column in HEADER]) + '\n').encode('utf-8'))
                 scounter += 1
             else:
                 if multi is not None:
-                    multi.write(('\t'.join([current_row[column] for column in header]) + '\n').encode('utf-8'))
+                    multi.write(('\t'.join([current_row[column] for column in HEADER]) + '\n').encode('utf-8'))
                     mcounter += 1
             
             if scounter % 100 == 0:
