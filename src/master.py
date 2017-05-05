@@ -4,7 +4,6 @@ Alternate implementation of master.bash with improved logging, skipping of comma
 Run with -h to see all options.
 """
 
-import configargparse
 from datetime import datetime
 import ftplib
 import os
@@ -12,6 +11,7 @@ import sys
 from distutils import spawn
 
 try:
+    import configargparse
     import pypez
     import pysam
     import pandas   # make sure all dependencies are installed
@@ -22,8 +22,8 @@ for executable in ['wget', 'Rscript', 'tabix', 'vt']:
 
 p = configargparse.getArgParser()
 g = p.add_argument_group('main args')
-g.add("--b37-genome", help="b37 .fa genome reference file", required=True)
-g.add("--b38-genome", help="b38 .fa genome reference file. NOTE: chromosome names must be like '1', '2'.. 'X', 'Y', 'MT'.", required=True)
+g.add("--b37-genome", help="b37 .fa genome reference file", default=None, required=False)
+g.add("--b38-genome", help="b38 .fa genome reference file. NOTE: chromosome names must be like '1', '2'.. 'X', 'Y', 'MT'.", default=None, required=False)
 g.add("-X", "--clinvar-xml", help="The local filename of the ClinVarFullRelase.xml.gz file. If not set, grab the latest from NCBI.")
 g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the variant_summary.txt.gz file. If not set, grab the latest from NCBI.")
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
@@ -32,6 +32,7 @@ g.add("-GG", "--gnomad-genome-sites-vcf",  help="gnomAD genome sites vcf file. I
 g = p.add_mutually_exclusive_group()
 g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
 g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
+g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -45,12 +46,13 @@ exac_sites_vcf = args.exac_sites_vcf
 gnomad_exome_sites_vcf = args.gnomad_exome_sites_vcf
 gnomad_genome_sites_vcf = args.gnomad_genome_sites_vcf
 clinvar_variant_summary_table = args.clinvar_variant_summary_table
+output_prefix = args.output_prefix
 
 tmp_dir = "output_tmp"
 os.system("mkdir -p " + tmp_dir)
 
 for key, path in reference_genomes.items():
-    if not os.path.isfile(path):
+    if path is not None and not os.path.isfile(path):
         p.error("%s genome reference: file not found: %s" % (key, path))
 
 for label, vcf_path in (('gnomad_genomes', gnomad_genome_sites_vcf), ('gnomad_exomes', gnomad_exome_sites_vcf), ('exac_v1', exac_sites_vcf)):
@@ -125,6 +127,9 @@ for genome_build in ('b37', 'b38'):
     # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
     genome_build_id = genome_build.replace('b', 'GRCh')
     reference_genome = reference_genomes[genome_build]
+    if reference_genome is None:
+        print("Skippping steps to generate %s tables since reference genome not given." % genome_build)
+        continue
 
     job.add(("python -u IN:parse_clinvar_xml.py "
             "-x IN:%(clinvar_xml)s "
@@ -139,7 +144,7 @@ for genome_build in ('b37', 'b38'):
             continue
             
         fsuffix = "%(single_or_multi)s.%(genome_build)s" % locals() # file suffix
-        output_dir = '../output/%(genome_build)s/%(single_or_multi)s' % locals()
+        output_dir = '%(output_prefix)s%(genome_build)s/%(single_or_multi)s' % locals()
         os.system('mkdir -p ' + output_dir)
 
         # normalize variants  (use grep -v '^$' to remove empty rows)
@@ -147,9 +152,9 @@ for genome_build in ('b37', 'b38'):
 
         # sort
         job.add(("cat " +
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | head -1) "  # header row
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
             " | bgzip -c > OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
         # tabix and copy to output dir
@@ -167,9 +172,9 @@ for genome_build in ('b37', 'b38'):
 
         # sort again by genomic coordinates (because R's merge function doesn't preserve order)
         job.add(("cat " +
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
             " | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
         # tabix and copy to output dir
@@ -181,7 +186,7 @@ for genome_build in ('b37', 'b38'):
                 ])
 
         # create vcf
-        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
+        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz IN:%(reference_genome)s | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
         job.add("tabix IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi" % locals()])
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(),
@@ -214,9 +219,14 @@ for genome_build in ('b37', 'b38'):
 
         # create a stats file that summarizes some of the columns of clinvar_alleles.tsv.gz file
         # Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id,
-        # 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status,
-        # 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes,
-        # 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
+        # 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence,
+        # 13: clinical_significance, 14: clinical_significance_ordered,
+        # 15: pathogenic, 16: benign, 17: conflicted,
+        # 18: review_status, 19: review_status_ordered,
+        # 20: gold_stars, 21: all_submitters, 22: submitters_ordered,
+        # 23: all_traits, 24: all_pmids, 25: inheritance_modes,
+        # 26: age_of_onset, 27: prevalence, 28: disease_mechanism,
+        # 29: origin, 30: xrefs, 31: dates_ordered
 
         python_oneliner_to_format_stats = "import sys;print(', '.join(['%s: %s' % (i+1, v) for l in sys.stdin for i,v in enumerate(l.split())]))"
         job.add("""echo \
@@ -226,7 +236,7 @@ for genome_build in ('b37', 'b38'):
             OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
         echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
         echo Total Rows: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | wc -l) >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        for i in 5 13 14 15 16 17 18 19 22 23 24 25 26; do
+        for i in 5 13 15 16 17 18 20 21 25 26 27 28 29; do
             echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
             echo "column ${i}: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | head -n 1 | cut -f $i)" >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
             gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
