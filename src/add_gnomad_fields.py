@@ -46,7 +46,7 @@ def get_gnomad_column_values(gnomad_f, chrom, pos, ref, alt):
       A list of chrom, pos, ref, alt
     """
 
-    if chrom == 'MT':
+    if chrom == 'MT' or chrom == 'Y':
         return GNOMAD_EMPTY_COLUMN_VALUES
 
     counts['total_clinvar_variants'] += 1
