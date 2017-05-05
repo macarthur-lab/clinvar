@@ -72,6 +72,13 @@ def group_alleles(data1, data2):
 
         combined_data[column_name] = ';'.join(deduplicated_values)
 
+    # some fields should not be deduplicated, but still concatenated
+    for column_name in (
+            'clinical_significance_ordered', 'review_status_ordered',
+            'dates_ordered', 'submitters_ordered'):
+        combined_data[column_name] = ";".join((data1[column_name],
+                                               data2[column_name]))
+
     return combined_data
 
 if __name__ == '__main__':
@@ -83,9 +90,9 @@ if __name__ == '__main__':
     if args.infile.name.endswith(".gz"):
         args.infile.close()
         args.infile = gzip.open(args.infile.name)
-    
+
     if args.outfile.name.endswith(".gz"):
         args.outfile.close()
         args.outfile = gzip.open(args.outfile.name, 'w')
-    
+
     group_by_allele(args.infile, args.outfile)
