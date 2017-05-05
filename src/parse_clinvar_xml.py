@@ -37,9 +37,11 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         'chrom', 'pos', 'ref', 'alt', 'measureset_type','measureset_id','rcv',
         'allele_id','symbol',
         'hgvs_c','hgvs_p','molecular_consequence',
-        'clinical_significance','clinical_significance_ordered','review_status','review_status_ordered','all_submitters','all_traits',
-        'all_pmids','inheritance_modes', 'age_of_onset', 'prevalence', 
-        'disease_mechanism', 'origin','xrefs'
+        'clinical_significance', 'clinical_significance_ordered',
+        'review_status', 'review_status_ordered',
+        'all_submitters', 'submitters_ordered',
+        'all_traits', 'all_pmids','inheritance_modes', 'age_of_onset',
+        'prevalence', 'disease_mechanism', 'origin', 'xrefs', 'dates_ordered'
     ]
     dest.write(('\t'.join(header) + '\n').encode('utf-8'))
     if multi is not None:
@@ -74,7 +76,7 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             elem.clear()
             continue
         elif len(measureset) == 0:
-            print("A submission has no measure set type"+measureset.attrib.get('ID'))
+            print("A submission has no measure set type: " + elem.find('./Title').text)
             elem.clear()
             continue
         
@@ -115,6 +117,9 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             if submitter_node.attrib is not None and submitter_node.attrib.has_key('submitter')
         ])
 
+        current_row['submitters_ordered'] = current_row['all_submitters']
+        # ^ all_submitters will get deduplicated while submitters_ordered won't
+
         #find the clincial significance and review status reported in RCV(aggregated from SCV)
         current_row['clinical_significance']=[]
         current_row['review_status']=[]
@@ -133,6 +138,11 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             x.text for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
         ])
 
+        current_row['dates_ordered'] = ';'.join([
+            x.attrib.get('DateLastEvaluated', '0000-00-00')
+            for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance')
+            if x is not None
+        ])
 
         # init new fields
         for list_column in ('inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'xrefs'):
@@ -244,7 +254,7 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
                     multi.flush()
             
             counter = scounter + mcounter
-            if verbose:
+            if verbose and counter % 100 == 0:
                 sys.stderr.write("{0} entries completed, {1}, {2} total \r".format(
                     counter,
                     ', '.join('%s skipped due to %s' % (v, k) for k, v in skipped_counter.items()),
