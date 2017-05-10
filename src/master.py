@@ -147,9 +147,9 @@ for genome_build in ('b37', 'b38'):
 
         # sort
         job.add(("cat " +
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | head -1) "  # header row
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
-            "<(zcat IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_table_normalized.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
             " | bgzip -c > OUT:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
         # tabix and copy to output dir
@@ -167,9 +167,9 @@ for genome_build in ('b37', 'b38'):
 
         # sort again by genomic coordinates (because R's merge function doesn't preserve order)
         job.add(("cat " +
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
-            "<(zcat IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
+            "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep \"^[XYM]\" | sort -k1,1 -k2,2n -k3,3 -k4,4 ) " +  #sort chroms X,Y,M 
             " | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz") % locals())   # lexicogaraphically sort non-numerical chroms at end
 
         # tabix and copy to output dir
