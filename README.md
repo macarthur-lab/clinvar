@@ -83,7 +83,7 @@ If you want to analyze the output file in R, a suitable line of code to read it 
 clinvar = read.table('clinvar_alleles.tsv',sep='\t',header=T,quote='',comment.char='')
 ```
 
-####Limitation
+#### Limitation
 
 The accuracy of output files is limited by the download-able files from the ClinVar FTP site. In the case that ClinVar releases new data with a new reporting format or an unfinished format update, our pipeline may not work for the latest release. We would recommend that users revert to the old version by specifying the input ClinVar files when executing `python master.py`. 
 
