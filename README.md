@@ -83,6 +83,10 @@ If you want to analyze the output file in R, a suitable line of code to read it 
 clinvar = read.table('clinvar_alleles.tsv',sep='\t',header=T,quote='',comment.char='')
 ```
 
+#### Limitation
+
+The accuracy of output files is limited by the download-able files from the ClinVar FTP site. In the case that ClinVar releases new data with a new reporting format or an unfinished format update, our pipeline may not work for the latest release. We would recommend that users revert to the old version by specifying the input ClinVar files when executing `python master.py`. 
+
 #### License, terms, and conditions
 
 ClinVar data, as a work of the United States federal government, are in the public domain and are redistributed here under [the same terms](http://www.ncbi.nlm.nih.gov/clinvar/docs/maintenance_use/) as they are distributed by ClinVar itself. Importantly, note that ClinVar data are "not intended for direct diagnostic use or medical decision-making without review by a genetics professional". The code in this repository is distributed under an MIT license.

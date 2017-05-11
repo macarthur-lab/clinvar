@@ -66,7 +66,8 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         else:
             current_row['rcv']=rcv.attrib.get('Acc')
         
-        measureset = elem.findall(".//ReferenceClinVarAssertion/MeasureSet")
+        ReferenceClinVarAssertion=elem.findall(".//ReferenceClinVarAssertion")
+        measureset = ReferenceClinVarAssertion[0].findall(".//MeasureSet")
         
         #only the ones with just one measure set can be recorded
         if len(measureset) > 1:

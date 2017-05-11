@@ -1,192 +1,581 @@
-Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes, 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
+Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id, 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status, 18: last_evaluated, 19: gold_stars, 20: all_submitters, 21: all_traits, 22: all_pmids, 23: inheritance_modes, 24: age_of_onset, 25: prevalence, 26: disease_mechanism, 27: origin, 28: xrefs
 ================
-Total Rows: 767
+Total Rows: 516
 ================
 column 5: measureset_type
-    437 Haplotype
-    323 CompoundHeterozygote
-     11 Phase unknown
-      2 Distinct chromosomes
+ 444 Haplotype
+  59 CompoundHeterozygote
+  11 Phase unknown
+   2 Distinct chromosomes
 ================
 column 13: clinical_significance
-    450 not reported for simple variant
-    198 Pathogenic
-     50 Uncertain significance
-     45 not provided
-     44 Benign
-     43 Likely benign
-     36 Likely pathogenic
-     30 other
-      7 drug response
-      4 risk factor
-      3 protective
+ 294 not reported for simple variant
+ 124 Pathogenic
+  41 Benign
+  39 not provided
+  36 Uncertain significance
+  36 Likely benign
+  30 other
+  16 Likely pathogenic
+   7 drug response
+   3 risk factor
+   3 protective
 ================
 column 14: pathogenic
-    557 0
-    210 1
+ 386 0
+ 130 1
 ================
 column 15: benign
-    702 0
-     65 1
+ 460 0
+  56 1
 ================
 column 16: conflicted
-    757 0
-     10 1
+ 507 0
+   9 1
 ================
 column 17: review_status
-    448 no assertion for the individual variant
-    118 no assertion criteria provided
-     81 criteria provided, single submitter
-     67 criteria provided, multiple submitters, no conflicts
-     38 criteria provided, conflicting interpretations
-     10 no assertion provided
-      4 reviewed by expert panel
-      1 practice guideline
+ 292 no assertion for the individual variant
+  85 no assertion criteria provided
+  51 criteria provided, multiple submitters, no conflicts
+  45 criteria provided, single submitter
+  29 criteria provided, conflicting interpretations
+   9 no assertion provided
+   4 reviewed by expert panel
+   1 practice guideline
 ================
-column 18: gold_stars
-    576 0
-    119 1
-     67 2
-      4 3
-      1 4
+column 18: last_evaluated
+  32 Jun 14, 2016
+  27 Jul 20, 2016
+  26 -
+  15 Dec 04, 2012
+   9 Jan 01, 2016
+   8 May 18, 2015
+   7 Feb 04, 2013
+   6 Nov 27, 2014
+   6 May 10, 2012
+   6 Jan 08, 2013
+   4 Nov 08, 2016
+   4 Mar 25, 2016
+   4 Jul 08, 2015
+   4 Jan 08, 2015
+   4 Jan 01, 2007
+   4 Feb 10, 2011
+   4 Dec 01, 2015
+   4 Aug 29, 2013
+   4 Aug 08, 2016
+   3 Sep 23, 2016
+   3 Sep 22, 2016
+   3 Sep 13, 2016
+   3 Nov 21, 2016
+   3 Nov 05, 2014
+   3 Jun 17, 2016
+   3 Jul 02, 2013
+   3 Jan 01, 2000
+   3 Jan 01, 1997
+   3 Jan 01, 1994
+   3 Feb 01, 2002
+   3 Aug 29, 2016
+   3 Aug 15, 2000
+   3 Aug 12, 2016
+   3 Aug 01, 1995
+   2 Sep 30, 2016
+   2 Sep 27, 2013
+   2 Sep 26, 2006
+   2 Sep 14, 2016
+   2 Sep 06, 2016
+   2 Sep 03, 2015
+   2 Sep 01, 2013
+   2 Sep 01, 2009
+   2 Sep 01, 2007
+   2 Sep 01, 2006
+   2 Oct 31, 2016
+   2 Oct 29, 2015
+   2 Oct 18, 2012
+   2 Oct 17, 2016
+   2 Oct 09, 2016
+   2 Oct 08, 2010
+   2 Oct 01, 2015
+   2 Oct 01, 2014
+   2 Oct 01, 2001
+   2 Nov 18, 2014
+   2 Nov 01, 2013
+   2 Nov 01, 2004
+   2 Nov 01, 1992
+   2 May 31, 2011
+   2 May 28, 2016
+   2 May 25, 2016
+   2 May 17, 2011
+   2 May 13, 2016
+   2 May 11, 2016
+   2 May 09, 2013
+   2 May 08, 2008
+   2 May 07, 2015
+   2 May 01, 2013
+   2 May 01, 1998
+   2 May 01, 1993
+   2 Mar 26, 2015
+   2 Mar 19, 2009
+   2 Mar 16, 2016
+   2 Mar 03, 2011
+   2 Mar 01, 2013
+   2 Mar 01, 2003
+   2 Mar 01, 1997
+   2 Jun 15, 2006
+   2 Jun 07, 2016
+   2 Jun 01, 2015
+   2 Jun 01, 2006
+   2 Jul 31, 2016
+   2 Jul 25, 2014
+   2 Jul 24, 2012
+   2 Jul 15, 2016
+   2 Jul 14, 2014
+   2 Jul 12, 2016
+   2 Jul 11, 2016
+   2 Jul 01, 2009
+   2 Jul 01, 2008
+   2 Jul 01, 2003
+   2 Jul 01, 1997
+   2 Jul 01, 1996
+   2 Jan 29, 1993
+   2 Jan 09, 2017
+   2 Jan 09, 2015
+   2 Jan 01, 1999
+   2 Jan 01, 1998
+   2 Jan 01, 1993
+   2 Feb 29, 2016
+   2 Feb 24, 1997
+   2 Feb 21, 2017
+   2 Feb 19, 2013
+   2 Feb 15, 2017
+   2 Feb 10, 2017
+   2 Feb 08, 2017
+   2 Feb 08, 2013
+   2 Feb 01, 1993
+   2 Dec 31, 2016
+   2 Dec 28, 2016
+   2 Dec 24, 2015
+   2 Dec 18, 2015
+   2 Dec 15, 2016
+   2 Dec 10, 2015
+   2 Dec 09, 2014
+   2 Dec 03, 2015
+   2 Dec 01, 2009
+   2 Dec 01, 1997
+   2 Aug 31, 2016
+   2 Aug 30, 2016
+   2 Aug 18, 2016
+   2 Aug 18, 2014
+   2 Aug 01, 1992
+   2 Apr 20, 2016
+   2 Apr 18, 2006
+   2 Apr 15, 1997
+   2 Apr 14, 2015
+   2 Apr 08, 2016
+   2 Apr 08, 2015
+   2 Apr 04, 2014
+   2 Apr 03, 2016
+   2 Apr 02, 2015
+   2 Apr 01, 2006
+   2 Apr 01, 2005
+   2 Apr 01, 1997
+   1 Sep 28, 2016
+   1 Sep 25, 2013
+   1 Sep 16, 2016
+   1 Sep 15, 2005
+   1 Sep 10, 2015
+   1 Sep 10, 2014
+   1 Sep 08, 2009
+   1 Sep 07, 2012
+   1 Sep 03, 2002
+   1 Sep 01, 1993
+   1 Oct 20, 2015
+   1 Oct 08, 2012
+   1 Oct 03, 2016
+   1 Nov 18, 2016
+   1 Nov 01, 1998
+   1 Nov 01, 1989
+   1 Nov 01, 1977
+   1 May 23, 2006
+   1 May 20, 2015
+   1 May 16, 2007
+   1 May 13, 2015
+   1 May 12, 2015
+   1 May 11, 2005
+   1 May 03, 2016
+   1 May 01, 2005
+   1 Mar 27, 2016
+   1 Mar 24, 2016
+   1 Mar 11, 2016
+   1 Mar 10, 2016
+   1 Mar 10, 2015
+   1 Mar 02, 2015
+   1 Mar 01, 2011
+   1 Mar 01, 2006
+   1 Mar 01, 2004
+   1 Jun 27, 2016
+   1 Jun 12, 2014
+   1 Jun 09, 2010
+   1 Jun 01, 2014
+   1 Jun 01, 2009
+   1 Jun 01, 2004
+   1 Jun 01, 1997
+   1 Jun 01, 1992
+   1 Jul 27, 2016
+   1 Jul 21, 2015
+   1 Jul 18, 2014
+   1 Jul 15, 2011
+   1 Jul 14, 2016
+   1 Jul 10, 2015
+   1 Jul 09, 2015
+   1 Jul 08, 2016
+   1 Jul 03, 2013
+   1 Jul 01, 2016
+   1 Jul 01, 2015
+   1 Jul 01, 2004
+   1 Jan 24, 2013
+   1 Jan 21, 2015
+   1 Jan 20, 2015
+   1 Jan 11, 1991
+   1 Jan 05, 2010
+   1 Feb 26, 2016
+   1 Feb 26, 2015
+   1 Feb 22, 2013
+   1 Feb 18, 2016
+   1 Feb 17, 2014
+   1 Feb 15, 2016
+   1 Feb 14, 2017
+   1 Feb 02, 2015
+   1 Feb 01, 2013
+   1 Feb 01, 2006
+   1 Feb 01, 2003
+   1 Feb 01, 2000
+   1 Dec 29, 2016
+   1 Dec 17, 2013
+   1 Dec 14, 2016
+   1 Dec 12, 2014
+   1 Dec 08, 2016
+   1 Dec 02, 2013
+   1 Dec 01, 2013
+   1 Aug 30, 2013
+   1 Aug 23, 2016
+   1 Aug 11, 2015
+   1 Aug 10, 2015
+   1 Aug 07, 2014
+   1 Aug 05, 2016
+   1 Aug 05, 2008
+   1 Aug 02, 2016
+   1 Aug 01, 1998
+   1 Aug 01, 1993
+   1 Apr 26, 2016
+   1 Apr 18, 2013
+   1 Apr 10, 2014
+   1 Apr 01, 1995
+   1 Apr 01, 1984
 ================
-column 19: all_submitters
-    306 OMIM
-     93 UCLA Clinical Genomics Center, UCLA
-     43 GeneReviews
-     37 Center for Genetic Medicine Research,Children's National Medical Center
-     36 Mendelics Analise Genomica
-     20 ARUP Institute,ARUP Laboratories
-     19 Laboratory of Prof. Karen Avraham,Tel Aviv University
-     18 Shenzhen Institute of Pediatrics,Shenzhen Children's Hospital
-     16 Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine
-     16 Génétique et pathophysiologie de maladies neurodéveloppementales et épileptogènes, Institut de génétique et de biologie moléculaire et cellulaire
-     15 Institut IMAGINE,Institut National de la Sante et de la Recherche Medicale
-     13 University of Washington Center for Mendelian Genomics, University of Washington
-     11 Foundation for Research in Genetics and Endocrinology,Institute of Human Genetics
-      9 Colsan,Colsan
-      8 Medical Research Institute,Tokyo Medical and Dental University
-      8 Institute of Human Genetics, Helmholtz Zentrum München, German Research Center for Environmental Health
-      7 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg
-      6 Section of Medical Genetics, Telemark Hospital
-      6 Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine
-      6 Clinical Biochemistry Laboratory,Health Services Laboratory
-      5 Tuberous sclerosis database (TSC2)
-      5 Metabolic Research Unit,Children's University Hospital Muenster
-      4 Eye Genetics Research Group,Children's Medical Research Institute
-      3 Shaikh Laboratory, University of Colorado
-      3 Laboratory of Gastroenterology and Hepatology,Radboud University Medical Center
-      3 Genetic Diagnostic Laboratory,University of Szeged
-      2 emedgene Technologies
-      2 Science and Research Branch, Islamic Azad University,Islamic Azad University
-      2 RettBASE
-      2 Research Centre for  Medical Genetics
-      2 Puck Laboratory, University of California, San Francisco
-      2 Neurogenetics Research, Murdoch Childrens Research Institute
-      2 NCBI curation
-      2 Molecular Genetics and RNA Biology, Humanitas University
-      2 Manipal Health Enterprises Pvt Ltd, Manipal Hospital
-      2 Laboratory of Molecular Genetics,National Institutes of Health
-      2 Laboratory of Molecular Genetics,CHU RENNES
-      2 Laboratory of Molecular Genetics (Pr. Bezieau's lab),CHU de Nantes
-      2 Laboratorio de Medicina Genomica, Hospital General de Culiacan
-      2 LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata
-      2 LDLR-LOVD, British Heart Foundation
-      2 Innovations Lab, Hyderabad,Tata Consultancy Services Ltd
-      2 Human Genetics Disease in Children – Taif University,Taif University
-      2 HerediLab, Inc.
-      2 Genomic Research Center,Shahid Beheshti University of Medical Sciences
-      2 Genetics of Mitochondrial Disorders,HelmholtzZentrum Munchen
-      2 Faculty of Science, Laboratory of Drosophila Research, School of Life Sciences,The Chinese University of Hong Kong, Hong Kong
-      2 Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)
-      2 Dr. Guy Rouleau's laboratory,McGill University
-      2 Diagnostics Division,CENTRE FOR DNA FINGERPRINTING AND DIAGNOSTICS
-      2 Department of Neurology,Children's Hospital of Fudan University
-      2 Department of Medical Genetics,Oslo University Hospital
-      2 Department of Human Genetics,McGill University
-      2 Collagen Diagnostic Laboratory
-      2 Clinical Genetics, Erasmus University Medical Center
-      2 Bone Marrow Failure laboratory,Queen Mary University London
-      2 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare
-      2 Biochimie-Hormonologie,Robert Debre Hospital
-      2 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University
-      2 Baylor Miraca Genetics Laboratories
-      2 Abrahams Lab,Albert Einstein College of Medicine
-      2 ARUP Laboratories, Molecular Genetics and Genomics
-      1 Medical Genomics Laboratory,Department of Genetics UAB
-      1 Klein lab,Ludwig-Maximilians-University
-      1 CFTR2
+column 19: gold_stars
+ 386 0
+  74 1
+  51 2
+   4 3
+   1 4
 ================
-column 22: inheritance_modes
-    489 
-    199 Autosomal recessive inheritance
-     72 Autosomal dominant inheritance
-      8 X-linked recessive inheritance
-      4 Sporadic
-      3 X-linked inheritance
-      2 X-linked dominant inheritance
-      2 Codominant
+column 22: all_pmids
+  22 
+  10 24033266
+   8 23261301
+   7 28118664
+   7 25741868
+   6 24579654
+   6 20301728
+   5 23273567
+   4 20301532,25025039
+   4 11093272,12915679,20301350,7629224
+   4 10400129,15776412,20301497,22378278,22475884
+   3 9683616
+   3 9222756
+   3 27854218
+   3 20301350,25741868
+   3 15623806,20301350,2249999,2845408
+   3 1353664,4125296
+   3 11835375,20301462,9222756
+   3 11739416,19469690,20301434,21863057,23788249,24893135,25356965,25394175,27854360,3078962,7907913,8099202,8103403,8918855
+   3 11001917,23479567,9827909
+   3 10942404,23016163
+   3 10685993,1437405,1594045,1972019,20301446,2349952,2914709,7857677,8929950
+   3 10685993,1437405,1594045,18197057,1972019,19888064,20301446,2349952,2914709,7857677,8929950
+   3 10400129,15060693,15776412,20301497,22378278,22475884
+   3 10330344,11159935,20301726
+   2 9915949
+   2 9814506
+   2 9671268
+   2 9537424
+   2 9109432
+   2 9070911
+   2 9042911
+   2 893139
+   2 8432868
+   2 8219240
+   2 7951254
+   2 7903454,7927337
+   2 7860732
+   2 6323533
+   2 5085670
+   2 3841063
+   2 3304460,9361033
+   2 27989324
+   2 27745835
+   2 27352967
+   2 27153399
+   2 27132593
+   2 27061120
+   2 26903630
+   2 26833330
+   2 26694549
+   2 26657938
+   2 26639818
+   2 26637979
+   2 26527198,28118664
+   2 26468571
+   2 2634673
+   2 26246518
+   2 25913036
+   2 25589244
+   2 25351951
+   2 25193783,9324076
+   2 2519378
+   2 24848070,9760199
+   2 24156116
+   2 23830146
+   2 23479567,9718354
+   2 23421845,9226182
+   2 23359570
+   2 23315541
+   2 23239121,26544806
+   2 22962670,8664327
+   2 22962670,8488843
+   2 22962670,2470732,2738044,7586659
+   2 22617344,23975875,24033266
+   2 22319799,7550339,9106524
+   2 21956720,24123876
+   2 2189492,3467311,9166865
+   2 21698661
+   2 21634085,9215682
+   2 21500874,22962670,8488843
+   2 21500874
+   2 21483807
+   2 21343949,25741868
+   2 21276947,26942291,26942292,632821
+   2 21031595
+   2 20942,7852084
+   2 20818383,22072591,23553477,24088041,26633545
+   2 20647424,24206458
+   2 20301791,25741868
+   2 20301779
+   2 20301764
+   2 20301677,21915151,24385074,24667081,25741868
+   2 20301677,21915151,24385074,24667081,2574153,9429153
+   2 20301667,23788249,24882528,25173340,25355838,25356965,27854360
+   2 20301607,9590290
+   2 20301576,7678782
+   2 20301509
+   2 20301500,21448235,25741868
+   2 20301468,21078917,22420014,22675738
+   2 20301467,20839240,22009146,23788249
+   2 20301460,22547750
+   2 20301399,23519317,23788249
+   2 20301389,25741868
+   2 20301386,22166944,7706490,9195222
+   2 20301350
+   2 20301341,8328452
+   2 20301293,25741868
+   2 20018642,20301421,20301623
+   2 1999409,6433630,8956035
+   2 19553116,20301465,22510848
+   2 19502294,20301384
+   2 19449430,20301540
+   2 19321370,20301282,22126753
+   2 19320655,19562744,20301695,24319509,25394175
+   2 19246354,20887963
+   2 18852439,19949035
+   2 18711368,20301773
+   2 18583979,6327682
+   2 18583979,21500874,2341812,3585172
+   2 18541964,25915598
+   2 18463379
+   2 18414213,20301451,21863056,25071396
+   2 18394004,20301421
+   2 18319072,20580948
+   2 18310264,20301607,20301640,9500541
+   2 18281915,18281922,20504253,24251364,26186657
+   2 18004641,20301351,21533827
+   2 17726488,9419367
+   2 17705025,20301760
+   2 17460142,20301460,22547750
+   2 17436313,20301705
+   2 1730728,21500874,22962670,25333069,2539388,6860421
+   2 1714434
+   2 1713245
+   2 17096168,20050888,20301317,20301333
+   2 17000984,21343949
+   2 16912710
+   2 16839424,20301486,21810866
+   2 16673358,20301687,22258520
+   2 16606836,20301509,21682876
+   2 16570191,20301601
+   2 16565724
+   2 16527897
+   2 16411219,20301331,2783977
+   2 1634360,19257
+   2 15979919,20301635
+   2 15845031,18506894,20301685,20482602,27854360
+   2 15811315,18306170,20934285,21697855
+   2 15776412,20301497,22378278,22475884
+   2 15768550
+   2 15690354,20301446
+   2 15685488,20301692,24121147
+   2 15666429
+   2 15477547,15824347,20301532,22189570,25025039
+   2 15470216,6166632
+   2 15208270,17909628
+   2 15182055
+   2 15177124,21600525,22364837,23725921,23788249,24418289,24636176,25053660,25356965,25404096,27854360,7649546
+   2 15111592,15531312
+   2 14732627,14870754,16163667,16917943,20301325,23788249,25356965,27854360
+   2 14722581,16444274,20301299,23788249,24882528,25173340,25356965,27854360
+   2 14707518,15776412,20301497,22378278,22475884,9396567
+   2 14707518,15060693,19444543,20301351,21533827
+   2 14707518,15060693,15776412,20301497,22378278,22475884
+   2 14635115,20301742
+   2 1439789,15177124,21600525,22364837,23725921,23788249,24418289,24636176,25053660,25356965,25404096,27854360,8528204,9143924
+   2 14170898,6775529,8456556
+   2 1415222,2976595,8198136,8659543
+   2 13943409,5069596,5490239,5928902
+   2 1361196,1674745,22962670
+   2 1346492,1594605,3262827,4121586,830445,838841
+   2 12919135,18394004,20301421
+   2 12891677,15888660
+   2 12858176,15827106,16091483,16817821,17062770
+   2 12794697,20301451,21863056,25071396
+   2 12735292,1315715,16980809,20301469,20505683,20610207,21934708,23788249,23860966,25173338,25355838,25356965,27854360
+   2 12586610
+   2 12509788,21370513
+   2 12439895,15258581
+   2 12359137,20083419,20301497,22378278,22475884
+   2 1225575,893143
+   2 12205650,1353341,1353342,1353344,1439789,1469441,16227536,1671440,1671983,1684756,19038218,20301407,7709737,9751723
+   2 12205650,1353341,1353342,1353344,1439789,1469441,16227536,1671440,1671983,1684756,19038218,20298421,20301407,7709737,9751723
+   2 12181489
+   2 11857564,20301647
+   2 1177278,1244906,12709369,15108284,16370495,16540414,19440680,19460936,20437613,20704537,20838957,21119755,2930724,4613830,640855,893136
+   2 1177278,1244906,12709369,15108284,16370495,16540414,1787096,19440680,19460936,20437613,20704537,20838957,21119755,2930724,4613830,640855,893136
+   2 11739416,11788682,19469690,20301434,21863057,23788249,24893135,25356965,27854360,8797874,8918855
+   2 11668630,15776412,20301497,22378278,22475884,9396567
+   2 11666007,20004762
+   2 11598466,15604628,20301519,21368914,21813476,23788249,24310308,25356965,25452455,25645574,27087319,27854360
+   2 11570725,1177278,1244906,12709369,15108284,16370495,16540414,19440680,19460936,20437613,20704537,20838957,21119755,2930724,4613830,640855,893136
+   2 11519011
+   2 11468687,20301399,23519317,23788249
+   2 11280952,12394352,15789152,17761616,19888064,19914443,19914445,20301428,20605539,20675678,21422883,21938795,22475884,24014130,25431289,25981758,7679367,9580754
+   2 11280952,12394352,15744523,15789152,17761616,19888064,19914443,19914445,20301428,20605539,20675678,21422883,21938795,22475884,24014130,25431289,25981758,8528204,9580754
+   2 1112610,11179419,11939508,14282052,15108284,15502081,15543018,15710580,15710581,1732017,18254282,19783722,20704537,20854120,2930724,3859465,5481775,5915974,6716421,8195007,893136,9049622,9834244
+   2 10973849,12820704,14678125,1475667,14756674,20301308,21810866,23788249,25356965,27854360,8528244,9386136
+   2 10958761,10958763,12796258,16103129,28118664
+   2 10930446,20298421,20301669
+   2 10870883
+   2 10807545,11463728,11997281,12569159,12639704,14760,18378609,23788249,23994779
+   2 10802661,16104012,20301675
+   2 10801053,15776412,16435182,20301497,22378278,22475884
+   2 10790204,20301763,27209629
+   2 10746566,22972948
+   2 10734064,1303173,1924316,1972698,1999409,2253938,2572288,2836867,2840819,3967887,5448,6015571,7106752,7221827,7291768,903703
+   2 10731151,11264153,12697743,15208270,17909628,23716478
+   2 10652016
+   2 10647719,11565546,9097965,9618177
+   2 10618304,19251209,20129283,20301690,21321465,21810866,23788249,25356965,27854360,9521325
+   2 10607953,10983956,12746422,15070423,17041943,17666888,20083784,20201936,20668687,21298213,23826813,24033266,9529365
+   2 10543395,1778977,19444287
+   2 10532948,15851227,18599870,19841300,20129283,20301690,21810866,23788249,25356965,27854360
+   2 10485731,10896299,11809920,20301282,22126753
+   2 10485731
+   2 10408771,10424825,19224951,2011574,4759900,8522334,9012409
+   2 10408771,10424825,10649501,11216901,11286503,11754113,15633893,15841485,16838075,19224951,2011574,20301691,22475884
+   2 10400129,15776412,20301497,21228398,22378278,22475884,7509806,9375914,9654207
+   2 10400129,15776412,16435182,20301497,22378278,22475884,9396567
+   2 10400129,10801053,15776412,16435182,20301497,22378278,22475884,9396567
+   2 10335988,15008267,16178917,18932067,2079433,5097135,640855
+   2 10208641,12880540,15819814,15967990,8561894,8644731,9177237,9336428,9931345,9931346
+   2 10203101,1112610,11179419,14282052,15108284,15502081,15543018,15710580,15710581,1732017,18254282,19783722,20704537,20854120,25052315,2930724,3859465,5481775,5915974,6716421,8195007,893136,9049622,9834244
+   2 10199775,10323405,10739843,12620433,1727817,7714098,7904610,8784083
+   2 10090476,20301431,25173338
+   2 10090474,23519317
+   2 10079102,11903352,15146461,18197057,1864608,19888064,20301446
+   2 10024914,10090880,10364520,10612841,10787449,10980540,11484206,11938447,12401847,12929299,12955725,15942916,16255051,17331080,18097735,19967574,20041150,20534143,9668175
+   2 1,12560944,15633193,20301449,20301607,20497192,24785414
+   2 1,10,15604628,17392385,17508274,17924331,19305347,20,20065170,20301425,23188549,23788249,23918944,24366376,24366402,24432435,24493721,25356965,25394175,27008870,27854360,3,548,70
+   1 8220426
+   1 3191036
+   1 26833332
+   1 2478590
+   1 24753537
+   1 2309708,6162902
+   1 20301386,22166944
+   1 1849260
+   1 16717225,20050888,20301317,20301333
+   1 16240358,20301402,23279440
+   1 15798777,20301399,23519317,23788249
+   1 15759211
+   1 15221448,20301367
+   1 1511986
+   1 11810296,12073024,17188046,19581274
+   1 11280952,12394352,15789152,17761616,19888064,19914443,19914445,20301428,20605539,20675678,21422883,21938795,22475884,23974870,24014130,25431289,25981758,9580754
+   1 10862084,15604628,17636453,20065170,20301288,24893135,26189818
 ================
-column 23: age_of_onset
-    331 
-    164 Infancy
-     95 Childhood
-     60 Adolescent
-     56 All ages
-     31 Adult
-     28 Neonatal
-     16 Antenatal
-      2 Neonatal/infancy
+column 23: inheritance_modes
+ 338 
+ 115 Autosomal recessive inheritance
+  56 Autosomal dominant inheritance
+   8 X-linked recessive inheritance
+   3 X-linked inheritance
+   2 Codominant
 ================
-column 24: prevalence
-    378 
-    146 <1 / 1 000 000
-    111 1-9 / 100 000
-     90 1-9 / 1 000 000
-     32 1-5 / 10 000
-      5 1:3200
-      5 1 in 2000-4000 depending on the population studied.
-      4 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
-      4 The precise incidence and prevalence of CCD, considered to be the most frequently occurring congenital myopathy, are unknown.
-      4 Rare - 63 per million
-      4 >1 / 1000
-      4 1 per million
-      2 unknown, <1 per million
-      2 The overall prevalence of hereditary neuropathies is estimated at approximately 3:10,000 population. About 30% of these individuals (1:10,000) may have CMT2. The prevalence of the various subtypes of CMT2 is unknown
-      2 The frequency of NBIA is estimated to be approximately 1-3/1,000,000 individuals.
-      2 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
-      2 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
-      2 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
-      2 Currently, CMT4A is considered the most frequent of all autosomal recessive forms of CMT.    Molecular genetic testing has shown that the following proportion of individuals with CMT have two disease-causing GDAP1 alleles:    1% - 15% individuals depending on the studied population
-      2 Congenital deafness affects 1 in 1,000 births.
-      2 Congenital deafness affects 1 in 1,000 births
-      2 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
-      2 2:100 000 in Finland, 0,26:100 000 in the North of England
-      2 2.29 to 3.2 per 100,000 individuals
-      2 1:30,000 in males and 1:125,000 in females
-      2 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
-      2 1/200,000
-      2 1.3 per 100,000
-      2 1 in 248,000 (in combination with Niemann-Pick A)
-      2 1 - 9 / 100 000
-      1 Estimates range from 1:250,000 to 1:50,000.
-      1 1:3,000
+column 24: age_of_onset
+ 246 
+  86 Infancy
+  67 Childhood
+  38 All ages
+  33 Adolescent
+  20 Neonatal
+  20 Adult
+  12 Antenatal
 ================
-column 25: disease_mechanism
-    690 
-     71 loss of function
-      6 gain of function
-      2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
+column 25: prevalence
+ 264 
+  93 <1 / 1 000 000
+  83 1-9 / 100 000
+  47 1-9 / 1 000 000
+  23 1-5 / 10 000
+   5 1:3200
+   5 1 in 2000-4000 depending on the population studied.
+   4 1 per million
+   2 unknown, <1 per million
+   2 Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.
+   2 Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.
+   2 DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation
+   2 DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.
+   2 Congenital deafness affects 1 in 1,000 births.
+   2 Congenital deafness affects 1 in 1,000 births
+   2 Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.
+   2 >1 / 1000
+   2 2.29 to 3.2 per 100,000 individuals
+   2 1:30,000 in males and 1:125,000 in females
+   2 1:100,000 live births.  Carrier frequency is estimated to be 1:150.
+   2 1.3 per 100,000
+   2 1 - 9 / 100 000
+   1 Estimates range from 1:250,000 to 1:50,000.
+   1 1:3,000
 ================
-column 26: origin
-    551 germline
-     90 unknown
-     44 not provided
-     42 inherited
-     20 maternal
-      8 de novo
-      6 somatic
-      6 paternal
-      6 not applicable
-      4 tested-inconclusive
-      2 biparental
+column 26: disease_mechanism
+ 469 
+  43 loss of function
+   4 gain of function
+   2 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.
