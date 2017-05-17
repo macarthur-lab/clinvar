@@ -79,12 +79,12 @@ def join_variant_summary_with_clinvar_alleles(
     df['benign'] = df['clinical_significance'].str.contains(
         "benign", case=False)
     # conflicted = 1 if pathogenic == 1 and benign == 1 or if the significance
-    # string contains "conflicting data"
+    # string from at least one submitter contains "conflicting data"
     df['conflicted'] = df['pathogenic'] & df['benign']
     df['conflicted'] |= df['clinical_significance'].str.contains(
         "conflicting data", case=False)
-    # uncertain = 1 if the variant is of uncertain significance or if it is
-    # conflicted
+    # uncertain = 1 if the variant is of uncertain significance according to at
+    # least one submission or if it is conflicted
     df['uncertain'] = df['clinical_significance'].str.contains(
         "uncertain", case=False) | df['conflicted']
     for flag in ('pathogenic', 'benign', 'conflicted', 'uncertain'):
