@@ -4,7 +4,8 @@ import pandas as pd
 
 from parse_clinvar_xml import HEADER
 
-FINAL_HEADER = HEADER + ['gold_stars', 'pathogenic', 'benign', 'conflicted']
+FINAL_HEADER = HEADER + ['gold_stars', 'pathogenic', 'benign', 'conflicted',
+                         'uncertain']
 
 
 def join_variant_summary_with_clinvar_alleles(
@@ -77,14 +78,16 @@ def join_variant_summary_with_clinvar_alleles(
     # 0 otherwise
     df['benign'] = df['clinical_significance'].str.contains(
         "benign", case=False)
-    # we have to deal with cases of strings like "probable-non-pathogenic",
-    # "probably not pathogenic", "no known pathogenicity", "non-pathogenic":
-    df['benign'] |= (
-        df['pathogenic'] &
-        df['clinical_significance'].str.contains("no", case=False))
-    # conflicted = 1 if pathogenic == 1 and benign == 1
+    # conflicted = 1 if pathogenic == 1 and benign == 1 or if the significance
+    # string contains "conflicting data"
     df['conflicted'] = df['pathogenic'] & df['benign']
-    for flag in ('pathogenic', 'benign', 'conflicted'):
+    df['conflicted'] |= df['clinical_significance'].str.contains(
+        "conflicting data", case=False)
+    # uncertain = 1 if the variant is of uncertain significance or if it is
+    # conflicted
+    df['uncertain'] = df['clinical_significance'].str.contains(
+        "uncertain", case=False) | df['conflicted']
+    for flag in ('pathogenic', 'benign', 'conflicted', 'uncertain'):
         df[flag] = df[flag].astype(int)
 
     # reorder columns just in case
