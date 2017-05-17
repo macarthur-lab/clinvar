@@ -42,7 +42,7 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 2. Parse the XML file using [src/parse_clinvar_xml.py](src/parse_clinvar_xml.py) to extract fields of interest into a flat file.
 4. Normalize using [our Python implementation](https://github.com/ericminikel/minimal_representation/blob/master/normalize.py) of [vt normalize](http://genome.sph.umich.edu/wiki/Variant_Normalization) (see [[Tan 2015]]).  
 5. Group the allele-trait records by allele using [src/group_by_allele.py](src/group_by_allele.py) to aggregate interpretations from multiple submitters by allele, independent of conditions. 
-5. Join the TXT file using [src/join_data.R](src/join_data.R) to aggregate interpretations from multiple submitters independent of conditions. 
+5. Join the TXT file using [src/join_variant_summary_with_clinvar_alleles.py](src/join_variant_summary_with_clinvar_alleles.py) to aggregate interpretations from multiple submitters independent of conditions. 
 6. Generate the VCF file and other tables based on the file created in 5.
   
 
@@ -56,11 +56,10 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 
 The pipeline scripts expect the following programs to be available on your system (and in your `$PATH`): 
 
-wget  
-python2.7  
-Rscript  
-[tabix](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html)  
-[vt](https://github.com/atks/vt)  
+wget
+python2.7
+[tabix](http://genometoolbox.blogspot.com/2013/11/installing-tabix-on-unix.html)
+[vt](https://github.com/atks/vt)
 
 To run the pipeline:
 
@@ -81,6 +80,13 @@ If you want to analyze the output file in R, a suitable line of code to read it 
 
 ```r
 clinvar = read.table('clinvar_alleles.tsv',sep='\t',header=T,quote='',comment.char='')
+```
+
+or with pandas:
+
+```python
+import pandas as pd
+clinvar = pd.read_csv("clinvar_alleles.tsv", sep="\t")
 ```
 
 #### License, terms, and conditions

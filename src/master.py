@@ -17,7 +17,7 @@ try:
     import pandas   # make sure all dependencies are installed
 except ImportError as e:
     sys.exit("ERROR: Python module not installed. %s. Please run 'pip install -r requirements.txt' " % e)
-for executable in ['wget', 'Rscript', 'tabix', 'vt']:
+for executable in ['wget', 'tabix', 'vt']:
     assert spawn.find_executable(executable), "Command %s not found, see README" % executable
 
 p = configargparse.getArgParser()
@@ -168,7 +168,11 @@ for genome_build in ('b37', 'b38'):
         job.add("python -u IN:group_by_allele.py -i IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz" % locals())
 
         # join information from the tab-delimited summary to the normalized genomic coordinates
-        job.add("Rscript IN:join_data.R IN:%(variant_summary_table)s IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz" % locals())
+        job.add("python IN:join_variant_summary_with_clinvar_alleles.py "
+                "IN:%(variant_summary_table)s "
+                "IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz "
+                "OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz "
+                "%(genome_build_id)s" % locals())
 
         # sort again by genomic coordinates (because R's merge function doesn't preserve order)
         job.add(("cat " +
