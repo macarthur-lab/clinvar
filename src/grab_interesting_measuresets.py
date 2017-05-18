@@ -1,6 +1,5 @@
 import sys
 import re
-import tqdm
 import gzip
 
 """
@@ -38,8 +37,7 @@ out_f.write(next(in_f))  # <?xml>
 out_f.write(next(in_f))  # <RelaseSet>
 out_f.write("\n")
 
-for line in tqdm.tqdm(in_f, leave=True, desc="going over XML lines",
-                      unit_scale=True):
+for line in in_f:
     if line.startswith("<ClinVarSet"):
         in_clinvarset = True
     elif line.startswith("</ClinVarSet>"):
