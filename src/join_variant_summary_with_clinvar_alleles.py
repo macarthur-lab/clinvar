@@ -42,13 +42,10 @@ def join_variant_summary_with_clinvar_alleles(
     clinvar_alleles = clinvar_alleles.drop(
         ['clinical_significance', 'review_status'], axis=1)
 
-    # remove rows with multiple allele_ids
-    clinvar_alleles = clinvar_alleles[
-        ~(clinvar_alleles['allele_id'].str.contains(";") == True)]
-    # have to do it this way because allele_id gets a dtype of object, being
-    # a mix of ints and strs; alternate way would be to cast
-    # variant_summary.allele_id to str and let pd.merge handle it
-    clinvar_alleles['allele_id'] = clinvar_alleles.allele_id.astype(int)
+    # pandas is sensitive to some rows having allele_id joined on ;, causing
+    # an object dtype, with some entries being ints and others strs
+    clinvar_alleles['allele_id'] = clinvar_alleles['allele_id'].astype(str)
+    variant_summary['allele_id'] = variant_summary['allele_id'].astype(str)
 
     print "clinvar_alleles after filter", clinvar_alleles.shape
 
