@@ -16,7 +16,7 @@ columns_to_summarize = [
     'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism',
     'origin']
 
-df = pd.read_csv(alleles_name, sep="\t", compression='gzip')
+df = pd.read_csv(alleles_name, sep="\t", compression='gzip', index_col=False)
 
 sep = "=" * 16
 
