@@ -29,11 +29,11 @@ g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the v
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
 g.add("-GE", "--gnomad-exome-sites-vcf",  help="gnomAD exome sites vcf file. If specified, a clinvar table with extra gnomAD exome info fields will also be created.")
 g.add("-GG", "--gnomad-genome-sites-vcf",  help="gnomAD genome sites vcf file. If specified, a clinvar table with extra gnomAD genome info fields will also be created.")
+g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
+g.add("--tmp-dir", default="./output_tmp/", help="Temporary output files will have this prefix")
 g = p.add_mutually_exclusive_group()
 g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
 g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
-g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
-g.add("--tmp-dir", default="./output_tmp/", help="Temporary output files will have this prefix")
 
 pypez.init_command_line_args()
 args = p.parse_args()
