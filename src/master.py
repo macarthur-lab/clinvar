@@ -222,32 +222,15 @@ for genome_build in ('b37', 'b38'):
 
                 job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_with_%(label)s_example_750_rows.%(fsuffix)s.tsv" % locals())
 
-        # create a stats file that summarizes some of the columns of clinvar_alleles.tsv.gz file
-        # Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id,
-        # 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence,
-        # 13: clinical_significance, 14: clinical_significance_ordered,
-        # 15: pathogenic, 16: benign, 17: conflicted,
-        # 18: review_status, 19: review_status_ordered,
-        # 20: gold_stars, 21: all_submitters, 22: submitters_ordered,
-        # 23: all_traits, 24: all_pmids, 25: inheritance_modes,
-        # 26: age_of_onset, 27: prevalence, 28: disease_mechanism,
-        # 29: origin, 30: xrefs, 31: dates_ordered
-
-        python_oneliner_to_format_stats = "import sys;print(', '.join(['%s: %s' % (i+1, v) for l in sys.stdin for i,v in enumerate(l.split())]))"
-        job.add("""echo \
-        Columns: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | \
-            head -n 1 | \
-            python -c "%(python_oneliner_to_format_stats)s") > \
-            OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        echo Total Rows: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | wc -l) >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        for i in 5 13 15 16 17 18 20 21 25 26 27 28 29; do
-            echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-            echo "column ${i}: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | head -n 1 | cut -f $i)" >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-            gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-        done
-        """ % locals(), input_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(), "master.py"])
-
+        # create a stats file summarizing some columns of clinvar_alleles.tsv.gz
+        job.add(
+            "python clinvar_alleles_stats.py "
+            "IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz "
+            "> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" %
+            locals(),
+            input_filenames=[
+                "%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(),
+                "clinvar_alleles_stats.py"])
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt OUT:%(output_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" % locals())
 
         # run basic checks
