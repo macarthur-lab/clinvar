@@ -33,6 +33,7 @@ g = p.add_mutually_exclusive_group()
 g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
 g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
 g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
+g.add("--tmp-dir", default="./output_tmp/", help="Temporary output files will have this prefix")
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -48,7 +49,7 @@ gnomad_genome_sites_vcf = args.gnomad_genome_sites_vcf
 clinvar_variant_summary_table = args.clinvar_variant_summary_table
 output_prefix = args.output_prefix
 
-tmp_dir = "output_tmp"
+tmp_dir = args.tmp_dir
 os.system("mkdir -p " + tmp_dir)
 
 for key, path in reference_genomes.items():
