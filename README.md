@@ -94,5 +94,5 @@ ClinVar data, as a work of the United States federal government, are in the publ
 [Tan 2015]: http://www.ncbi.nlm.nih.gov/pubmed/25701572 "Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015 Jul 1;31(13):2202-4. doi: 10.1093/bioinformatics/btv112. Epub 2015 Feb 19. PubMed PMID: 25701572."
 
 #### How to cite
-Zhang X, Minikel EV, O'Donnell-Luria AH et al. ClinVar data parsing [version 1; referees: 2 approved]. Wellcome Open Res 2017, 2:33 
+Zhang X, Minikel EV, O'Donnell-Luria AH et al. [ClinVar data parsing](https://wellcomeopenresearch.org/articles/2-33/v1) [version 1; referees: 2 approved]. Wellcome Open Res 2017, 2:33 
 (doi: 10.12688/wellcomeopenres.11640.1)
