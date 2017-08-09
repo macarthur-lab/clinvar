@@ -46,11 +46,11 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 6. Generate the VCF file and other tables based on the file created in 5.
   
 
-&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns:
+&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns in encoding the [Clinical Significance on ClinVar aggregated records](https://www.ncbi.nlm.nih.gov/clinvar/docs/clinsig):
 
-+ `pathogenic` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and `0` otherwise
-+ `benign` is `1` if the variant has *ever* been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise
-+ `conflicted` is `1` if the variant has *ever* been asserted "Pathogenic" or "Likely pathogenic" by any submitter for any phenotype, and has also been asserted "Benign" or "Likely benign" by any submitter for any phenotype, and `0` otherwise. Note that having one assertion of pathogenic and one of uncertain significance does *not* count as conflicted for this column. 
++ `pathogenic` is `1` if the variant is reported as "Pathogenic" or "Likely Pathogenic" without any "uncertain significance" submission  
++ `benign` is `1` if the variant is reported as "Benign" or "Likely benign" without any "uncertain significance" submission
++ `conflicted` is `1` if the variant is reported as "Conflicting interpretation of pathogenicity" or "conflicting data from submitters".
 
 #### Usage
 
@@ -92,3 +92,7 @@ The accuracy of output files is limited by the download-able files from the Clin
 ClinVar data, as a work of the United States federal government, are in the public domain and are redistributed here under [the same terms](http://www.ncbi.nlm.nih.gov/clinvar/docs/maintenance_use/) as they are distributed by ClinVar itself. Importantly, note that ClinVar data are "not intended for direct diagnostic use or medical decision-making without review by a genetics professional". The code in this repository is distributed under an MIT license.
 
 [Tan 2015]: http://www.ncbi.nlm.nih.gov/pubmed/25701572 "Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015 Jul 1;31(13):2202-4. doi: 10.1093/bioinformatics/btv112. Epub 2015 Feb 19. PubMed PMID: 25701572."
+
+#### How to cite
+Zhang X, Minikel EV, O'Donnell-Luria AH et al. ClinVar data parsing [version 1; referees: 2 approved]. Wellcome Open Res 2017, 2:33 
+(doi: 10.12688/wellcomeopenres.11640.1)
