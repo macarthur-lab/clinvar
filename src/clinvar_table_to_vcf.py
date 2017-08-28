@@ -64,15 +64,17 @@ def table_to_vcf(input_table_path, input_reference_genome):
         #    INFO - additional information: (String, no white-space, semi-colons, or equals-signs permitted; commas are
         #    permitted only as delimiters for lists of values) INFO fields are encoded as a semicolon-separated series of short
         #    keys with optional values in the format: <key>=<data>[,data].
+        loc_column = ['chrom', 'pos', 'ref', 'alt']
         for key in HEADER:
-            if pd.isnull(table_row[key]):
-                continue
-            value = str(table_row[key])
-            value = re.sub('\s*[,]\s*', '..', value)  # replace , with ..
-            value = re.sub('\s*[;]\s*', '|', value)  # replace ; with |
-            value = value.replace("=", " eq ").replace(" ", "_")
-
-            info_field[key.upper()] = value
+            if key not in loc_column:
+                if pd.isnull(table_row[key]):
+                    continue
+                value = str(table_row[key])
+                value = re.sub('\s*[,]\s*', '..', value)  # replace , with ..
+                value = re.sub('\s*[;]\s*', '|', value)  # replace ; with |
+                value = value.replace("=", " eq ").replace(" ", "_")
+                
+                info_field[key.upper()] = value
         vcf_row.append(";".join([key+"="+value for key, value in info_field.items()]))
 
         print("\t".join(map(str, vcf_row)))

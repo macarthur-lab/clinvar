@@ -3,21 +3,21 @@ import re
 import gzip
 
 """
-Helper script to grab some measurets by their ID from the master XML for
+Helper script to grab some variations by their ID from the master XML for
 testing purposes.
 Usage:
-    python grab_interesting_measuresets.py \
+    python grab_interesting_variations.py \
         <ClinVarFullRelease.xml.gz> \
-        <comma-separated list of measureset IDs> \
+        <comma-separated list of variation IDs> \
         <out.xml.gz>
 """
 
-in_xml = sys.argv[1]  # e.g. ClinVarFullRelease_2017-02.xml.gz
-interesting_measuresets = set(sys.argv[2].split(","))
-# ^ comma-separated list of interesting measuret IDs, e.g. 187175,188901
+in_xml = sys.argv[1]  # e.g. ClinVarFullRelease.xml.gz
+interesting_variations = set(sys.argv[2].split(","))
+# ^ comma-separated list of interesting variation IDs, e.g. 187175,188901
 out_xml = sys.argv[3]  # where to write, e.g. interesting.xml.gz
 
-measureset_id_regex = re.compile(r'ID="(\d+)"')
+variations_id_regex = re.compile(r'ID="(\d+)"')
 
 # input file could be gzipped or not, output file will have same status
 if in_xml.endswith(".gz"):
@@ -51,9 +51,9 @@ for line in in_f:
         continue
     else:
         if line.startswith("    <MeasureSet"):
-            m = measureset_id_regex.search(line)
+            m = variations_id_regex.search(line)
             interesting = (interesting or
-                           (m and m.group(1) in interesting_measuresets))
+                           (m and m.group(1) in interesting_variations))
     if in_clinvarset:
         clinvarset.append(line)
 
@@ -61,4 +61,3 @@ out_f.write("</ReleaseSet>\n")
 
 in_f.close()
 out_f.close()
-

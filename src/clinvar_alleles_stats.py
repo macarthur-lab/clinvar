@@ -10,8 +10,7 @@ Usage: python clinvar_alleles_stats.py <clinvar_alleles.tsv.gz>
 alleles_name = sys.argv[1]
 
 columns_to_summarize = [
-    'measureset_type', 'clinical_significance',
-    'pathogenic', 'benign', 'conflicted', 'uncertain',
+    'variation_type', 'clinical_significance',
     'review_status', 'gold_stars', 'all_submitters',
     'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism',
     'origin']
@@ -35,5 +34,5 @@ for col in columns_to_summarize:
     print sep
     i = all_columns.index(col)
     print "column {}: {}".format(i + 1, col)
-    print df[col].value_counts().to_string()
+    print df[col].value_counts()
 

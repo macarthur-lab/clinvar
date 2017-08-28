@@ -4,19 +4,18 @@ import pandas as pd
 
 from parse_clinvar_xml import HEADER
 
-FINAL_HEADER = HEADER + ['gold_stars', 'pathogenic', 'benign', 'conflicted',
-                         'uncertain']
+FINAL_HEADER = HEADER + ['gold_stars', 'conflicted']
 
 
 def join_variant_summary_with_clinvar_alleles(
         variant_summary_table, clinvar_alleles_table,
         genome_build_id="GRCh37"):
     variant_summary = pd.read_csv(variant_summary_table, sep="\t",
-                                  index_col=False, compression="gzip")
+                                  index_col=False, compression="gzip",low_memory=False)
     print "variant_summary raw", variant_summary.shape
 
     clinvar_alleles = pd.read_csv(clinvar_alleles_table, sep="\t",
-                                  index_col=False, compression="gzip")
+                                  index_col=False, compression="gzip",low_memory=False)
     print "clinvar_alleles raw", clinvar_alleles.shape
 
     # use lowercase names and replace . with _ in column names:
@@ -28,19 +27,23 @@ def join_variant_summary_with_clinvar_alleles(
         columns={variant_summary.columns[0]: "allele_id"})
 
     # extract relevant columns for the correct assembly and
-    # rename clinicalsignificance, reviewstatus:
+    # rename clinicalsignificance, reviewstatus, lastevaluated:
     variant_summary = variant_summary[
         variant_summary['assembly'] == genome_build_id]
     variant_summary = variant_summary[
-        ['allele_id', 'clinicalsignificance', 'reviewstatus']]
+        ['allele_id', 'clinicalsignificance', 'reviewstatus','lastevaluated']]
     variant_summary = variant_summary.rename(
         columns={'clinicalsignificance': 'clinical_significance',
-                 'reviewstatus': 'review_status'})
+                 'reviewstatus': 'review_status',
+                 'lastevaluated':'last_evaluated'})
+
+    # remove the duplicated records in variant summary due to alternative loci such as PAR but would be problematic for rare cases like translocation
+    variant_summary=variant_summary.drop_duplicates()
     print "variant_summary after filter", variant_summary.shape
 
     # remove clinical_significance and review_status from clinvar_alleles:
     clinvar_alleles = clinvar_alleles.drop(
-        ['clinical_significance', 'review_status'], axis=1)
+        ['clinical_significance', 'review_status','last_evaluated'], axis=1)
 
     # pandas is sensitive to some rows having allele_id joined on ;, causing
     # an object dtype, with some entries being ints and others strs
@@ -63,29 +66,15 @@ def join_variant_summary_with_clinvar_alleles(
         'criteria provided, conflicting interpretations': 1,
         'criteria provided, multiple submitters, no conflicts': 2,
         'reviewed by expert panel': 3,
-        'practice guideline': 4
+        'practice guideline': 4,
+        '-':'-'
     }
     df['gold_stars'] = df.review_status.map(gold_star_map)
 
-    # pathogenic = 1 if at least one submission says pathogenic or likely
-    # pathogenic, 0 otherwise
-    df['pathogenic'] = df['clinical_significance'].str.contains(
-        "pathogenic", case=False)
-    # benign = 1 if at least one submission says benign or likely benign,
-    # 0 otherwise
-    df['benign'] = df['clinical_significance'].str.contains(
-        "benign", case=False)
-    # conflicted = 1 if pathogenic == 1 and benign == 1 or if the significance
-    # string from at least one submitter contains "conflicting data"
-    df['conflicted'] = df['pathogenic'] & df['benign']
-    df['conflicted'] |= df['clinical_significance'].str.contains(
-        "conflicting data", case=False)
-    # uncertain = 1 if the variant is of uncertain significance according to at
-    # least one submission or if it is conflicted
-    df['uncertain'] = df['clinical_significance'].str.contains(
-        "uncertain", case=False) | df['conflicted']
-    for flag in ('pathogenic', 'benign', 'conflicted', 'uncertain'):
-        df[flag] = df[flag].astype(int)
+    # The use of expressions on clinical significance on ClinVar aggregate records (RCV) https://www.ncbi.nlm.nih.gov/clinvar/docs/clinsig/#conflicts
+    # conflicted = 1 if using "conflicting"
+    df['conflicted'] = df['clinical_significance'].str.contains(
+        "onflicting", case=False).astype(int)
 
     # reorder columns just in case
     df = df.ix[:, FINAL_HEADER]

@@ -4,6 +4,7 @@ Alternate implementation of master.bash with improved logging, skipping of comma
 Run with -h to see all options.
 """
 
+import configargparse
 from datetime import datetime
 import ftplib
 import os
@@ -30,10 +31,11 @@ g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clin
 g.add("-GE", "--gnomad-exome-sites-vcf",  help="gnomAD exome sites vcf file. If specified, a clinvar table with extra gnomAD exome info fields will also be created.")
 g.add("-GG", "--gnomad-genome-sites-vcf",  help="gnomAD genome sites vcf file. If specified, a clinvar table with extra gnomAD genome info fields will also be created.")
 g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
-g.add("--tmp-dir", default="./output_tmp/", help="Temporary output files will have this prefix")
+g.add("--tmp-dir", default="./output_tmp", help="Temporary output files will have this prefix")
 g = p.add_mutually_exclusive_group()
 g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
 g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
+
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -51,6 +53,9 @@ output_prefix = args.output_prefix
 
 tmp_dir = args.tmp_dir
 os.system("mkdir -p " + tmp_dir)
+
+if reference_genomes['b37'] is None and reference_genomes['b38'] is None:
+    p.error("At least one genome reference file is required")
 
 for key, path in reference_genomes.items():
     if path is not None and not os.path.isfile(path):
@@ -160,7 +165,7 @@ for genome_build in ('b37', 'b38'):
 
         # tabix and copy to output dir
         job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()])
-        job.add("cp IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
+        job.add("cp IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(),
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()
             ])
@@ -175,7 +180,7 @@ for genome_build in ('b37', 'b38'):
                 "OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz "
                 "%(genome_build_id)s" % locals())
 
-        # sort again by genomic coordinates (because R's merge function doesn't preserve order)
+        # sort again by genomic coordinates
         job.add(("cat " +
             "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
             "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
@@ -222,7 +227,6 @@ for genome_build in ('b37', 'b38'):
 
                 job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_with_%(label)s_example_750_rows.%(fsuffix)s.tsv" % locals())
 
-        # create a stats file summarizing some columns of clinvar_alleles.tsv.gz
         job.add(
             "python clinvar_alleles_stats.py "
             "IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz "
@@ -231,6 +235,7 @@ for genome_build in ('b37', 'b38'):
             input_filenames=[
                 "%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(),
                 "clinvar_alleles_stats.py"])
+
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt OUT:%(output_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" % locals())
 
         # run basic checks
