@@ -60,8 +60,8 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         # initialize all the fields
         current_row = {}
         current_row['rcv'] = ''
-        current_row['measureset_type'] = ''
-        current_row['measureset_id'] = ''
+        current_row['variation_type'] = ''
+        current_row['variation_id'] = ''
         current_row['allele_id'] = ''
 
         rcv = elem.find('./ReferenceClinVarAssertion/ClinVarAccession')
@@ -151,14 +151,14 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         ])
 
         list_significance= [
-            x.text for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
+            x.text.lower() for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
         ]
 
-        current_row['pathogenic'] = str(list_significance.count("Pathogenic"))
-        current_row['likely_pathogenic'] = str(list_significance.count("Likely pathogenic"))
-        current_row['uncertain_significance']=str(list_significance.count("Uncertain significance"))
-        current_row['benign']=str(list_significance.count("Benign"))
-        current_row['likely_benign']=str(list_significance.count("Likely benign"))
+        current_row['pathogenic'] = str(list_significance.count("pathogenic"))
+        current_row['likely_pathogenic'] = str(list_significance.count("likely pathogenic"))
+        current_row['uncertain_significance']=str(list_significance.count("uncertain significance"))
+        current_row['benign']=str(list_significance.count("benign"))
+        current_row['likely_benign']=str(list_significance.count("likely benign"))
 
         current_row['clinical_significance_ordered'] = ";".join(list_significance)
 

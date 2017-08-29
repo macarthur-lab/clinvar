@@ -8,89 +8,89 @@ Haplotype         1
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
-Uncertain significance                                                             116232
-Likely benign                                                                       50987
-Pathogenic                                                                          43393
-Benign                                                                              23439
-Likely pathogenic                                                                   14038
-Conflicting interpretations of pathogenicity                                        12024
-not provided                                                                        10697
-Benign/Likely benign                                                                10575
-Pathogenic/Likely pathogenic                                                         2890
-other                                                                                1791
-risk factor                                                                           394
+Uncertain significance                                                             116077
+Likely benign                                                                       50901
+Pathogenic                                                                          43356
+Benign                                                                              23334
+Likely pathogenic                                                                   14009
+Conflicting interpretations of pathogenicity                                        12329
+Benign/Likely benign                                                                10683
+not provided                                                                        10666
+Pathogenic/Likely pathogenic                                                         2941
+other                                                                                1790
+risk factor                                                                           391
 drug response                                                                         280
 association                                                                           127
 Affects                                                                                95
-Pathogenic, other                                                                      88
-Pathogenic, risk factor                                                                74
+Pathogenic, other                                                                      90
+Pathogenic, risk factor                                                                75
 Conflicting interpretations of pathogenicity, risk factor                              44
 Benign, risk factor                                                                    27
-protective                                                                             26
 Pathogenic, drug response                                                              26
+protective                                                                             26
 Likely pathogenic, risk factor                                                         24
 Likely benign, risk factor                                                             23
 Benign/Likely benign, risk factor                                                      22
 Benign, other                                                                          22
-Conflicting interpretations of pathogenicity, not provided                             21
+Uncertain significance, risk factor                                                    19
 Pathogenic/Likely pathogenic, risk factor                                              19
-Uncertain significance, risk factor                                                    18
 Uncertain significance, drug response                                                  16
 Conflicting interpretations of pathogenicity, other                                    13
-Benign/Likely benign, not provided                                                     11
+Likely pathogenic, drug response                                                       11
+Benign/Likely benign, not provided                                                     10
                                                                                     ...  
-protective, risk factor                                                                 2
-Conflicting interpretations of pathogenicity, Affects, association, risk factor         2
-Likely pathogenic, association                                                          2
-Conflicting interpretations of pathogenicity, Affects                                   2
-Conflicting interpretations of pathogenicity, protective                                2
 Conflicting interpretations of pathogenicity, association                               2
-Conflicting interpretations of pathogenicity, association, other, risk factor           1
-Uncertain significance, association                                                     1
-Pathogenic, association, protective                                                     1
-Benign/Likely benign, protective, risk factor                                           1
+Conflicting interpretations of pathogenicity, protective                                2
+Conflicting interpretations of pathogenicity, Affects, association, risk factor         2
+Conflicting interpretations of pathogenicity, not provided                              2
+Likely benign, protective                                                               2
+Likely pathogenic, association                                                          2
+protective, risk factor                                                                 2
+Benign, Affects                                                                         1
 Benign, drug response                                                                   1
-Benign, association, protective                                                         1
-Conflicting interpretations of pathogenicity, association, risk factor                  1
-Likely benign, drug response                                                            1
-Likely pathogenic, Affects                                                              1
-Conflicting interpretations of pathogenicity, Affects, association                      1
 Pathogenic/Likely pathogenic, Affects, risk factor                                      1
+Uncertain significance, association                                                     1
+Conflicting interpretations of pathogenicity, Affects, association, other               1
 Benign, drug response, risk factor                                                      1
 Likely benign, Affects                                                                  1
 Conflicting interpretations of pathogenicity, other, risk factor                        1
 Benign/Likely benign, drug response, risk factor                                        1
+Pathogenic, association, protective                                                     1
+Benign/Likely benign, protective, risk factor                                           1
+Benign, association, protective                                                         1
+Likely pathogenic, Affects                                                              1
 Benign, association, risk factor                                                        1
-Uncertain significance, Affects                                                         1
+Likely benign, drug response                                                            1
+Affects, risk factor                                                                    1
 Uncertain significance, protective                                                      1
 Benign/Likely benign, drug response                                                     1
-Conflicting interpretations of pathogenicity, Affects, other                            1
 Benign, protective, risk factor                                                         1
+Uncertain significance, Affects                                                         1
 Pathogenic, protective, risk factor                                                     1
-Benign, Affects                                                                         1
-Affects, risk factor                                                                    1
+Pathogenic/Likely pathogenic, not provided                                              1
+Conflicting interpretations of pathogenicity, Affects, other                            1
 Name: clinical_significance, dtype: int64
 ================
 column 24: review_status
-criteria provided, single submitter                     190348
-criteria provided, multiple submitters, no conflicts     33311
-no assertion criteria provided                           32493
-criteria provided, conflicting interpretations           11998
-no assertion provided                                    10690
+criteria provided, single submitter                     189548
+criteria provided, multiple submitters, no conflicts     33970
+no assertion criteria provided                           32378
+criteria provided, conflicting interpretations           12284
+no assertion provided                                    10663
 reviewed by expert panel                                  8602
-no assertion for the individual variant                    109
+no assertion for the individual variant                    106
 practice guideline                                          23
 -                                                            2
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
-1    181471
-0     38074
-2     29669
-1     20875
+1    180994
+0     37945
+2     30275
+1     20838
 3      5594
-0      5218
-2      3642
+0      5202
+2      3695
 3      3008
 4        23
 -         2
