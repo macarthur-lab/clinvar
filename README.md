@@ -4,7 +4,7 @@
 
 This repo provides tools to convert ClinVar data into a tab-delimited flat file, and also provides that resulting tab-delimited flat file.
 
-[![DOI](https://zenodo.org/badge/37292450.svg)](https://dx.doi.org/10.12688%2Fwellcomeopenres.11640.1)
+[![DOI](https://zenodo.org/badge/37292450.svg)](https://zenodo.org/badge/latestdoi/37292450)
 
 #### Output Files
 
