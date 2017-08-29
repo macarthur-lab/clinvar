@@ -4,7 +4,7 @@
 
 This repo provides tools to convert ClinVar data into a tab-delimited flat file, and also provides that resulting tab-delimited flat file.
 
-[![DOI](https://zenodo.org/badge/37292450.svg)]( 10.12688/wellcomeopenres.11640.1)
+[![DOI](https://zenodo.org/badge/37292450.svg)](https://dx.doi.org/10.12688%2Fwellcomeopenres.11640.1)
 
 #### Output Files
 
@@ -78,7 +78,7 @@ Additional helper scripts are available for users to use check the processing re
 
 #### Usage notes
 
-Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `measureset_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `measureset_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/). Note that we also do not capture all of the complexity of the fields that are included.
+Because ClinVar contains a great deal of data complexity, we made a deliberate decision to *not* attempt to capture all fields in our resulting file. We made an effort to capture a subset of fields that we believed would be most useful for genome-wide filtering, and also included `variation_id` as a column to enable the user to look up additional details on the ClinVar website. For instance, the page for the variant with `variation_id` 7105 is located at [ncbi.nlm.nih.gov/clinvar/variation/7105/](http://www.ncbi.nlm.nih.gov/clinvar/variation/7105/). Note that we also do not capture all of the complexity of the fields that are included.
 
 If you want to analyze the output file in R, a suitable line of code to read it in would be:
 
