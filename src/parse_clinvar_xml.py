@@ -69,12 +69,21 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             print("Error, not RCV record")
             break
         else:
+<<<<<<< HEAD
             current_row['rcv'] = rcv.attrib.get('Acc')
 
         ReferenceClinVarAssertion = elem.findall(".//ReferenceClinVarAssertion")
         measureset = ReferenceClinVarAssertion[0].findall(".//MeasureSet")
 
         # only the ones with just one measure set can be recorded
+=======
+            current_row['rcv']=rcv.attrib.get('Acc')
+        
+        ReferenceClinVarAssertion=elem.findall(".//ReferenceClinVarAssertion")
+        measureset = ReferenceClinVarAssertion[0].findall(".//MeasureSet")
+        
+        #only the ones with just one measure set can be recorded
+>>>>>>> master
         if len(measureset) > 1:
             print("A submission has more than one measure set." + elem.find('./Title').text)
             elem.clear()

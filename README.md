@@ -45,10 +45,17 @@ To create a flat representation of ClinVar suited for our purposes, we took seve
 5. Join the TXT file using [src/join_variant_summary_with_clinvar_alleles.py](src/join_variant_summary_with_clinvar_alleles.py) to aggregate interpretations from multiple submitters independent of conditions.
 6. Generate the VCF file and other tables based on the file created in 5.
 
+<<<<<<< HEAD
 
 &dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined the following additional columns to represent the clinical significances(https://www.ncbi.nlm.nih.gov/clinvar/docs/clinsig):
 
 + `pathogenic`,`likely_pathogenic`,`uncertain_significance`,`likely_benign` and `benign` are the counts of submissions reported the variants as "Pathogenic","Likely pathogenic","Uncertain significance","Likely benign" and "Benign" respectively. 
+=======
+&dagger;Because a ClinVar record may contain multiple assertions of Clinical Significance, we defined three additional columns in encoding the [Clinical Significance on ClinVar aggregated records](https://www.ncbi.nlm.nih.gov/clinvar/docs/clinsig):
+
++ `pathogenic` is `1` if the variant is reported as "Pathogenic" or "Likely Pathogenic" without any "uncertain significance" submission  
++ `benign` is `1` if the variant is reported as "Benign" or "Likely benign" without any "uncertain significance" submission
+>>>>>>> master
 + `conflicted` is `1` if the variant is reported as "Conflicting interpretation of pathogenicity" or "conflicting data from submitters".
 
 #### Usage
@@ -88,7 +95,11 @@ clinvar = read.table('clinvar_alleles.tsv',sep='\t',header=T,quote='',comment.ch
 
 #### Limitation
 
+<<<<<<< HEAD
 The accuracy of output files is limited by the download-able files from the ClinVar FTP site. In the case that ClinVar releases new data with a new reporting format or an unfinished format update, our pipeline may not work for the latest release. We would recommend that users revert to the old version by specifying the input ClinVar files when executing `python master.py`.
+=======
+The accuracy of output files is limited by the download-able files from the ClinVar FTP site. In the case that ClinVar releases new data with a new reporting format or an unfinished format update, our pipeline may not work for the latest release. We would recommend that users revert to the old version by specifying the input ClinVar files when executing `python master.py`. 
+>>>>>>> master
 
 #### License, terms, and conditions
 
@@ -97,5 +108,10 @@ ClinVar data, as a work of the United States federal government, are in the publ
 [Tan 2015]: http://www.ncbi.nlm.nih.gov/pubmed/25701572 "Tan A, Abecasis GR, Kang HM. Unified representation of genetic variants. Bioinformatics. 2015 Jul 1;31(13):2202-4. doi: 10.1093/bioinformatics/btv112. Epub 2015 Feb 19. PubMed PMID: 25701572."
 
 #### How to cite
+<<<<<<< HEAD
 Zhang X, Minikel EV, O'Donnell-Luria AH et al. [ClinVar data parsing](https://wellcomeopenresearch.org/articles/2-33/v1) [version 1; referees: 2 approved]. Wellcome Open Res 2017, 2:33
 (doi: 10.12688/wellcomeopenres.11640.1)
+=======
+Zhang X, Minikel EV, O'Donnell-Luria AH et al. [ClinVar data parsing](https://wellcomeopenresearch.org/articles/2-33/v1) [version 1; referees: 2 approved]. Wellcome Open Res 2017, 2:33 
+(doi: 10.12688/wellcomeopenres.11640.1)
+>>>>>>> master
