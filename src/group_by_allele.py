@@ -4,6 +4,7 @@ import argparse
 import gzip
 import sys
 
+from parse_clinvar_xml import HEADER
 # recommended usage:
 # ./group_by_allele.py < clinvar_combined.tsv > clinvar_alleles.tsv
 
@@ -51,19 +52,18 @@ def group_alleles(data1, data2):
     """
 
     if (data1['chrom'], data1['pos'], data1['ref'], data1['alt']) != (data2['chrom'], data2['pos'], data2['ref'], data2['alt']):
-        raise ValueError("data1 variant id != data2 variant_id: %s != %s" % (data1, data2))
+        raise ValueError("data1 variant id != data2 variant id: %s != %s" % (data1, data2))
 
     combined_data = data1  # this sets defaults, now we fix it:
 
     # 'pathogenic', 'benign', 'conflicted', 'gold_stars',
-    # concatenate columns that may have lists of values    
-    for column_name in ('measureset_type','measureset_id','rcv','allele_id',
-        'symbol', 'hgvs_c','hgvs_p','molecular_consequence','clinical_significance', 
-        'review_status', 'all_submitters',
-        'all_traits','all_pmids', 'inheritance_modes', 'age_of_onset','prevalence',
-        'disease_mechanism', 'origin', 'xrefs'):
-        all_non_empty_values = filter(lambda s: s, data1[column_name].split(';') + data2[column_name].split(';'))
+    # concatenate columns that may have lists of values
+    loc_column = ['chrom','pos','ref','alt']
+    num_field = ['pathogenic', 'likely_pathogenic','uncertain_significance','likely_benign', 'benign']
+    info_column = [x for x in HEADER if x not in loc_column and x not in num_field]
 
+    for column_name in info_column:
+        all_non_empty_values = filter(lambda s: s, data1[column_name].split(';') + data2[column_name].split(';'))
         # deduplicate values, while preserving order
         deduplicated_values = []
         for value in all_non_empty_values:
@@ -71,6 +71,9 @@ def group_alleles(data1, data2):
                 deduplicated_values.append(value)
 
         combined_data[column_name] = ';'.join(deduplicated_values)
+
+    for column_name in num_field:
+        combined_data[column_name]=str(int(data1[column_name])+int(data2[column_name]))
 
     return combined_data
 

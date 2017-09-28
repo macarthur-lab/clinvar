@@ -10,7 +10,7 @@ import sys
 NEEDED_EXAC_FIELDS = [ 'Filter',  # whether the variant is PASS
  'AC', 'AC_Het', 'AC_Hom', 'AC_Adj', 'AN', 'AN_Adj', 'AF', 
  'AC_AFR', 'AC_AMR', 'AC_EAS', 'AC_FIN', 'AC_NFE', 'AC_OTH', 'AC_SAS', 
- 'AN_AFR', 'AN_AMR', 'AN_EAS', 'AN_FIN', 'AN_NFE', 'AN_OTH', 'AN_SAS',
+ 'AN_AFR', 'AN_AMR', 'AN_EAS', 'AN_FIN', 'AN_NFE', 'AN_OTH', 'AN_SAS','DP',
  'Het_AFR', 'Het_AMR', 'Het_EAS', 'Het_FIN', 'Het_NFE', 'Het_OTH', 'Het_SAS', 
  'Hom_AFR', 'Hom_AMR', 'Hom_EAS', 'Hom_FIN', 'Hom_NFE', 'Hom_OTH', 'Hom_SAS', 
  'AC_MALE', 'AC_FEMALE', 'AN_MALE', 'AN_FEMALE', 'AC_CONSANGUINEOUS', 'AN_CONSANGUINEOUS', 'Hom_CONSANGUINEOUS', 

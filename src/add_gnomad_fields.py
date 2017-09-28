@@ -8,7 +8,7 @@ import pysam
 import sys
 
 NEEDED_GNOMAD_FIELDS = [ 'Filter',  # whether the variant is PASS
- 'AC', 'AN', 'AF', 'Hom',
+ 'AC', 'AN', 'AF', 'DP','Hom',
  'AC_AFR', 'AC_AMR', 'AC_ASJ', 'AC_EAS', 'AC_SAS', 'AC_FIN', 'AC_NFE', 'AC_OTH', 
  'AN_AFR', 'AN_AMR', 'AN_ASJ', 'AN_EAS', 'AN_SAS', 'AN_FIN', 'AN_NFE', 'AN_OTH', 
  'AC_AFR', 'AF_AMR', 'AF_ASJ', 'AF_EAS', 'AF_SAS', 'AF_FIN', 'AF_NFE', 'AF_OTH', 

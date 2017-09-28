@@ -12,26 +12,30 @@ import sys
 from distutils import spawn
 
 try:
+    import configargparse
     import pypez
     import pysam
     import pandas   # make sure all dependencies are installed
 except ImportError as e:
     sys.exit("ERROR: Python module not installed. %s. Please run 'pip install -r requirements.txt' " % e)
-for executable in ['wget', 'Rscript', 'tabix', 'vt']:
+for executable in ['wget', 'tabix', 'vt']:
     assert spawn.find_executable(executable), "Command %s not found, see README" % executable
 
 p = configargparse.getArgParser()
 g = p.add_argument_group('main args')
-g.add("--b37-genome", help="b37 .fa genome reference file", required=True)
-g.add("--b38-genome", help="b38 .fa genome reference file. NOTE: chromosome names must be like '1', '2'.. 'X', 'Y', 'MT'.", required=True)
+g.add("--b37-genome", help="b37 .fa genome reference file", default=None, required=False)
+g.add("--b38-genome", help="b38 .fa genome reference file. NOTE: chromosome names must be like '1', '2'.. 'X', 'Y', 'MT'.", default=None, required=False)
 g.add("-X", "--clinvar-xml", help="The local filename of the ClinVarFullRelase.xml.gz file. If not set, grab the latest from NCBI.")
 g.add("-S", "--clinvar-variant-summary-table", help="The local filename of the variant_summary.txt.gz file. If not set, grab the latest from NCBI.")
 g.add("-E", "--exac-sites-vcf",  help="ExAC sites vcf file. If specified, a clinvar table with extra ExAC fields will also be created.")
 g.add("-GE", "--gnomad-exome-sites-vcf",  help="gnomAD exome sites vcf file. If specified, a clinvar table with extra gnomAD exome info fields will also be created.")
 g.add("-GG", "--gnomad-genome-sites-vcf",  help="gnomAD genome sites vcf file. If specified, a clinvar table with extra gnomAD genome info fields will also be created.")
+g.add("--output-prefix", default="../output/", help="Final output files will have this prefix")
+g.add("--tmp-dir", default="./output_tmp", help="Temporary output files will have this prefix")
 g = p.add_mutually_exclusive_group()
 g.add("--single-only", dest="single_or_multi", action="store_const", const="single", help="Only generate the single-variant tables")
 g.add("--multi-only", dest="single_or_multi", action="store_const", const="multi", help="Only generate the multi-variant tables")
+
 
 pypez.init_command_line_args()
 args = p.parse_args()
@@ -45,12 +49,16 @@ exac_sites_vcf = args.exac_sites_vcf
 gnomad_exome_sites_vcf = args.gnomad_exome_sites_vcf
 gnomad_genome_sites_vcf = args.gnomad_genome_sites_vcf
 clinvar_variant_summary_table = args.clinvar_variant_summary_table
+output_prefix = args.output_prefix
 
-tmp_dir = "output_tmp"
+tmp_dir = args.tmp_dir
 os.system("mkdir -p " + tmp_dir)
 
+if reference_genomes['b37'] is None and reference_genomes['b38'] is None:
+    p.error("At least one genome reference file is required")
+
 for key, path in reference_genomes.items():
-    if not os.path.isfile(path):
+    if path is not None and not os.path.isfile(path):
         p.error("%s genome reference: file not found: %s" % (key, path))
 
 for label, vcf_path in (('gnomad_genomes', gnomad_genome_sites_vcf), ('gnomad_exomes', gnomad_exome_sites_vcf), ('exac_v1', exac_sites_vcf)):
@@ -125,6 +133,9 @@ for genome_build in ('b37', 'b38'):
     # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
     genome_build_id = genome_build.replace('b', 'GRCh')
     reference_genome = reference_genomes[genome_build]
+    if reference_genome is None:
+        print("Skippping steps to generate %s tables since reference genome not given." % genome_build)
+        continue
 
     job.add(("python -u IN:parse_clinvar_xml.py "
             "-x IN:%(clinvar_xml)s "
@@ -139,7 +150,7 @@ for genome_build in ('b37', 'b38'):
             continue
             
         fsuffix = "%(single_or_multi)s.%(genome_build)s" % locals() # file suffix
-        output_dir = '../output/%(genome_build)s/%(single_or_multi)s' % locals()
+        output_dir = '%(output_prefix)s%(genome_build)s/%(single_or_multi)s' % locals()
         os.system('mkdir -p ' + output_dir)
 
         # normalize variants  (use grep -v '^$' to remove empty rows)
@@ -154,7 +165,7 @@ for genome_build in ('b37', 'b38'):
 
         # tabix and copy to output dir
         job.add("tabix -S 1 -s 1 -b 2 -e 2 IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()])
-        job.add("cp IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
+        job.add("cp IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi %(output_dir)s" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz" % locals(),
             "%(output_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz.tbi" % locals()
             ])
@@ -163,9 +174,13 @@ for genome_build in ('b37', 'b38'):
         job.add("python -u IN:group_by_allele.py -i IN:%(tmp_dir)s/clinvar_allele_trait_pairs.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz" % locals())
 
         # join information from the tab-delimited summary to the normalized genomic coordinates
-        job.add("Rscript IN:join_data.R IN:%(variant_summary_table)s IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz" % locals())
+        job.add("python IN:join_variant_summary_with_clinvar_alleles.py "
+                "IN:%(variant_summary_table)s "
+                "IN:%(tmp_dir)s/clinvar_alleles_grouped.%(fsuffix)s.tsv.gz "
+                "OUT:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz "
+                "%(genome_build_id)s" % locals())
 
-        # sort again by genomic coordinates (because R's merge function doesn't preserve order)
+        # sort again by genomic coordinates
         job.add(("cat " +
             "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | head -1) "  # header row
             "<(gunzip -c IN:%(tmp_dir)s/clinvar_alleles_combined.%(fsuffix)s.tsv.gz | tail -n +2 | egrep -v \"^[XYM]\" | sort -k1,1n -k2,2n -k3,3 -k4,4 ) " + # numerically sort chroms 1-22
@@ -181,7 +196,7 @@ for genome_build in ('b37', 'b38'):
                 ])
 
         # create vcf
-        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
+        job.add(("python -u IN:clinvar_table_to_vcf.py IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz IN:%(reference_genome)s | bgzip -c > OUT:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz") % locals())  # create compressed version
         job.add("tabix IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(), output_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi" % locals()])
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz.tbi %(output_dir)s/" % locals(), output_filenames=[
             "%(output_dir)s/clinvar_alleles.%(fsuffix)s.vcf.gz" % locals(),
@@ -212,26 +227,14 @@ for genome_build in ('b37', 'b38'):
 
                 job.add("gunzip -c IN:%(tmp_dir)s/clinvar_alleles_with_%(label)s.%(fsuffix)s.tsv.gz | head -n 750 > OUT:%(output_dir)s/clinvar_alleles_with_%(label)s_example_750_rows.%(fsuffix)s.tsv" % locals())
 
-        # create a stats file that summarizes some of the columns of clinvar_alleles.tsv.gz file
-        # Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: measureset_type, 6: measureset_id, 7: rcv, 8: allele_id,
-        # 9: symbol, 10: hgvs_c, 11: hgvs_p, 12: molecular_consequence, 13: clinical_significance, 14: pathogenic, 15: benign, 16: conflicted, 17: review_status,
-        # 18: gold_stars, 19: all_submitters, 20: all_traits, 21: all_pmids, 22: inheritance_modes,
-        # 23: age_of_onset, 24: prevalence, 25: disease_mechanism, 26: origin, 27: xrefs
-
-        python_oneliner_to_format_stats = "import sys;print(', '.join(['%s: %s' % (i+1, v) for l in sys.stdin for i,v in enumerate(l.split())]))"
-        job.add("""echo \
-        Columns: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | \
-            head -n 1 | \
-            python -c "%(python_oneliner_to_format_stats)s") > \
-            OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        echo Total Rows: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | wc -l) >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt &&
-        for i in 5 13 14 15 16 17 18 19 22 23 24 25 26; do
-            echo ================ >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-            echo "column ${i}: $(gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | head -n 1 | cut -f $i)" >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-            gunzip -c IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz | tail -n +2 | cut -f $i | tr ';' '\n' | sort | uniq -c | sort -r -n >> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt ;
-        done
-        """ % locals(), input_filenames=["%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(), "master.py"])
+        job.add(
+            "python clinvar_alleles_stats.py "
+            "IN:%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz "
+            "> OUT:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" %
+            locals(),
+            input_filenames=[
+                "%(tmp_dir)s/clinvar_alleles.%(fsuffix)s.tsv.gz" % locals(),
+                "clinvar_alleles_stats.py"])
 
         job.add("cp IN:%(tmp_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt OUT:%(output_dir)s/clinvar_alleles_stats.%(fsuffix)s.txt" % locals())
 
