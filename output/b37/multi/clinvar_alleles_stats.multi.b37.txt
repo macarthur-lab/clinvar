@@ -1,60 +1,62 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: start, 6: stop, 7: strand, 8: variation_type, 9: variation_id, 10: rcv, 11: scv, 12: allele_id, 13: symbol, 14: hgvs_c, 15: hgvs_p, 16: molecular_consequence, 17: clinical_significance, 18: clinical_significance_ordered, 19: pathogenic, 20: likely_pathogenic, 21: uncertain_significance, 22: likely_benign, 23: benign, 24: review_status, 25: review_status_ordered, 26: last_evaluated, 27: all_submitters, 28: submitters_ordered, 29: all_traits, 30: all_pmids, 31: inheritance_modes, 32: age_of_onset, 33: prevalence, 34: disease_mechanism, 35: origin, 36: xrefs, 37: dates_ordered, 38: gold_stars, 39: conflicted,
 ================
-Total rows: 503
+Total rows: 481
 ================
 column 8: variation_type
-Haplotype               486
+Haplotype               464
 Phase unknown            11
 CompoundHeterozygote      4
 Distinct chromosomes      2
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
--                                                            284
-Pathogenic                                                    71
-Conflicting interpretations of pathogenicity                  33
-Uncertain significance                                        17
+-                                                            262
+Pathogenic                                                    67
+Conflicting interpretations of pathogenicity                  32
+Uncertain significance                                        24
 Benign                                                        16
-other                                                         15
-Benign/Likely benign                                          12
-Pathogenic/Likely pathogenic                                  11
+Pathogenic/Likely pathogenic                                  13
+other                                                         12
+Benign/Likely benign                                           9
 not provided                                                   8
 Likely pathogenic                                              6
+Conflicting interpretations of pathogenicity, other            6
 Likely benign                                                  6
-Pathogenic, other                                              5
-Conflicting interpretations of pathogenicity, other            5
-drug response                                                  4
+Pathogenic, other                                              4
+drug response                                                  3
 drug response, other                                           2
+Likely benign, other                                           2
 Pathogenic, other, protective                                  2
-Benign, other                                                  1
 Benign/Likely benign, risk factor                              1
 Pathogenic, protective                                         1
-Benign/Likely benign, other                                    1
+Uncertain significance, other                                  1
 Conflicting interpretations of pathogenicity, risk factor      1
+Benign/Likely benign, other                                    1
 Pathogenic, risk factor                                        1
+Benign, other                                                  1
 Name: clinical_significance, dtype: int64
 ================
 column 24: review_status
-no assertion for the individual variant                 377
+no assertion for the individual variant                 357
 criteria provided, multiple submitters, no conflicts     36
-no assertion criteria provided                           35
+no assertion criteria provided                           33
 criteria provided, single submitter                      27
-criteria provided, conflicting interpretations           20
+criteria provided, conflicting interpretations           19
 no assertion provided                                     4
-reviewed by expert panel                                  3
+reviewed by expert panel                                  4
 practice guideline                                        1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
-0    416
-1     47
+0    394
+1     46
 2     36
-3      3
+3      4
 4      1
 Name: gold_stars, dtype: int64
 ================
 column 27: all_submitters
-OMIM                                                                                                   291
+OMIM                                                                                                   256
 GeneReviews                                                                                             29
 Mendelics Analise Genomica                                                                              20
 ARUP Institute,ARUP Laboratories                                                                        17
@@ -62,97 +64,63 @@ Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine     
 University of Washington Center for Mendelian Genomics, University of Washington                        13
 Department of Pediatrics and Neonatology,Nagoya City University Graduate School of Medical Sciences     12
 Colsan                                                                                                   9
-Medical Research Institute,Tokyo Medical and Dental University                                           7
 Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg                                           7
+Medical Research Institute,Tokyo Medical and Dental University                                           7
 U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                                   6
-Section of Medical Genetics, Telemark Hospital                                                           6
 Clinical Biochemistry Laboratory,Health Services Laboratory                                              6
+Section of Medical Genetics, Telemark Hospital                                                           6
+Division of Host Defense,Kyushu University                                                               6
 Tuberous sclerosis database (TSC2)                                                                       5
 OMIM;GeneReviews                                                                                         5
+HerediLab, Inc.                                                                                          5
+Rizzo Lab,University of Nebraska Medical Center                                                          4
 Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare                                  4
 Center for Genetic Medicine Research,Children's National Medical Center                                  3
 OMIM;ARUP Institute,ARUP Laboratories                                                                    3
 OMIM;Baylor Miraca Genetics Laboratories                                                                 2
 Eye Genetics Research Group,Children's Medical Research Institute                                        2
-LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata                                     2
 Bone Marrow Failure laboratory,Queen Mary University London                                              2
 RettBASE                                                                                                 2
-OMIM;NCBI curation                                                                                       2
-Institute of Human Genetics, Klinikum rechts der Isar                                                    2
-Laboratory of Molecular Genetics,CHU RENNES                                                              2
-Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                        2
 Neurogenetics Research, Murdoch Childrens Research Institute                                             2
-Laboratory of Molecular Genetics,National Institutes of Health                                           2
-Institute of Human Genetics, Klinikum rechts der Isar;OMIM                                               2
-OMIM;Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                               2
-Knight Diagnostic Laboratories,Oregon Health and Sciences University                                     2
-HerediLab, Inc.                                                                                          2
+LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata                                     2
 OMIM;U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                              2
-Human Genetics Disease in Children – Taif University,Taif University                                     2
-Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine                                                2
-Collagen Diagnostic Laboratory                                                                           2
+Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                        2
+Institute of Human Genetics, Klinikum rechts der Isar                                                    2
 Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                                    2
-CFTR2                                                                                                    1
+Collagen Diagnostic Laboratory                                                                           2
+Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine                                                2
+Human Genetics Disease in Children – Taif University,Taif University                                     2
+Laboratory of Molecular Genetics,CHU RENNES                                                              2
+OMIM;Division of Genomic Diagnostics,The Children's Hospital of Philadelphia                             2
+Knight Diagnostic Laboratories,Oregon Health and Sciences University                                     2
+OMIM;Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                               2
+Institute of Human Genetics, Klinikum rechts der Isar;OMIM                                               2
+Laboratory of Molecular Genetics,National Institutes of Health                                           2
 LDLR-LOVD, British Heart Foundation                                                                      1
 GeneReviews;OMIM                                                                                         1
 Medical Genomics Laboratory,Department of Genetics UAB                                                   1
+CFTR2                                                                                                    1
 Name: all_submitters, dtype: int64
 ================
 column 31: inheritance_modes
-Autosomal recessive inheritance                                                        116
-Autosomal dominant inheritance                                                          58
-X-linked recessive inheritance                                                           6
-Autosomal recessive inheritance;X-linked inheritance;X-linked recessive inheritance      2
-Autosomal recessive inheritance;Codominant                                               2
-Autosomal dominant inheritance;Somatic mutation                                          2
-X-linked inheritance                                                                     1
-Name: inheritance_modes, dtype: int64
+Series([], Name: inheritance_modes, dtype: int64)
 ================
 column 32: age_of_onset
-Infancy                 76
-Childhood               62
-All ages                42
-Adolescent              26
-Antenatal               23
-Adult                   20
-Neonatal                17
-Adolescent;Childhood     2
-Name: age_of_onset, dtype: int64
+Series([], Name: age_of_onset, dtype: int64)
 ================
 column 33: prevalence
-<1 / 1 000 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  91
-1-9 / 100 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   61
-1-9 / 1 000 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 45
-1-5 / 10 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    18
-1 in 2000-4000 depending on the population studied.;1-9 / 100 000;1:3200                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         5
->1 / 1000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        4
-1 per million;<1 / 1 000 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     4
-1 - 9 / 100 000;1-9 / 100 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    2
-2.29 to 3.2 per 100,000 individuals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              2
-1-9 / 100 000;1.3 per 100,000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    2
-1-5 / 10 000;1-9 / 100 000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       2
-1-9 / 100 000;1:30,000 in males and 1:125,000 in females                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         2
-Alelle frequencies: CYP2C9*2- Caucasians 15%, Hispanics 7%, African-Americans 3%, Asians 3%: CYP2C9*3- Caucasians 6%, Hispanics 6%, African-Americans 2%, Asians 4%: VKORC1*2 (-1639G>A) - Caucasians 41%, Hispanics 44%, African-Americans 11%, Asians 90%.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     2
-1-9 / 100 000;Hereditary breast and ovarian cancer (HBOC) resulting from mutations in BRCA1 and BRCA2 is the most common form of both hereditary breast and ovarian cancers and occurs in all ethnic and racial populations. The overall prevalence of BRCA1/2 mutations is estimated to be from 1:400 to 1:800 [Ford et al 1994, Claus et al 1996, Whittemore et al 1997], but varies depending on ethnicity.                                                                                                                                                                                                                                                                                                                                   2
-<1 / 1 000 000;unknown, <1 per million                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           2
-Congenital deafness affects 1 in 1,000 births;Congenital deafness affects 1 in 1,000 births.;DFNB1 accounts for approximately 50% of congenital, severe-to-profound, autosomal recessive nonsyndromic hearing loss in the United States, France, Britain, and New Zealand/Australia [Denoyelle et al 1997, Green et al 1999]. Its approximate prevalence in the general population is 14:100,000, based on the following calculation: the incidence of congenital hereditary hearing impairment is 1:2000 neonates, of which 70% have nonsyndromic hearing loss. Seventy-five to 80% of cases of nonsyndromic hearing loss are autosomal recessive: of these, 50% result from GJB2 mutations. Thus, 5:10,000 x 0.7 x 0.8 x 0.5 = 14:100,000.     2
-1-9 / 100 000;Wilson disease is an autosomal recessive disorder with a prevalence of 1/30,000, and a carrier frequency of 1/90.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  2
-DI-CMTB is a rare cause of CMT. Up to 3.4% of CMT is caused by a DNM2 mutation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   2
-1-5 / 10 000;1:3,000                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1
-1-9 / 1 000 000;Estimates range from 1:250,000 to 1:50,000.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1
-Name: prevalence, dtype: int64
+Series([], Name: prevalence, dtype: int64)
 ================
 column 34: disease_mechanism
 loss of function                                                                                                                                         36
-gain of function                                                                                                                                          4
 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.;loss of function     2
 Name: disease_mechanism, dtype: int64
 ================
 column 35: origin
-germline                      419
+germline                      391
 not provided                   29
+inherited                      17
 unknown                        17
-inherited                      11
 somatic                         6
 de novo                         6
 germline;not provided           5
