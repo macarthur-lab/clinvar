@@ -73,7 +73,7 @@ def table_to_vcf(input_table_path, input_reference_genome):
                 value = re.sub('\s*[,]\s*', '..', value)  # replace , with ..
                 value = re.sub('\s*[;]\s*', '|', value)  # replace ; with |
                 value = value.replace("=", " eq ").replace(" ", "_")
-                
+
                 info_field[key.upper()] = value
         vcf_row.append(";".join([key+"="+value for key, value in info_field.items()]))
 

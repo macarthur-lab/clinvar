@@ -4,7 +4,6 @@ Alternate implementation of master.bash with improved logging, skipping of comma
 Run with -h to see all options.
 """
 
-import configargparse
 from datetime import datetime
 import ftplib
 import os
@@ -127,7 +126,8 @@ job = pypez.Job()
 
 # normalize (convert to minimal representation and left-align)
 # the normalization code is in a different repo (useful for more than just clinvar) so here I just wget it:
-job.add("wget -N https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py")
+if not os.path.isfile('normalize.py'):
+    job.add("wget -N https://raw.githubusercontent.com/ericminikel/minimal_representation/master/normalize.py")
 
 for genome_build in ('b37', 'b38'):
     # extract the GRCh37 coordinates, mutant allele, MeasureSet ID and PubMed IDs from it. This currently takes about 20 minutes.
@@ -148,7 +148,7 @@ for genome_build in ('b37', 'b38'):
         if args.single_or_multi and single_or_multi != args.single_or_multi:
             print("Skippping steps to generate %s table." % single_or_multi)
             continue
-            
+
         fsuffix = "%(single_or_multi)s.%(genome_build)s" % locals() # file suffix
         output_dir = '%(output_prefix)s%(genome_build)s/%(single_or_multi)s' % locals()
         os.system('mkdir -p ' + output_dir)

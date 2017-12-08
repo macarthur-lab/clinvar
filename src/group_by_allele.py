@@ -8,6 +8,10 @@ from parse_clinvar_xml import HEADER
 # recommended usage:
 # ./group_by_allele.py < clinvar_combined.tsv > clinvar_alleles.tsv
 
+NUMERIC_FIELDS = {'pathogenic', 'likely_pathogenic',
+                  'uncertain_significance',
+                  'likely_benign', 'benign'}
+
 
 def group_by_allele(infile, outfile):
     """Run through a sorted clinvar_table.tsv file from the parse_clinvar_xml script, and make it unique on CHROM POS REF ALT
@@ -58,9 +62,10 @@ def group_alleles(data1, data2):
 
     # 'pathogenic', 'benign', 'conflicted', 'gold_stars',
     # concatenate columns that may have lists of values
-    loc_column = ['chrom','pos','ref','alt']
-    num_field = ['pathogenic', 'likely_pathogenic','uncertain_significance','likely_benign', 'benign']
-    info_column = [x for x in HEADER if x not in loc_column and x not in num_field]
+    loc_column = {'chrom', 'pos', 'ref', 'alt'}
+    ordered_columns = {'clinical_significance_ordered', 'review_status_ordered', 'dates_ordered',
+                       'submitters_ordered'}
+    info_column = set(HEADER) - loc_column - NUMERIC_FIELDS - ordered_columns
 
     for column_name in info_column:
         all_non_empty_values = filter(lambda s: s, data1[column_name].split(';') + data2[column_name].split(';'))
@@ -72,7 +77,11 @@ def group_alleles(data1, data2):
 
         combined_data[column_name] = ';'.join(deduplicated_values)
 
-    for column_name in num_field:
+    # some fields should not be deduplicated, but still concatenated:
+    for column_name in ordered_columns:
+        combined_data[column_name] = ";".join((data1[column_name], data2[column_name]))
+
+    for column_name in NUMERIC_FIELDS:
         combined_data[column_name]=str(int(data1[column_name])+int(data2[column_name]))
 
     return combined_data
@@ -86,9 +95,9 @@ if __name__ == '__main__':
     if args.infile.name.endswith(".gz"):
         args.infile.close()
         args.infile = gzip.open(args.infile.name)
-    
+
     if args.outfile.name.endswith(".gz"):
         args.outfile.close()
         args.outfile = gzip.open(args.outfile.name, 'w')
-    
+
     group_by_allele(args.infile, args.outfile)

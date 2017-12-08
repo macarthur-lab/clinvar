@@ -7,8 +7,9 @@ import argparse
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-# then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort  -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv Reference on clinvar XML tag:
-# ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd Reference on clinvar XML tag:
+# then sort it: cat clinvar_table.tsv | head -1 > clinvar_table_sorted.tsv; cat clinvar_table.tsv | tail -n +2 | sort  -k1,1 -k2,2n -k3,3 -k4,4 >> clinvar_table_sorted.tsv
+# Reference on clinvar XML tag:
+# ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/clinvar_submission.xsd
 # ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/tab_delimited/README
 
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)'  # group(1) will be all the text after the word PubMed or PMID
@@ -76,11 +77,11 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
 
         # only the ones with just one measure set can be recorded
         if len(measureset) > 1:
-            print("A submission has more than one measure set." + elem.find('./Title').text)
+            print("A submission has more than one measure set: " + elem.find('./Title').text)
             elem.clear()
             continue
         elif len(measureset) == 0:
-            print("A submission has no measure set type" + measureset.attrib.get('ID'))
+            print("A submission has no measure set type: " + measureset.attrib.get('ID'))
             elem.clear()
             continue
 
@@ -150,15 +151,15 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             x.text for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/ReviewStatus') if x is not None
         ])
 
-        list_significance= [
+        list_significance = [
             x.text.lower() for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
         ]
 
         current_row['pathogenic'] = str(list_significance.count("pathogenic"))
         current_row['likely_pathogenic'] = str(list_significance.count("likely pathogenic"))
-        current_row['uncertain_significance']=str(list_significance.count("uncertain significance"))
-        current_row['benign']=str(list_significance.count("benign"))
-        current_row['likely_benign']=str(list_significance.count("likely benign"))
+        current_row['uncertain_significance'] = str(list_significance.count("uncertain significance"))
+        current_row['benign'] = str(list_significance.count("benign"))
+        current_row['likely_benign'] = str(list_significance.count("likely benign"))
 
         current_row['clinical_significance_ordered'] = ";".join(list_significance)
 
