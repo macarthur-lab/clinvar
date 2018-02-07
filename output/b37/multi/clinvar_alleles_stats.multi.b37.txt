@@ -1,105 +1,110 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: start, 6: stop, 7: strand, 8: variation_type, 9: variation_id, 10: rcv, 11: scv, 12: allele_id, 13: symbol, 14: hgvs_c, 15: hgvs_p, 16: molecular_consequence, 17: clinical_significance, 18: clinical_significance_ordered, 19: pathogenic, 20: likely_pathogenic, 21: uncertain_significance, 22: likely_benign, 23: benign, 24: review_status, 25: review_status_ordered, 26: last_evaluated, 27: all_submitters, 28: submitters_ordered, 29: all_traits, 30: all_pmids, 31: inheritance_modes, 32: age_of_onset, 33: prevalence, 34: disease_mechanism, 35: origin, 36: xrefs, 37: dates_ordered, 38: gold_stars, 39: conflicted,
 ================
-Total rows: 481
+Total rows: 548
 ================
 column 8: variation_type
-Haplotype               464
+Haplotype               529
 Phase unknown            11
+Distinct chromosomes      4
 CompoundHeterozygote      4
-Distinct chromosomes      2
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
--                                                            262
-Pathogenic                                                    67
-Conflicting interpretations of pathogenicity                  32
-Uncertain significance                                        24
-Benign                                                        16
-Pathogenic/Likely pathogenic                                  13
+-                                                            293
+Pathogenic                                                    71
+Conflicting interpretations of pathogenicity                  39
+Uncertain significance                                        32
+Benign                                                        19
+Pathogenic/Likely pathogenic                                  18
+Benign/Likely benign                                          13
 other                                                         12
-Benign/Likely benign                                           9
 not provided                                                   8
+Likely benign                                                  7
 Likely pathogenic                                              6
 Conflicting interpretations of pathogenicity, other            6
-Likely benign                                                  6
-Pathogenic, other                                              4
-drug response                                                  3
-drug response, other                                           2
+Pathogenic, other                                              5
+drug response                                                  4
 Likely benign, other                                           2
+drug response, other                                           2
 Pathogenic, other, protective                                  2
+Pathogenic, risk factor                                        1
+risk factor                                                    1
 Benign/Likely benign, risk factor                              1
 Pathogenic, protective                                         1
 Uncertain significance, other                                  1
 Conflicting interpretations of pathogenicity, risk factor      1
+Benign, Affects                                                1
 Benign/Likely benign, other                                    1
-Pathogenic, risk factor                                        1
 Benign, other                                                  1
 Name: clinical_significance, dtype: int64
 ================
 column 24: review_status
-no assertion for the individual variant                 357
-criteria provided, multiple submitters, no conflicts     36
-no assertion criteria provided                           33
-criteria provided, single submitter                      27
-criteria provided, conflicting interpretations           19
+no assertion for the individual variant                 404
+criteria provided, multiple submitters, no conflicts     45
+criteria provided, single submitter                      33
+no assertion criteria provided                           31
+criteria provided, conflicting interpretations           27
 no assertion provided                                     4
-reviewed by expert panel                                  4
+reviewed by expert panel                                  3
 practice guideline                                        1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
-0    394
-1     46
-2     36
-3      4
+0    439
+1     60
+2     45
+3      3
 4      1
 Name: gold_stars, dtype: int64
 ================
 column 27: all_submitters
-OMIM                                                                                                   256
-GeneReviews                                                                                             29
-Mendelics Analise Genomica                                                                              20
-ARUP Institute,ARUP Laboratories                                                                        17
-Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine                             16
-University of Washington Center for Mendelian Genomics, University of Washington                        13
-Department of Pediatrics and Neonatology,Nagoya City University Graduate School of Medical Sciences     12
-Colsan                                                                                                   9
-Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg                                           7
-Medical Research Institute,Tokyo Medical and Dental University                                           7
-U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                                   6
-Clinical Biochemistry Laboratory,Health Services Laboratory                                              6
-Section of Medical Genetics, Telemark Hospital                                                           6
-Division of Host Defense,Kyushu University                                                               6
-Tuberous sclerosis database (TSC2)                                                                       5
-OMIM;GeneReviews                                                                                         5
-HerediLab, Inc.                                                                                          5
-Rizzo Lab,University of Nebraska Medical Center                                                          4
-Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare                                  4
-Center for Genetic Medicine Research,Children's National Medical Center                                  3
-OMIM;ARUP Institute,ARUP Laboratories                                                                    3
-OMIM;Baylor Miraca Genetics Laboratories                                                                 2
-Eye Genetics Research Group,Children's Medical Research Institute                                        2
-Bone Marrow Failure laboratory,Queen Mary University London                                              2
-RettBASE                                                                                                 2
-Neurogenetics Research, Murdoch Childrens Research Institute                                             2
-LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata                                     2
-OMIM;U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                              2
-Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                        2
-Institute of Human Genetics, Klinikum rechts der Isar                                                    2
-Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                                    2
-Collagen Diagnostic Laboratory                                                                           2
-Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine                                                2
-Human Genetics Disease in Children – Taif University,Taif University                                     2
-Laboratory of Molecular Genetics,CHU RENNES                                                              2
-OMIM;Division of Genomic Diagnostics,The Children's Hospital of Philadelphia                             2
-Knight Diagnostic Laboratories,Oregon Health and Sciences University                                     2
-OMIM;Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                               2
-Institute of Human Genetics, Klinikum rechts der Isar;OMIM                                               2
-Laboratory of Molecular Genetics,National Institutes of Health                                           2
-LDLR-LOVD, British Heart Foundation                                                                      1
-GeneReviews;OMIM                                                                                         1
-Medical Genomics Laboratory,Department of Genetics UAB                                                   1
-CFTR2                                                                                                    1
+OMIM                                                                                                                   314
+GeneReviews                                                                                                             28
+Mendelics Analise Genomica                                                                                              20
+ARUP Institute,ARUP Laboratories                                                                                        17
+Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine                                             16
+University of Washington Center for Mendelian Genomics, University of Washington                                        13
+Department of Pediatrics and Neonatology,Nagoya City University Graduate School of Medical Sciences                     12
+Colsan                                                                                                                   9
+Medical Research Institute,Tokyo Medical and Dental University                                                           7
+OMIM;GeneReviews                                                                                                         7
+Institute of Human Genetics, Univ. Regensburg,Univ. Regensburg                                                           7
+Division of Host Defense,Kyushu University                                                                               6
+U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                                                   6
+Section of Medical Genetics, Telemark Hospital                                                                           6
+Clinical Biochemistry Laboratory,Health Services Laboratory                                                              6
+Tuberous sclerosis database (TSC2)                                                                                       5
+HerediLab, Inc.                                                                                                          5
+Rizzo Lab,University of Nebraska Medical Center                                                                          4
+Bioscientia Institut fuer Medizinische Diagnostik GmbH,Sonic Healthcare                                                  4
+Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine                                                                4
+Center for Genetic Medicine Research,Children's National Medical Center                                                  3
+OMIM;ARUP Institute,ARUP Laboratories                                                                                    3
+Division of Genomic Diagnostics,The Children's Hospital of Philadelphia;OMIM                                             2
+Unit for Genetic & Epidemiological Research on Neurological Disorders,Instituto de Investigação e Inovação em Saúde      2
+Eye Genetics Research Group,Children's Medical Research Institute                                                        2
+Bone Marrow Failure laboratory,Queen Mary University London                                                              2
+OMIM;Baylor Miraca Genetics Laboratories                                                                                 2
+RettBASE                                                                                                                 2
+Institute of Human Genetics, Klinikum rechts der Isar                                                                    2
+LISIN Facultad de Ciencias Exactas, Universidad Nacional de La Plata                                                     2
+Neurogenetics Research, Murdoch Childrens Research Institute                                                             2
+Knight Diagnostic Laboratories,Oregon Health and Sciences University                                                     2
+Computational Biology Unit,University of Bari                                                                            2
+Counsyl                                                                                                                  2
+Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                                                    2
+Collagen Diagnostic Laboratory                                                                                           2
+Human Genetics Disease in Children – Taif University,Taif University                                                     2
+OMIM;U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                                              2
+OMIM;Baylor-Hopkins Center for Mendelian Genomics,Johns Hopkins University                                               2
+Institute of Human Genetics, Klinikum rechts der Isar;OMIM                                                               2
+Laboratory of Molecular Genetics,National Institutes of Health                                                           2
+Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                        2
+Laboratory of Molecular Genetics,CHU RENNES                                                                              2
+CFTR2                                                                                                                    1
+GeneReviews;OMIM                                                                                                         1
+LDLR-LOVD, British Heart Foundation                                                                                      1
+Medical Genomics Laboratory,Department of Genetics UAB                                                                   1
 Name: all_submitters, dtype: int64
 ================
 column 31: inheritance_modes
@@ -112,20 +117,23 @@ column 33: prevalence
 Series([], Name: prevalence, dtype: int64)
 ================
 column 34: disease_mechanism
-loss of function                                                                                                                                         36
+loss of function                                                                                                                                         35
+More than 1,000 CFTR variants have been reported.  Most common pathogenic variant is p.Phe508del.;loss of function                                        5
+gain of function                                                                                                                                          4
 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.;loss of function     2
 Name: disease_mechanism, dtype: int64
 ================
 column 35: origin
-germline                      391
+germline                      450
 not provided                   29
-inherited                      17
-unknown                        17
+unknown                        21
+inherited                      19
 somatic                         6
 de novo                         6
 germline;not provided           5
 tested-inconclusive             4
 germline;maternal;paternal      2
+not applicable;paternal         2
 not applicable                  2
 maternal                        2
 Name: origin, dtype: int64

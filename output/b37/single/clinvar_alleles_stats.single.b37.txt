@@ -1,164 +1,163 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: start, 6: stop, 7: strand, 8: variation_type, 9: variation_id, 10: rcv, 11: scv, 12: allele_id, 13: symbol, 14: hgvs_c, 15: hgvs_p, 16: molecular_consequence, 17: clinical_significance, 18: clinical_significance_ordered, 19: pathogenic, 20: likely_pathogenic, 21: uncertain_significance, 22: likely_benign, 23: benign, 24: review_status, 25: review_status_ordered, 26: last_evaluated, 27: all_submitters, 28: submitters_ordered, 29: all_traits, 30: all_pmids, 31: inheritance_modes, 32: age_of_onset, 33: prevalence, 34: disease_mechanism, 35: origin, 36: xrefs, 37: dates_ordered, 38: gold_stars, 39: conflicted,
 ================
-Total rows: 297561
+Total rows: 336921
 ================
 column 8: variation_type
-Variant      297560
-Haplotype         1
+Variant    336921
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
-Uncertain significance                                                             120486
-Likely benign                                                                       51998
-Pathogenic                                                                          45293
-Benign                                                                              23774
-Likely pathogenic                                                                   15027
-Conflicting interpretations of pathogenicity                                        12704
-Benign/Likely benign                                                                10947
-not provided                                                                        10756
-Pathogenic/Likely pathogenic                                                         3250
-other                                                                                1793
-risk factor                                                                           390
-drug response                                                                         281
-association                                                                           137
-Affects                                                                                96
-Pathogenic, other                                                                      92
-Pathogenic, risk factor                                                                73
-Conflicting interpretations of pathogenicity, risk factor                              46
-Benign, risk factor                                                                    29
-protective                                                                             27
-Pathogenic, drug response                                                              26
-Benign, other                                                                          24
-Likely pathogenic, risk factor                                                         24
-Likely benign, risk factor                                                             23
-Benign/Likely benign, risk factor                                                      21
-Pathogenic/Likely pathogenic, risk factor                                              20
-Conflicting interpretations of pathogenicity, other                                    18
-Uncertain significance, risk factor                                                    18
-Uncertain significance, drug response                                                  17
-Uncertain significance, other                                                          17
-Likely benign, other                                                                   12
-                                                                                    ...  
-Likely pathogenic, association                                                          2
-Conflicting interpretations of pathogenicity, protective                                2
-Likely benign, association                                                              2
-Pathogenic, other, protective                                                           2
-Benign/Likely benign, Affects                                                           2
-protective, risk factor                                                                 2
-Conflicting interpretations of pathogenicity, Affects, association, risk factor         2
-Conflicting interpretations of pathogenicity, Affects                                   2
-Benign/Likely benign, protective, risk factor                                           1
-Conflicting interpretations of pathogenicity, Affects, other                            1
-Pathogenic/Likely pathogenic, Affects, risk factor                                      1
-Conflicting interpretations of pathogenicity, Affects, association, other               1
-Likely benign, Affects                                                                  1
-Uncertain significance, association                                                     1
-Benign, drug response                                                                   1
-Benign, drug response, risk factor                                                      1
-Benign/Likely benign, drug response                                                     1
-Pathogenic, association, protective                                                     1
-Benign, association, protective                                                         1
-Conflicting interpretations of pathogenicity, other, risk factor                        1
-Benign/Likely benign, drug response, risk factor                                        1
-Uncertain significance, Affects                                                         1
-Likely pathogenic, Affects                                                              1
-Benign, association, risk factor                                                        1
-Affects, risk factor                                                                    1
-Benign, Affects                                                                         1
-Pathogenic, protective, risk factor                                                     1
-Uncertain significance, protective                                                      1
-Benign, protective, risk factor                                                         1
-Likely benign, drug response                                                            1
-Name: clinical_significance, dtype: int64
+Uncertain significance                                                           141041
+Likely benign                                                                     60497
+Pathogenic                                                                        47948
+Benign                                                                            26229
+Likely pathogenic                                                                 16195
+Conflicting interpretations of pathogenicity                                      15301
+Benign/Likely benign                                                              12456
+not provided                                                                      10178
+Pathogenic/Likely pathogenic                                                       3737
+other                                                                              1791
+risk factor                                                                         379
+drug response                                                                       281
+association                                                                         137
+Affects                                                                              98
+Pathogenic, other                                                                    92
+Pathogenic, risk factor                                                              71
+Conflicting interpretations of pathogenicity, risk factor                            53
+Benign, risk factor                                                                  33
+protective                                                                           31
+Pathogenic, drug response                                                            26
+Uncertain significance, risk factor                                                  25
+Benign, other                                                                        24
+Benign/Likely benign, risk factor                                                    24
+Pathogenic/Likely pathogenic, risk factor                                            22
+Likely pathogenic, risk factor                                                       22
+Uncertain significance, other                                                        20
+Conflicting interpretations of pathogenicity, other                                  20
+Likely benign, risk factor                                                           19
+Uncertain significance, drug response                                                16
+Likely benign, other                                                                 12
+                                                                                  ...  
+Benign/Likely benign, Affects                                                         2
+Conflicting interpretations of pathogenicity, protective                              2
+Uncertain significance, association                                                   2
+Likely pathogenic, association                                                        2
+Pathogenic, other, protective                                                         2
+Conflicting interpretations of pathogenicity, association, other, risk factor         2
+Likely benign, protective                                                             2
+Likely benign, association                                                            2
+Pathogenic/Likely pathogenic, Affects, risk factor                                    1
+Uncertain significance, Affects                                                       1
+Conflicting interpretations of pathogenicity, other, risk factor                      1
+Benign, protective, risk factor                                                       1
+Conflicting interpretations of pathogenicity, Affects, other                          1
+Pathogenic, association, protective                                                   1
+Benign, association, protective                                                       1
+Likely benign, drug response                                                          1
+Benign/Likely benign, protective, risk factor                                         1
+-                                                                                     1
+Likely benign, Affects                                                                1
+Benign, Affects                                                                       1
+Conflicting interpretations of pathogenicity, Affects, association, other             1
+Pathogenic, protective, risk factor                                                   1
+Benign, drug response                                                                 1
+Benign/Likely benign, drug response                                                   1
+Uncertain significance, protective                                                    1
+Affects, risk factor                                                                  1
+Benign, association, risk factor                                                      1
+Likely pathogenic, Affects                                                            1
+Benign/Likely benign, drug response, risk factor                                      1
+Benign, drug response, risk factor                                                    1
+Name: clinical_significance, Length: 79, dtype: int64
 ================
 column 24: review_status
-criteria provided, single submitter                     196405
-criteria provided, multiple submitters, no conflicts     35277
-no assertion criteria provided                           33740
-criteria provided, conflicting interpretations           12659
-no assertion provided                                    10752
-reviewed by expert panel                                  8607
-no assertion for the individual variant                     96
+criteria provided, single submitter                     223538
+criteria provided, multiple submitters, no conflicts     45463
+no assertion criteria provided                           33465
+criteria provided, conflicting interpretations           15276
+no assertion provided                                    10174
+reviewed by expert panel                                  8870
+no assertion for the individual variant                    111
 practice guideline                                          23
--                                                            2
+-                                                            1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
-1    188125
-0     39542
-2     31525
-1     20939
-3      5601
-0      5046
-2      3752
-3      3006
+1    229447
+2     43251
+0     41618
+1      9367
+3      6198
+3      2672
+2      2212
+0      2132
 4        23
--         2
+-         1
 Name: gold_stars, dtype: int64
 ================
 column 27: all_submitters
-Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 75018
-GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         38529
-Invitae,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       20578
-EGL Genetic Diagnostics,Eurofins Clinical Diagnostics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          14594
-OMIM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           14279
-Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     8793
-Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  8198
-Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              7768
-PreventionGenetics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              4788
-GeneReviews                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     2340
-Counsyl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         2184
-PreventionGenetics;Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               1805
-GeneDx;Invitae,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1705
-Praxis fuer Humangenetik Tuebingen,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1637
-Ambry Genetics;Invitae,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1520
-ITMI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1481
-Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                                                                                                                                                                                                                                                                                                                                                                                                                                                               1448
-Illumina Clinical Services Laboratory,Illumina;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           1419
-EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    1244
-Invitae,;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1229
-Tuberous sclerosis database (TSC2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1184
-InSiGHT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1173
-EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                                            1126
-ARUP Laboratories, Molecular Genetics and Genomics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1084
-Retina International                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1037
-Systems Biology Platform Zhejiang California International NanoSystems Institute                                                                                                                                                                                                                                                                                                                                                                                                                                                                                1004
-Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                               983
-GeneReviews;OMIM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 935
-ARUP Institute,ARUP Laboratories                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 923
-Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      914
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ...  
-OMIM;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Invitae,;Counsyl;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1
-Ambry Genetics;Cancer Genetics Laboratory,Peter MacCallum Cancer Centre                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1
-PreventionGenetics;ARUP Laboratories, Molecular Genetics and Genomics;ITMI;Invitae,;Illumina Clinical Services Laboratory,Illumina;Caryl and Israel Englander Institute for Precision Medicine,Weill Cornell Medicine                                                                                                                                                                                                                                                                                                                                              1
-OMIM;GeneReviews;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;PharmGKB;Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics;Donald Williams Parsons Laboratory,Baylor College of Medicine                                                                                                                                                                                                                                                                                                                    1
-Counsyl;Juha Muilu Group, Institute for Molecular Medicine Finland (FIMM);SNPedia                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1
-ARUP Laboratories, Molecular Genetics and Genomics;GeneDx;Department of Pathology and Laboratory Medicine,Sinai Health System;Ambry Genetics;Invitae,;Illumina Clinical Services Laboratory,Illumina;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                                                                                                                                                                                                                                                             1
-GeneDx;Illumina Clinical Services Laboratory,Illumina;Knight Diagnostic Laboratories,Oregon Health and Sciences University                                                                                                                                                                                                                                                                                                                                                                                                                                         1
-OMIM;GeneDx;Cardiovascular Biomedical Research Unit,Royal Brompton & Harefield NHS Foundation Trust;PreventionGenetics;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;Blueprint Genetics;Biesecker Lab/Human Development Section,National Institutes of Health;Invitae,;Illumina Clinical Services Laboratory,Illumina;Ambry Genetics                                                                                                                                                                                                 1
-Institute of Human Genetics,Friedrich-Alexander-Universität Erlangen-Nürnberg;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                               1
-OMIM;Baylor Miraca Genetics Laboratories;ARUP Laboratories, Molecular Genetics and Genomics;GeneDx;Database of Curated Mutations (DoCM)                                                                                                                                                                                                                                                                                                                                                                                                                            1
-Breast Cancer Information Core (BIC) (BRCA2);Sharing Clinical Reports Project (SCRP);Invitae,;CHEO Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario;GeneDx                                                                                                                                                                                                                                                                                                                                                                                    1
-Center for Bioinformatics, Peking University;Athena Diagnostics Inc;GeneDx;Invitae,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                1
-ARUP Laboratories, Molecular Genetics and Genomics;PreventionGenetics;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;GeneDx;Ambry Genetics;Illumina Clinical Services Laboratory,Illumina;Invitae,                                                                                                                                                                                                                                                                              1
-InSiGHT;Invitae,;Praxis fuer Humangenetik Tuebingen,;Harris Lab, University of Minnesota;Ambry Genetics;Mayo Clinic Genetic Testing Laboratories,Mayo Clinic;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                  1
-OMIM;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Division of Genomic Diagnostics,The Children's Hospital of Philadelphia;Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                              1
-OMIM;Baylor Miraca Genetics Laboratories;Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1
-Cancer Genetics and Genomics Laboratory,British Columbia Cancer Agency;Department of Pathology and Laboratory Medicine,Sinai Health System;GeneDx;Department of Pathology and Molecular Medicine,Queen's University;Breast Cancer Information Core (BIC) (BRCA1);Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP);Counsyl;CSER_CC_NCGL, University of Washington Medical Center;Ambry Genetics;Invitae,;CHEO Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario        1
-Breast Cancer Information Core (BIC) (BRCA1);Ambry Genetics;Invitae,;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        1
-GeneReviews;OMIM;Invitae,;Athena Diagnostics Inc;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1
-Tuberous sclerosis database (TSC2);GeneDx;Genetic Services Laboratory, University of Chicago;Ambry Genetics;Invitae,                                                                                                                                                                                                                                                                                                                                                                                                                                               1
-Invitae,;Breast Cancer Information Core (BIC) (BRCA1);Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Ambry Genetics;Research Molecular Genetics Laboratory,Women's College Hospital, University of Toronto                                                                                                                                                                                                                                                                                                                      1
-Centre for Genomic and Experimental Medicine,University of Edinburgh;Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                                                                                            1
-Clinical Molecular Genetics Laboratory,Johns Hopkins All Children's Hospital;Genetic Services Laboratory, University of Chicago;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                             1
-Illumina Clinical Services Laboratory,Illumina;Laboratory of Molecular Genetics,CHU RENNES                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1
-OMIM;Mendelics Analise Genomica;Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1
-Invitae,;Research Molecular Genetics Laboratory,Women's College Hospital, University of Toronto;Breast Cancer Information Core (BIC) (BRCA2);Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP);GeneDx                                                                                                                                                                                             1
-Ambry Genetics;Cancer Genetics and Genomics Laboratory,British Columbia Cancer Agency;Invitae,;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                                                                                                                                                                                                                                                                                                                                                                   1
-PreventionGenetics;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Invitae,;Counsyl                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1
-Invitae,;Illumina Clinical Services Laboratory,Illumina;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx;Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics                                                                                                                                                                                                                                                                                                                                             1
-Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx;Invitae,;GeneReviews;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;CSER_CC_NCGL, University of Washington Medical Center                                                                                                                                                                                                                                                                                                                                                1
-Name: all_submitters, dtype: int64
+Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                                                 73500
+Invitae                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        39757
+GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         39272
+Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 15211
+OMIM                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           14237
+EGL Genetic Diagnostics,Eurofins Clinical Diagnostics                                                                                                                                                                                                                                                                                                                                                                                                                                                          13530
+Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine                                                                                                                                                                                                                                                                                                                                                                                                                                     8464
+Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                                                                                                              7457
+PreventionGenetics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              4463
+Invitae;Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          3664
+GeneDx;Invitae                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  3449
+Ambry Genetics;Invitae                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          2492
+GeneReviews                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     2300
+Counsyl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         2157
+Athena Diagnostics Inc                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1983
+Illumina Clinical Services Laboratory,Illumina;Invitae                                                                                                                                                                                                                                                                                                                                                                                                                                                          1652
+Praxis fuer Humangenetik Tuebingen                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1568
+Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics                                                                                                                                                                                                                                                                                                                                                                                                                                     1536
+PreventionGenetics;Illumina Clinical Services Laboratory,Illumina                                                                                                                                                                                                                                                                                                                                                                                                                                               1490
+Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                                                                                                                                                                                                                                                                                                                                                                                                               1422
+ITMI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1392
+Illumina Clinical Services Laboratory,Illumina;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                           1209
+Tuberous sclerosis database (TSC2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                              1138
+InSiGHT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1092
+Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA)                                                                                                                                                                                                                                                                                                                                      1080
+Retina International                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            1029
+ClinVar Staff, National Center for Biotechnology Information (NCBI)                                                                                                                                                                                                                                                                                                                                                                                                                                             1014
+ARUP Laboratories, Molecular Genetics and Genomics                                                                                                                                                                                                                                                                                                                                                                                                                                                              1005
+Systems Biology Platform Zhejiang California International NanoSystems Institute                                                                                                                                                                                                                                                                                                                                                                                                                                1002
+EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Invitae                                                                                                                                                                                                                                                                                                                                                                                                                                                    979
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ...  
+Cardiovascular Research Group,Instituto Nacional de Saude Doutor Ricardo Jorge;LDLR-LOVD, British Heart Foundation;U4M - Lille University & CHRU Lille,Université Lille 2 - CHRU de Lille                                                                                                                                                                                                                                                                                                                          1
+Ambry Genetics;Invitae;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;GeneDx;Quest Diagnostics Nichols Institute San Juan Capistrano                                                                                                                                                                                                                                                                                                                                                                        1
+Institute of Human Genetics,Friedrich-Alexander-Universität Erlangen-Nürnberg;OMIM;Baylor Miraca Genetics Laboratories                                                                                                                                                                                                                                                                                                                                                                                             1
+GeneReviews;Illumina Clinical Services Laboratory,Illumina;PreventionGenetics;Genetic Services Laboratory, University of Chicago                                                                                                                                                                                                                                                                                                                                                                                   1
+Breast Cancer Information Core (BIC) (BRCA2);Ambry Genetics;Quest Diagnostics Nichols Institute San Juan Capistrano;GeneDx;Department of Pathology and Laboratory Medicine,Sinai Health System                                                                                                                                                                                                                                                                                                                     1
+Cardiovascular Genetics Laboratory,PathWest Laboratory Medicine WA - Fiona Stanley Hospital;Laboratorium voor Moleculaire Diagnostiek Experimentele Vasculaire Geneeskunde,Academisch Medisch Centrum;LDLR-LOVD, British Heart Foundation;Robarts Research Institute,University of Western Ontario;Fundacion Hipercolesterolemia Familiar                                                                                                                                                                          1
+InSiGHT;Invitae;Ambry Genetics;Counsyl;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1
+EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics;Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                   1
+OMIM;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx;Biesecker Lab/Human Development Section,National Institutes of Health;Laboratory of Genetics and Molecular Cardiology,University of São Paulo;Invitae;Ambry Genetics;Praxis fuer Humangenetik Tuebingen                                                                                                                                                                                                                    1
+Invitae;Sharing Clinical Reports Project (SCRP);Counsyl                                                                                                                                                                                                                                                                                                                                                                                                                                                            1
+Research Molecular Genetics Laboratory,Women's College Hospital, University of Toronto;CHEO Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario;Department of Pathology and Molecular Medicine,Queen's University;Invitae;Breast Cancer Information Core (BIC) (BRCA2);Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP)        1
+Biochimie Génétique et moléculaire,CHUGA                                                                                                                                                                                                                                                                                                                                                                                                                                                                           1
+Laboratory Corporation of America;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;Invitae;Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                               1
+CSER_CC_NCGL, University of Washington Medical Center;Counsyl;Invitae;University of Washington Department of Laboratory Medicine,University of Washington;Ambry Genetics;GeneDx                                                                                                                                                                                                                                                                                                                                    1
+Invitae;Breast Cancer Information Core (BIC) (BRCA2);Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP);Counsyl;Ambry Genetics;Quest Diagnostics Nichols Institute San Juan Capistrano                                                                                                                                                                                                                                                      1
+Breast Cancer Information Core (BIC) (BRCA1);Department of Pathology and Laboratory Medicine,Sinai Health System;Ambry Genetics                                                                                                                                                                                                                                                                                                                                                                                    1
+Lupski Lab, Baylor-Hopkins CMG,Baylor College of Medicine;International Pleuropulmonary Blastoma Registry,Children's Hospitals and Clinics of Minnesota                                                                                                                                                                                                                                                                                                                                                            1
+Counsyl;Invitae;Ambry Genetics;Illumina Clinical Services Laboratory,Illumina;GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                               1
+Tuberous sclerosis database (TSC2);Illumina Clinical Services Laboratory,Illumina;GeneDx;Ambry Genetics;Athena Diagnostics Inc;Invitae                                                                                                                                                                                                                                                                                                                                                                             1
+GeneReviews;Division of Human Genetics,Children's Hospital of Philadelphia;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;Counsyl;Invitae;Fulgent Genetics;ARUP Institute,ARUP Laboratories;Genetic Services Laboratory, University of Chicago;GeneDx;Center for Pediatric Genomic Medicine,Children's Mercy Hospital and Clinics;ARUP Laboratories, Molecular Genetics and Genomics                                            1
+Breast Cancer Information Core (BIC) (BRCA2);Quest Diagnostics Nichols Institute San Juan Capistrano;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP);Counsyl;Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge;GeneDx;Ambry Genetics;Department of Pathology and Laboratory Medicine,Sinai Health System;Invitae                                                                                  1
+OMIM;Counsyl;Invitae;Database of Curated Mutations (DoCM);GeneDx                                                                                                                                                                                                                                                                                                                                                                                                                                                   1
+Ambry Genetics;Invitae;Counsyl;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine                                                                                                                                                                                                                                                                                                                                                                                                         1
+Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx;CHEO Genetics Diagnostic Laboratory,Children's Hospital of Eastern Ontario;Ambry Genetics;Illumina Clinical Services Laboratory,Illumina;Invitae                                                                                                                                                                                                                                                                                1
+Hereditary Research Laboratory,Bethlehem University;Division of Hearing and Balance Research,National Hospital Organization Tokyo Medical Center                                                                                                                                                                                                                                                                                                                                                                   1
+Breast Cancer Information Core (BIC) (BRCA2);Sharing Clinical Reports Project (SCRP);Counsyl;Quest Diagnostics Nichols Institute San Juan Capistrano;GeneDx;Ambry Genetics;Invitae                                                                                                                                                                                                                                                                                                                                 1
+Sharing Clinical Reports Project (SCRP);Ambry Genetics;Laboratory Corporation of America                                                                                                                                                                                                                                                                                                                                                                                                                           1
+Ambry Genetics;Division of Genomic Diagnostics,The Children's Hospital of Philadelphia;Counsyl;Invitae;Quest Diagnostics Nichols Institute San Juan Capistrano;GeneDx                                                                                                                                                                                                                                                                                                                                              1
+OMIM;Database of Curated Mutations (DoCM);Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneReviews;Laboratory of Translational Genomics,  National Cancer Institute                                                                                                                                                                                                                                                                                                                 1
+Biesecker Lab/Human Development Section,National Institutes of Health;Tuberous sclerosis database (TSC2);Illumina Clinical Services Laboratory,Illumina;Ambry Genetics;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;GeneDx;Invitae                                                                                                                                                                                                                                                                        1
+Name: all_submitters, Length: 13719, dtype: int64
 ================
 column 31: inheritance_modes
 Series([], Name: inheritance_modes, dtype: int64)
@@ -170,82 +169,84 @@ column 33: prevalence
 Series([], Name: prevalence, dtype: int64)
 ================
 column 34: disease_mechanism
-loss of function                                                                                                                                                                          32370
-gain of function                                                                                                                                                                           1917
-Disease mechanisms vary by gene.                                                                                                                                                            856
-gain of function;loss of function                                                                                                                                                           207
-loss of function;gain of function                                                                                                                                                           196
-Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.;loss of function                                       190
-Affects gamma-sarcoglycan and also disrupts the integrity of the entire sarcoglycan complex.                                                                                                137
+loss of function                                                                                                                                                                          34882
+gain of function                                                                                                                                                                           2147
+More than 1,000 CFTR variants have been reported.  Most common pathogenic variant is p.Phe508del.;loss of function                                                                          982
+Disease mechanisms vary by gene.                                                                                                                                                            933
+gain of function;loss of function                                                                                                                                                           224
+Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.;loss of function                                       204
+loss of function;gain of function                                                                                                                                                           202
+Affects gamma-sarcoglycan and also disrupts the integrity of the entire sarcoglycan complex.                                                                                                194
 Other                                                                                                                                                                                       107
-May be benign                                                                                                                                                                                64
+May be benign                                                                                                                                                                                69
 unknown                                                                                                                                                                                      33
 Disease mechanisms vary by gene.;loss of function                                                                                                                                             5
+loss of function;More than 1,000 CFTR variants have been reported.  Most common pathogenic variant is p.Phe508del.                                                                            3
 Dominant Negative                                                                                                                                                                             2
 gain of function;Disease mechanisms vary by gene.                                                                                                                                             2
 Fabry disease is due to inactivating mutations in the X-linked GLA gene resulting in deficiency of the enzyme Alpha Galactosidase-A.;loss of function;Disease mechanisms vary by gene.        1
 Name: disease_mechanism, dtype: int64
 ================
 column 35: origin
-germline                                        264787
-not provided                                      7540
-unknown                                           7416
-germline;unknown                                  5405
-somatic                                           2555
-germline;not provided                             2414
-de novo                                           1146
-not provided;germline                             1042
-unknown;germline                                   874
-inherited                                          614
-maternal                                           430
-germline;not provided;unknown                      288
-germline;somatic                                   277
-de novo;germline                                   274
-paternal                                           238
-not provided;unknown                               231
-germline;inherited                                 203
-germline;de novo                                   197
-germline;maternal                                  161
-germline;not applicable                            146
-somatic;germline                                   135
-germline;paternal                                  127
-not provided;germline;unknown                       66
-germline;unknown;not provided                       56
-not applicable                                      51
-germline;maternal;unknown                           46
-inherited;germline                                  45
-not provided;unknown;germline                       41
-de novo;germline;unknown                            36
-de novo;unknown                                     32
-                                                 ...  
-unknown;maternal                                     1
-germline;maternal;unknown;not provided               1
-not provided;germline;unknown;maternal               1
-somatic;germline;maternal;paternal                   1
-de novo;not provided;unknown                         1
-not provided;de novo;germline;unknown                1
-de novo;not provided                                 1
-germline;paternal;unknown;de novo                    1
-germline;somatic;not provided;unknown                1
-de novo;somatic                                      1
-not provided;inherited;germline                      1
-unknown;germline;de novo                             1
-germline;somatic;paternal;unknown                    1
-somatic;germline;not provided;unknown                1
-unknown;germline;de novo;somatic                     1
-germline;not applicable;inherited;unknown            1
-germline;somatic;de novo                             1
-germline;not provided;biparental                     1
-germline;not applicable;not provided;unknown         1
-not provided;germline;unknown;paternal               1
-germline;unknown;maternal;de novo;inherited          1
-germline;de novo;unknown;somatic                     1
-germline;not applicable;somatic                      1
-inherited;maternal;not provided                      1
-not provided;germline;de novo                        1
-maternal;not provided;unknown                        1
-not provided;paternal;germline                       1
-germline;unknown;inherited                           1
-germline;unknown;de novo;maternal                    1
-germline;not provided;unknown;inherited              1
-Name: origin, dtype: int64
+germline                                             303047
+not provided                                           7403
+unknown                                                7390
+germline;unknown                                       6050
+somatic                                                2571
+germline;not provided                                  2414
+de novo                                                1164
+not provided;germline                                  1083
+unknown;germline                                       1053
+inherited                                               644
+maternal                                                465
+germline;not provided;unknown                           379
+de novo;germline                                        291
+germline;somatic                                        271
+paternal                                                269
+not provided;unknown                                    231
+germline;inherited                                      230
+germline;de novo                                        184
+somatic;germline                                        171
+germline;maternal                                       170
+germline;not applicable                                 146
+germline;paternal                                       135
+germline;unknown;not provided                            68
+not provided;germline;unknown                            68
+not applicable                                           55
+inherited;germline                                       52
+germline;maternal;unknown                                50
+not provided;unknown;germline                            43
+maternal;germline                                        41
+de novo;germline;unknown                                 40
+                                                      ...  
+germline;maternal;biparental;inherited                    1
+inherited;maternal;not provided                           1
+maternal;not provided;unknown                             1
+not provided;somatic;germline;unknown                     1
+de novo;paternal                                          1
+not provided;unknown;paternal;germline                    1
+germline;de novo;not provided                             1
+germline;not provided;unknown;maternal                    1
+unknown;germline;paternal                                 1
+germline;unknown;de novo;not provided                     1
+not provided;maternal;germline                            1
+germline;unknown;somatic;de novo                          1
+de novo;maternal;paternal;unknown                         1
+inherited;paternal                                        1
+germline;somatic;paternal;unknown                         1
+germline;maternal;unknown;not provided                    1
+de novo;germline;not provided;unknown;maternal            1
+germline;not provided;unknown;tested-inconclusive         1
+germline;paternal;unknown;not provided                    1
+inherited;paternal;germline                               1
+not provided;paternal                                     1
+de novo;germline;unknown;maternal                         1
+germline;maternal;unknown;paternal                        1
+germline;not provided;unknown;somatic;de novo             1
+maternal;paternal;unknown                                 1
+inherited;not provided;germline;unknown                   1
+germline;uniparental                                      1
+maternal;inherited;unknown                                1
+unknown;germline;not provided                             1
+germline;inherited;not provided;unknown                   1
+Name: origin, Length: 213, dtype: int64
