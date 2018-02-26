@@ -1,5 +1,85 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: start, 6: stop, 7: strand, 8: variation_type, 9: variation_id, 10: rcv, 11: scv, 12: allele_id, 13: symbol, 14: hgvs_c, 15: hgvs_p, 16: molecular_consequence, 17: clinical_significance, 18: clinical_significance_ordered, 19: pathogenic, 20: likely_pathogenic, 21: uncertain_significance, 22: likely_benign, 23: benign, 24: review_status, 25: review_status_ordered, 26: last_evaluated, 27: all_submitters, 28: submitters_ordered, 29: all_traits, 30: all_pmids, 31: inheritance_modes, 32: age_of_onset, 33: prevalence, 34: disease_mechanism, 35: origin, 36: xrefs, 37: dates_ordered, 38: gold_stars, 39: conflicted,
 ================
+<<<<<<< HEAD
+Total rows: 336995
+================
+column 8: variation_type
+Variant    336995
+Name: variation_type, dtype: int64
+================
+column 17: clinical_significance
+Uncertain significance                                                             140955
+Likely benign                                                                       60502
+Pathogenic                                                                          48044
+Benign                                                                              26087
+Likely pathogenic                                                                   16169
+Conflicting interpretations of pathogenicity                                        15374
+Benign/Likely benign                                                                12521
+not provided                                                                        10166
+Pathogenic/Likely pathogenic                                                         3847
+other                                                                                1793
+risk factor                                                                           383
+drug response                                                                         262
+association                                                                           136
+Affects                                                                                98
+Pathogenic, other                                                                      92
+Pathogenic, risk factor                                                                75
+Conflicting interpretations of pathogenicity, risk factor                              53
+Benign, risk factor                                                                    32
+protective                                                                             31
+Pathogenic, drug response                                                              26
+Uncertain significance, risk factor                                                    25
+Benign, other                                                                          24
+Benign/Likely benign, risk factor                                                      24
+Pathogenic/Likely pathogenic, risk factor                                              22
+Likely pathogenic, risk factor                                                         22
+Uncertain significance, other                                                          21
+Conflicting interpretations of pathogenicity, other                                    19
+Likely benign, risk factor                                                             18
+Uncertain significance, drug response                                                  16
+Pathogenic/Likely pathogenic, other                                                    12
+                                                                                    ...  
+Conflicting interpretations of pathogenicity, Affects, association, risk factor         2
+Benign/Likely benign, Affects                                                           2
+Uncertain significance, association                                                     2
+Likely pathogenic, association                                                          2
+Pathogenic, other, protective                                                           2
+Likely benign, association                                                              2
+Conflicting interpretations of pathogenicity, association, other, risk factor           2
+Likely benign, Affects                                                                  1
+Pathogenic/Likely pathogenic, Affects, risk factor                                      1
+Uncertain significance, Affects                                                         1
+Conflicting interpretations of pathogenicity, other, risk factor                        1
+Benign, protective, risk factor                                                         1
+Conflicting interpretations of pathogenicity, Affects, other                            1
+Pathogenic, association, protective                                                     1
+Benign, association, protective                                                         1
+Likely benign, drug response                                                            1
+Benign/Likely benign, protective, risk factor                                           1
+-                                                                                       1
+Benign, Affects                                                                         1
+Conflicting interpretations of pathogenicity, Affects, association, other               1
+Pathogenic, protective, risk factor                                                     1
+Benign, drug response                                                                   1
+Benign/Likely benign, drug response                                                     1
+Uncertain significance, protective                                                      1
+Affects, risk factor                                                                    1
+Benign, association, risk factor                                                        1
+Likely pathogenic, Affects                                                              1
+Likely benign, protective                                                               1
+Benign/Likely benign, drug response, risk factor                                        1
+Benign, drug response, risk factor                                                      1
+Name: clinical_significance, dtype: int64
+================
+column 24: review_status
+criteria provided, single submitter                     221777
+criteria provided, multiple submitters, no conflicts     47303
+no assertion criteria provided                           33385
+criteria provided, conflicting interpretations           15351
+no assertion provided                                    10163
+reviewed by expert panel                                  8868
+no assertion for the individual variant                    124
+=======
 Total rows: 337024
 ================
 column 8: variation_type
@@ -78,11 +158,22 @@ criteria provided, conflicting interpretations           15272
 no assertion provided                                    10181
 reviewed by expert panel                                  8867
 no assertion for the individual variant                    111
+>>>>>>> origin/master
 practice guideline                                          23
 -                                                            1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
+<<<<<<< HEAD
+1    227896
+2     44953
+0     41543
+1      9232
+3      6196
+3      2672
+2      2350
+0      2129
+=======
 1    229514
 2     43273
 0     41635
@@ -91,6 +182,7 @@ column 38: gold_stars
 3      2672
 2      2210
 0      2149
+>>>>>>> origin/master
 4        23
 -         1
 Name: gold_stars, dtype: int64
@@ -157,7 +249,11 @@ OMIM;Database of Curated Mutations (DoCM);Laboratory for Molecular Medicine,Part
 Breast Cancer Information Core (BIC) (BRCA2);Quest Diagnostics Nichols Institute San Juan Capistrano;Evidence-based Network for the Interpretation of Germline Mutant Alleles (ENIGMA);Sharing Clinical Reports Project (SCRP);Counsyl;Consortium of Investigators of Modifiers of BRCA1/2 (CIMBA), c/o University of Cambridge;GeneDx;Ambry Genetics;Department of Pathology and Laboratory Medicine,Sinai Health System;Invitae                                                                                  1
 OMIM;Laboratory for Molecular Medicine,Partners HealthCare Personalized Medicine;GeneDx;Biesecker Lab/Human Development Section,National Institutes of Health;Laboratory of Genetics and Molecular Cardiology,University of São Paulo;Invitae;Ambry Genetics;Praxis fuer Humangenetik Tuebingen                                                                                                                                                                                                                    1
 Biesecker Lab/Human Development Section,National Institutes of Health;Tuberous sclerosis database (TSC2);Illumina Clinical Services Laboratory,Illumina;Ambry Genetics;EGL Genetic Diagnostics,Eurofins Clinical Diagnostics;GeneDx;Invitae                                                                                                                                                                                                                                                                        1
+<<<<<<< HEAD
+Name: all_submitters, dtype: int64
+=======
 Name: all_submitters, Length: 13717, dtype: int64
+>>>>>>> origin/master
 ================
 column 31: inheritance_modes
 Series([], Name: inheritance_modes, dtype: int64)
@@ -169,7 +265,11 @@ column 33: prevalence
 Series([], Name: prevalence, dtype: int64)
 ================
 column 34: disease_mechanism
+<<<<<<< HEAD
+loss of function                                                                                                                                                                          34893
+=======
 loss of function                                                                                                                                                                          34896
+>>>>>>> origin/master
 gain of function                                                                                                                                                                           2147
 More than 1,000 CFTR variants have been reported.  Most common pathogenic variant is p.Phe508del.;loss of function                                                                          982
 Disease mechanisms vary by gene.                                                                                                                                                            931
@@ -188,7 +288,11 @@ Dominant Negative                                                               
 Name: disease_mechanism, dtype: int64
 ================
 column 35: origin
+<<<<<<< HEAD
+germline                                             303094
+=======
 germline                                             303123
+>>>>>>> origin/master
 unknown                                                7407
 not provided                                           7404
 germline;unknown                                       6051
@@ -249,4 +353,8 @@ germline;uniparental                                      1
 maternal;inherited;unknown                                1
 unknown;germline;not provided                             1
 germline;inherited;not provided;unknown                   1
+<<<<<<< HEAD
+Name: origin, dtype: int64
+=======
 Name: origin, Length: 213, dtype: int64
+>>>>>>> origin/master

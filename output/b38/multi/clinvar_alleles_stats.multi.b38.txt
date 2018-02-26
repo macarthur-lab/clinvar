@@ -10,17 +10,29 @@ CompoundHeterozygote      4
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
+<<<<<<< HEAD
+-                                                            295
+Pathogenic                                                    71
+Conflicting interpretations of pathogenicity                  40
+Uncertain significance                                        31
+=======
 -                                                            296
 Pathogenic                                                    71
 Conflicting interpretations of pathogenicity                  39
 Uncertain significance                                        32
+>>>>>>> origin/master
 Benign                                                        19
 Pathogenic/Likely pathogenic                                  18
 Benign/Likely benign                                          13
 other                                                         12
 not provided                                                   8
+<<<<<<< HEAD
+Likely pathogenic                                              7
+Likely benign                                                  7
+=======
 Likely benign                                                  7
 Likely pathogenic                                              6
+>>>>>>> origin/master
 Conflicting interpretations of pathogenicity, other            6
 Pathogenic, other                                              5
 drug response                                                  4
@@ -39,6 +51,15 @@ Benign, other                                                  1
 Name: clinical_significance, dtype: int64
 ================
 column 24: review_status
+<<<<<<< HEAD
+no assertion for the individual variant                 420
+criteria provided, multiple submitters, no conflicts     32
+no assertion criteria provided                           32
+criteria provided, single submitter                      30
+criteria provided, conflicting interpretations           27
+no assertion provided                                     5
+reviewed by expert panel                                  4
+=======
 no assertion for the individual variant                 407
 criteria provided, multiple submitters, no conflicts     45
 criteria provided, single submitter                      33
@@ -46,14 +67,22 @@ no assertion criteria provided                           31
 criteria provided, conflicting interpretations           27
 no assertion provided                                     4
 reviewed by expert panel                                  3
+>>>>>>> origin/master
 practice guideline                                        1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
+<<<<<<< HEAD
+0    457
+1     57
+2     32
+3      4
+=======
 0    442
 1     60
 2     45
 3      3
+>>>>>>> origin/master
 4      1
 Name: gold_stars, dtype: int64
 ================
