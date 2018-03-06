@@ -1,38 +1,26 @@
 Columns: 1: chrom, 2: pos, 3: ref, 4: alt, 5: start, 6: stop, 7: strand, 8: variation_type, 9: variation_id, 10: rcv, 11: scv, 12: allele_id, 13: symbol, 14: hgvs_c, 15: hgvs_p, 16: molecular_consequence, 17: clinical_significance, 18: clinical_significance_ordered, 19: pathogenic, 20: likely_pathogenic, 21: uncertain_significance, 22: likely_benign, 23: benign, 24: review_status, 25: review_status_ordered, 26: last_evaluated, 27: all_submitters, 28: submitters_ordered, 29: all_traits, 30: all_pmids, 31: inheritance_modes, 32: age_of_onset, 33: prevalence, 34: disease_mechanism, 35: origin, 36: xrefs, 37: dates_ordered, 38: gold_stars, 39: conflicted,
 ================
-Total rows: 548
+Total rows: 551
 ================
 column 8: variation_type
-Haplotype               529
+Haplotype               532
 Phase unknown            11
 Distinct chromosomes      4
 CompoundHeterozygote      4
 Name: variation_type, dtype: int64
 ================
 column 17: clinical_significance
-<<<<<<< HEAD
--                                                            292
+-                                                            295
 Pathogenic                                                    71
 Conflicting interpretations of pathogenicity                  40
 Uncertain significance                                        31
-=======
--                                                            293
-Pathogenic                                                    71
-Conflicting interpretations of pathogenicity                  39
-Uncertain significance                                        32
->>>>>>> origin/master
 Benign                                                        19
 Pathogenic/Likely pathogenic                                  18
 Benign/Likely benign                                          13
 other                                                         12
 not provided                                                   8
-<<<<<<< HEAD
 Likely pathogenic                                              7
 Likely benign                                                  7
-=======
-Likely benign                                                  7
-Likely pathogenic                                              6
->>>>>>> origin/master
 Conflicting interpretations of pathogenicity, other            6
 Pathogenic, other                                              5
 drug response                                                  4
@@ -51,43 +39,26 @@ Benign, other                                                  1
 Name: clinical_significance, dtype: int64
 ================
 column 24: review_status
-<<<<<<< HEAD
-no assertion for the individual variant                 417
-criteria provided, multiple submitters, no conflicts     32
-no assertion criteria provided                           32
-criteria provided, single submitter                      30
-criteria provided, conflicting interpretations           27
-no assertion provided                                     5
-reviewed by expert panel                                  4
-=======
-no assertion for the individual variant                 404
-criteria provided, multiple submitters, no conflicts     45
+no assertion for the individual variant                 422
+no assertion criteria provided                           34
 criteria provided, single submitter                      33
-no assertion criteria provided                           31
-criteria provided, conflicting interpretations           27
-no assertion provided                                     4
+criteria provided, conflicting interpretations           29
+criteria provided, multiple submitters, no conflicts     26
+no assertion provided                                     3
 reviewed by expert panel                                  3
->>>>>>> origin/master
 practice guideline                                        1
 Name: review_status, dtype: int64
 ================
 column 38: gold_stars
-<<<<<<< HEAD
-0    454
-1     57
-2     32
-3      4
-=======
-0    439
-1     60
-2     45
+0    459
+1     62
+2     26
 3      3
->>>>>>> origin/master
 4      1
 Name: gold_stars, dtype: int64
 ================
 column 27: all_submitters
-OMIM                                                                                                                   314
+OMIM                                                                                                                   317
 GeneReviews                                                                                                             28
 Mendelics Analise Genomica                                                                                              20
 ARUP Institute,ARUP Laboratories                                                                                        17
@@ -153,7 +124,7 @@ Fabry disease is due to inactivating mutations in the X-linked GLA gene resultin
 Name: disease_mechanism, dtype: int64
 ================
 column 35: origin
-germline                      450
+germline                      453
 not provided                   29
 unknown                        21
 inherited                      19
