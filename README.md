@@ -1,5 +1,15 @@
 ### ClinVar
 
+#### DEPRECATED: this code is out of date and no longer being maintained. 
+
+clinvar has fixed the issues that originally motivated creating this project, so we are now using the clinvar VCFs for our analyses. 
+
+clinvar VCFs can be downloaded from:
+
+- [GRCh37](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/)
+- [GRCh38](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/)
+
+
 #### In 1 sentence
 
 This repo provides tools to convert ClinVar data into a tab-delimited flat file, and also provides that resulting tab-delimited flat file.
