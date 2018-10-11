@@ -6,8 +6,8 @@ clinvar has fixed the issues that originally motivated creating this project, so
 
 clinvar VCFs can be downloaded from:
 
-- [GRCh37](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/)
-- [GRCh38](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/)
+- [ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37/)
+- [ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/](http://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/)
 
 
 #### In 1 sentence
