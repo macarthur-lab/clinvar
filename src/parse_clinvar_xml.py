@@ -14,15 +14,38 @@ import xml.etree.ElementTree as ET
 mentions_pubmed_regex = '(?:PubMed|PMID)(.*)'  # group(1) will be all the text after the word PubMed or PMID
 extract_pubmed_id_regex = '[^0-9]+([0-9]+)[^0-9](.*)'  # group(1) will be the first PubMed ID, group(2) will be all remaining text
 
-HEADER = ['chrom', 'pos', 'ref', 'alt', 'start', 'stop', 'strand', 'variation_type', 'variation_id', 'rcv', 'scv',
+HEADER = ['chrom', 'pos', 'ref', 'alt', 'start', 'stop', 'strand', 'measureset_type', 'measureset_id', 'clnacc', 'scv',
           'allele_id', 'symbol',
-          'hgvs_c', 'hgvs_p', 'molecular_consequence',
-          'clinical_significance', 'clinical_significance_ordered', 'pathogenic', 'likely_pathogenic',
+          'clnhgvs', 'hgvs_p', 'molecular_consequence',
+          'original_clnsig', 'clinical_significance_ordered', 'pathogenic', 'likely_pathogenic',
           'uncertain_significance',
-          'likely_benign', 'benign', 'review_status', 'review_status_ordered',
-          'last_evaluated', 'all_submitters', 'submitters_ordered', 'all_traits',
+          'likely_benign', 'benign', 'clnrevstat', 'review_status_ordered',
+          'last_evaluated', 'all_submitters', 'submitters_ordered', 'clndbn',
           'all_pmids', 'inheritance_modes', 'age_of_onset', 'prevalence',
-          'disease_mechanism', 'origin', 'xrefs', 'dates_ordered']
+          'disease_mechanism', 'clnorigin', 'xrefs', 'dates_ordered', 'rs']
+
+pathogenicity_mapping = {}
+pathogenicity_mapping.update(dict.fromkeys(
+    ['benign', 'no known pathogenicity', 'non-pathogenic', 'poly'],
+    'benign'
+))
+pathogenicity_mapping.update(dict.fromkeys(
+    ['vsb', 'likely benign', 'probable-non-pathogenic', 'probably not pathogenic', 'suspected benign'],
+    'likely benign'
+))
+pathogenicity_mapping.update(dict.fromkeys(
+    ['uncertain', 'uncertain significance', 'unknown', 'unknown significance', 'variant of unknown significance'],
+    'uncertain significance'
+))
+pathogenicity_mapping.update(dict.fromkeys(
+    ['likely pathogenic - adrenal bilateral pheochromocy', 'likely pathogenic - adrenal pheochromocytoma',
+     'likely pathogenic', 'probable-pathogenic', 'probably pathogenic', 'suspected pathogenic'],
+    'likely pathogenic'
+))
+pathogenicity_mapping.update(dict.fromkeys(
+    ['moderate', 'pathogenic', 'pathogenic variant for bardet-biedl syndrome', 'mut', 'pathologic'],
+    'pathogenic'
+))
 
 
 def replace_semicolons(s, replace_with=":"):
@@ -31,6 +54,17 @@ def replace_semicolons(s, replace_with=":"):
 
 def remove_newlines_and_tabs(s):
     return re.sub("[\t\n\r]", " ", s)
+
+
+def get_genomic_location(measure_instance, required_fields, genome_build):
+    """Loops through all SequenceLocation XML tags associated with this Measure instance (ClinVar record) and returns
+    the first tag it finds that has the four required VCF fields"""
+
+    for sequence_location in measure_instance.findall(".//SequenceLocation"):
+        if sequence_location.attrib.get('Assembly') == genome_build:
+            if all(vcf_field in sequence_location.attrib for vcf_field in required_fields):
+                return sequence_location
+    return None
 
 
 def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome_build='GRCh37'):
@@ -59,9 +93,9 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
 
         # initialize all the fields
         current_row = {}
-        current_row['rcv'] = ''
-        current_row['variation_type'] = ''
-        current_row['variation_id'] = ''
+        current_row['clnacc'] = ''
+        current_row['measureset_type'] = ''
+        current_row['measureset_id'] = ''
         current_row['allele_id'] = ''
 
         rcv = elem.find('./ReferenceClinVarAssertion/ClinVarAccession')
@@ -69,7 +103,7 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             print("Error, not RCV record")
             break
         else:
-            current_row['rcv'] = rcv.attrib.get('Acc')
+            current_row['clnacc'] = rcv.attrib.get('Acc')
 
         ReferenceClinVarAssertion = elem.findall(".//ReferenceClinVarAssertion")
         measureset = ReferenceClinVarAssertion[0].findall(".//MeasureSet")
@@ -88,8 +122,8 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
 
         measure = measureset.findall('.//Measure')
 
-        current_row['variation_id'] = measureset.attrib.get('ID')
-        current_row['variation_type'] = measureset.get('Type')
+        current_row['measureset_id'] = measureset.attrib.get('ID')
+        current_row['measureset_type'] = measureset.get('Type')
 
         # find all scv accession number
         scv_number = []
@@ -132,14 +166,14 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         current_row['all_submitters'] = ";".join(set(submitters_ordered))
 
         # find the clincial significance and review status reported in RCV(aggregated from SCV)
-        current_row['clinical_significance'] = []
-        current_row['review_status'] = []
+        current_row['original_clnsig'] = []
+        current_row['clnrevstat'] = []
 
         clinical_significance = elem.find('.//ReferenceClinVarAssertion/ClinicalSignificance')
         if clinical_significance.find('.//ReviewStatus') is not None:
-            current_row['review_status'] = clinical_significance.find('.//ReviewStatus').text;
+            current_row['clnrevstat'] = clinical_significance.find('.//ReviewStatus').text;
         if clinical_significance.find('.//Description') is not None:
-            current_row['clinical_significance'] = clinical_significance.find('.//Description').text
+            current_row['original_clnsig'] = clinical_significance.find('.//Description').text
 
         current_row['last_evaluated'] = '0000-00-00'
         if clinical_significance.attrib.get('DateLastEvaluated') is not None:
@@ -151,7 +185,9 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
         ])
 
         list_significance= [
-            x.text.lower() for x in elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
+            pathogenicity_mapping[x.text.lower()] for x in
+            elem.findall('.//ClinVarAssertion/ClinicalSignificance/Description') if x is not None
+            and x.text.lower() in pathogenicity_mapping
         ]
 
         current_row['pathogenic'] = str(list_significance.count("pathogenic"))
@@ -173,14 +209,14 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
             current_row[list_column] = set()
 
         # now find the disease(s) this variant is associated with
-        current_row['all_traits'] = []
+        current_row['clndbn'] = []
         for traitset in elem.findall('.//TraitSet'):
             disease_name_nodes = traitset.findall('.//Name/ElementValue')
             trait_values = []
             for disease_name_node in disease_name_nodes:
                 if disease_name_node.attrib is not None and disease_name_node.attrib.get('Type') == 'Preferred':
                     trait_values.append(disease_name_node.text)
-            current_row['all_traits'] += trait_values
+            current_row['clndbn'] += trait_values
 
             for attribute_node in traitset.findall('.//AttributeSet/Attribute'):
                 attribute_type = attribute_node.attrib.get('Type')
@@ -197,12 +233,18 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
                 xref_id = xref_node.attrib.get('ID')
                 current_row['xrefs'].add("%s:%s" % (xref_db, xref_id))
 
-        current_row['origin'] = set()
+        # parse rsID to dbSNP column
+        current_row['rs'] = 'BLANK'
+        for xref_node in measureset.findall('.//Measure/XRef'):
+            if xref_node.attrib.get('Type') == 'rs':
+                current_row['rs'] = 'rs' + xref_node.attrib.get('ID')
+
+        current_row['clnorigin'] = set()
         for origin in elem.findall('.//ReferenceClinVarAssertion/ObservedIn/Sample/Origin'):
-            current_row['origin'].add(origin.text)
+            current_row['clnorigin'].add(origin.text)
 
         for column_name in (
-                'all_traits', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'origin',
+                'clndbn', 'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism', 'clnorigin',
                 'xrefs'):
             column_value = current_row[column_name] if type(current_row[column_name]) == list else sorted(
                 current_row[column_name])  # sort columns of type 'set' to get deterministic order
@@ -228,26 +270,27 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
 
             # find the allele ID (//Measure/@ID)
             current_row['allele_id'] = measure[i].attrib.get('ID')
-            # find the GRCh37 or GRCh38 VCF representation
-            genomic_location = None
 
-            for sequence_location in measure[i].findall(".//SequenceLocation"):
-                if sequence_location.attrib.get('Assembly') == genome_build:
-                    if all(sequence_location.attrib.get(key) is not None for key in
-                           ('Chr', 'start', 'referenceAllele', 'alternateAllele')):
-                        genomic_location = sequence_location
-                        break
-            # break after finding the first non-empty GRCh37 or GRCh38 location
+            # find the GRCh37 or GRCh38 VCF representation, first trying standard field names then left-align specific
+            vcf_field_groups = (
+                ('Chr', 'start', 'referenceAllele', 'alternateAllele'),
+                ('Chr', 'positionVCF', 'referenceAlleleVCF', 'alternateAlleleVCF')
+            )
 
-            if genomic_location is None:
+            for vcf_fields in vcf_field_groups:
+                genomic_location = get_genomic_location(measure[i], vcf_fields, genome_build)
+                if genomic_location is not None:
+                    pos_key, ref_key, alt_key = vcf_fields[1:]
+                    break
+            else:
                 skipped_counter['missing SequenceLocation'] += 1
                 elem.clear()
                 continue  # don't bother with variants that don't have a VCF location
 
             current_row['chrom'] = genomic_location.attrib['Chr']
-            current_row['pos'] = genomic_location.attrib['start']
-            current_row['ref'] = genomic_location.attrib['referenceAllele']
-            current_row['alt'] = genomic_location.attrib['alternateAllele']
+            current_row['pos'] = genomic_location.attrib[pos_key]
+            current_row['ref'] = genomic_location.attrib[ref_key]
+            current_row['alt'] = genomic_location.attrib[alt_key]
             current_row['start'] = genomic_location.attrib['start']
             current_row['stop'] = genomic_location.attrib['stop']
             current_row['strand'] = ''
@@ -259,7 +302,7 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
                             break
 
             current_row['molecular_consequence'] = set()
-            current_row['hgvs_c'] = ''
+            current_row['clnhgvs'] = ''
             current_row['hgvs_p'] = ''
 
             attributeset = measure[i].findall('./AttributeSet')
@@ -269,7 +312,9 @@ def parse_clinvar_tree(handle, dest=sys.stdout, multi=None, verbose=True, genome
 
                 # find hgvs_c
                 if (attribute_type == 'HGVS, coding, RefSeq' and "c." in attribute_value):
-                    current_row['hgvs_c'] = attribute_value
+                    current_row['clnhgvs'] = attribute_value
+                elif "c." in var_name:
+                    current_row['clnhgvs'] = var_name
 
                 # find hgvs_p
                 if (attribute_type == 'HGVS, protein, RefSeq' and "p." in attribute_value):

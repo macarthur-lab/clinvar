@@ -10,10 +10,10 @@ Usage: python clinvar_alleles_stats.py <clinvar_alleles.tsv.gz>
 alleles_name = sys.argv[1]
 
 columns_to_summarize = [
-    'variation_type', 'clinical_significance',
-    'review_status', 'gold_stars', 'all_submitters',
+    'measureset_type', 'original_clnsig',
+    'clnrevstat', 'gold_stars', 'all_submitters',
     'inheritance_modes', 'age_of_onset', 'prevalence', 'disease_mechanism',
-    'origin']
+    'clnorigin']
 
 df = pd.read_csv(alleles_name, sep="\t", compression='gzip', index_col=False)
 
